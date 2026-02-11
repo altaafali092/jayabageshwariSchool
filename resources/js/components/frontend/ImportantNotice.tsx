@@ -1,0 +1,120 @@
+import React, { useState, useEffect } from 'react';
+import { Megaphone, X, ChevronRight, AlertCircle, Calendar } from 'lucide-react';
+
+const ImportantNotice = () => {
+    const [isVisible, setIsVisible] = useState(true);
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const notices = [
+        {
+            id: 1,
+            title: "First Term Examination Results",
+            details: "Results will be published on the official web portal at 5:00 PM.",
+            isNew: true,
+        },
+        {
+            id: 2,
+            title: "Admission Open for Session 2026/27",
+            details: "Forms available at the administrative office and online.",
+            isNew: false,
+        },
+        {
+            id: 3,
+            title: "Annual Sports Week Postponed",
+            details: "New dates will be announced shortly due to weather conditions.",
+            isNew: false,
+        }
+    ];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentIndex((prev) => (prev + 1) % notices.length);
+        }, 4000);
+        return () => clearInterval(interval);
+    }, [notices.length]);
+
+    if (!isVisible) return null;
+
+    return (
+        <section className="bg-white border-b border-slate-100">
+            <div className="container mx-auto px-6 py-4">
+                <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
+                    {/* Notice Label */}
+                    <div className="flex shrink-0 items-center gap-3">
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-red-500 rounded-full animate-ping opacity-25" />
+                            <div className="relative w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-red-200">
+                                <Megaphone className="w-6 h-6" />
+                            </div>
+                        </div>
+                        <div className="text-left">
+                            <h3 className="text-sm font-black text-red-600 uppercase tracking-widest">Important</h3>
+                            <p className="text-xs font-bold text-slate-500 uppercase tracking-tighter leading-none">Notices & Updates</p>
+                        </div>
+                    </div>
+
+                    {/* Scrolling/Static Notice Area */}
+                    <div className="flex-1 w-full overflow-hidden bg-slate-50 rounded-2xl p-4 lg:p-2 border border-slate-100">
+                        <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
+                            <div className="flex-1 overflow-hidden h-12 flex items-center">
+                                <div className="relative w-full h-full">
+                                    {notices.map((notice, index) => (
+                                        <div
+                                            key={notice.id}
+                                            className={`absolute inset-0 flex items-center gap-4 transition-all duration-700 ease-in-out ${index === currentIndex
+                                                    ? 'opacity-100 translate-y-0'
+                                                    : 'opacity-0 -translate-y-8'
+                                                }`}
+                                        >
+                                            <div className="hidden sm:flex items-center gap-1 px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-black rounded-lg uppercase whitespace-nowrap">
+                                                <AlertCircle className="w-3 h-3" />
+                                                Latest
+                                            </div>
+                                            <p className="text-slate-700 font-bold text-sm lg:text-base line-clamp-1">
+                                                {notice.title} — <span className="font-medium text-slate-500">{notice.details}</span>
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-4 shrink-0">
+                                <div className="flex items-center gap-1.5 mr-2">
+                                    {notices.map((_, i) => (
+                                        <div
+                                            key={i}
+                                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-red-600 w-4' : 'bg-slate-300'
+                                                }`}
+                                        />
+                                    ))}
+                                </div>
+                                <a href="/notices" className="flex items-center gap-2 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors group">
+                                    View All
+                                    <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                </a>
+                                <div className="hidden lg:block w-px h-6 bg-slate-200" />
+                                <button
+                                    onClick={() => setIsVisible(false)}
+                                    className="p-1 hover:bg-slate-200 rounded-lg transition-colors text-slate-400"
+                                    title="Dismiss"
+                                >
+                                    <X className="w-4 h-4" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Quick Stats/Links - Only visible on desktop if space allows */}
+                    <div className="hidden xl:flex items-center gap-6">
+                        <div className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4 text-blue-600" />
+                            <span className="text-xs font-bold text-slate-600">Syllabus 2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default ImportantNotice;

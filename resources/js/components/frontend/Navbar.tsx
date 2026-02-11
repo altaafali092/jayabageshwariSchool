@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import {
     Phone,
     Mail,
@@ -9,202 +10,228 @@ import {
     Menu,
     X,
     ChevronDown,
-} from 'lucide-react'
-import { useState } from 'react'
-import { Link } from '@inertiajs/react'
-import { cn } from '@/lib/utils'
-import { useCurrentUrl } from '@/hooks/use-current-url'
+    ArrowRight,
+    Search,
+    Globe
+} from 'lucide-react';
+import { Link } from '@inertiajs/react';
+import { cn } from '@/lib/utils';
+import { useCurrentUrl } from '@/hooks/use-current-url';
 
 type NavLink = {
-    name: string
-    href: string
-    dropdown?: { name: string; href: string }[]
-}
+    name: string;
+    href: string;
+    dropdown?: { name: string; href: string; description?: string }[];
+};
 
 export default function Navbar() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const [mobileDropdownOpen, setMobileDropdownOpen] = useState<string | null>(null)
-    const { isCurrentUrl } = useCurrentUrl()
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+    const { isCurrentUrl } = useCurrentUrl();
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const navLinks: NavLink[] = [
         { name: 'Home', href: '/' },
         {
-            name: 'About Us',
+            name: 'About',
             href: '#',
             dropdown: [
-                { name: 'History', href: '/about/history' },
-                { name: 'Why Choose Us', href: '/about/why-choose-us' },
-                { name: 'Gallery', href: '/gallery' },
+                { name: 'Our History', href: '/about/history', description: 'Transforming lives since 1995' },
+                { name: 'Why Choose Us', href: '/about/why-choose-us', description: 'Academic excellence and innovation' },
+                { name: 'Our Campus', href: '/gallery', description: 'Take a look at our world-class facilities' },
             ],
         },
         { name: 'Academics', href: '/academics' },
-        { name: 'Facilities', href: '/facilities' },
         { name: 'Admissions', href: '/admissions' },
+        { name: 'Life at JBS', href: '/facilities' },
         { name: 'Updates', href: '/updates' },
-        { name: 'Contact', href: '/contact' },
-    ]
-
-    const toggleMobileDropdown = (name: string) => {
-        setMobileDropdownOpen(mobileDropdownOpen === name ? null : name)
-    }
+    ];
 
     return (
         <>
-            {/* ================= TOP BAR ================= */}
-            <div className="bg-[#1e3a8a] text-white py-3 px-4 md:px-8 lg:px-20">
-                <div className="mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
-                    <div className="flex flex-col sm:flex-row items-center gap-4 text-sm">
-                        <div className="flex items-center gap-2">
-                            <Phone className="h-4 w-4" />
-                            <span>081-533337</span>
+            {/* ================= TOP UTILITY BAR ================= */}
+            <div className="hidden lg:block bg-blue-950 text-slate-300 py-2.5 px-6 lg:px-20 border-b border-blue-900/30 relative z-60">
+                <div className="container mx-auto flex justify-between items-center text-[11px] font-bold uppercase tracking-widest">
+                    <div className="flex items-center gap-8">
+                        <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer group">
+                            <Phone className="h-3 w-3 text-blue-500 group-hover:scale-110 transition-transform" />
+                            <span>+977-01-4444444</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <Mail className="h-4 w-4" />
-                            <span>jbsschool2037@gmail.com</span>
+                        <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer group border-l border-white/10 pl-8">
+                            <Mail className="h-3 w-3 text-blue-500 group-hover:scale-110 transition-transform" />
+                            <span>info@jayaschool.edu.np</span>
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2">
-                            <button className="flex items-center gap-1 bg-blue-800/60 hover:bg-blue-700 px-3 py-1 rounded-full text-xs">
-                                <User className="h-3 w-3" /> Admin
-                            </button>
-                            <button className="flex items-center gap-1 bg-blue-800/60 hover:bg-blue-700 px-3 py-1 rounded-full text-xs">
-                                <GraduationCap className="h-3 w-3" /> Student
-                            </button>
+                    <div className="flex items-center gap-8">
+                        <div className="flex items-center gap-4 border-r border-white/10 pr-8">
+                            <Facebook className="h-3.5 w-3.5 hover:text-blue-500 transition-all cursor-pointer hover:scale-110" />
+                            <Instagram className="h-3.5 w-3.5 hover:text-blue-500 transition-all cursor-pointer hover:scale-110" />
+                            <Youtube className="h-3.5 w-3.5 hover:text-blue-500 transition-all cursor-pointer hover:scale-110" />
                         </div>
-
-                        <div className="flex items-center gap-3">
-                            <Facebook className="h-4 w-4 hover:text-blue-300 cursor-pointer" />
-                            <Instagram className="h-4 w-4 hover:text-pink-300 cursor-pointer" />
-                            <Youtube className="h-4 w-4 hover:text-red-400 cursor-pointer" />
+                        <div className="flex items-center gap-4">
+                            <button className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+                                <Globe className="h-3 w-3 text-blue-500" /> English
+                            </button>
+                            <Link href="/login" className="flex items-center gap-2 bg-blue-600/10 hover:bg-blue-600 px-4 py-1.5 rounded-full text-white transition-all border border-blue-600/30">
+                                <User className="h-3 w-3" /> Login
+                            </Link>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* ================= STICKY BOTTOM BAR ================= */}
-            <div className="sticky top-0 z-50 bg-white shadow-sm">
-                <div className="px-4 md:px-8 lg:px-20">
-                    <div className="flex justify-between items-center h-20">
-                        {/* Logo */}
-                        <div className="flex items-center h-full">
-                            <img
-                                src="/assets/logo.png"
-                                alt="JBS Logo"
-                                className="h-14"
-                            />
-                        </div>
+            {/* ================= MAIN NAVIGATION ================= */}
+            <header
+                className={cn(
+                    "fixed top-0 lg:top-[42px] left-0 w-full z-50 transition-all duration-500 ease-in-out",
+                    isScrolled
+                        ? "bg-white/90 backdrop-blur-xl shadow-2xl shadow-blue-900/10 py-3 lg:top-0"
+                        : "bg-white/80 backdrop-blur-md py-5"
+                )}
+            >
+                <div className="container mx-auto px-6 lg:px-20">
+                    <div className="flex justify-between items-center">
+                        {/* Logo Hub */}
+                        <Link href="/" className="flex items-center gap-4 group">
+                            <div className="relative w-12 h-12 lg:w-14 lg:h-14 overflow-hidden rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/20 group-hover:rotate-6 transition-transform duration-500">
+                                <GraduationCap className="h-7 w-7 lg:h-8 lg:w-8 text-white" />
+                            </div>
+                            <div>
+                                <h1 className="text-xl lg:text-2xl font-black text-slate-900 leading-none tracking-tighter">
+                                    JAYA <span className="text-blue-600">BAGESHWORI</span>
+                                </h1>
+                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] mt-1 italic">Knowledge is Power</p>
+                            </div>
+                        </Link>
 
-                        {/* Desktop Navigation */}
-                        <nav className="hidden lg:flex items-center gap-8">
+                        {/* Desktop Links */}
+                        <nav className="hidden lg:flex items-center gap-2">
                             {navLinks.map((link) => (
-                                <div key={link.name} className="relative group">
-                                    {link.dropdown ? (
-                                        <button
-                                            className={cn(
-                                                'flex items-center gap-1 font-medium py-2',
-                                                link.dropdown.some((d) =>
-                                                    isCurrentUrl(d.href)
-                                                )
-                                                    ? 'text-blue-700'
-                                                    : 'text-gray-600 hover:text-blue-700'
-                                            )}
-                                        >
-                                            {link.name}
-                                            <ChevronDown className="h-4 w-4 group-hover:rotate-180 transition-transform" />
-                                        </button>
-                                    ) : (
-                                        <Link
-                                            href={link.href}
-                                            className={cn(
-                                                'font-medium py-2',
-                                                isCurrentUrl(link.href)
-                                                    ? 'text-blue-700 border-b-2 border-blue-700'
-                                                    : 'text-gray-600 hover:text-blue-700'
-                                            )}
-                                        >
-                                            {link.name}
-                                        </Link>
-                                    )}
+                                <div
+                                    key={link.name}
+                                    className="relative flex items-center"
+                                    onMouseEnter={() => setActiveDropdown(link.name)}
+                                    onMouseLeave={() => setActiveDropdown(null)}
+                                >
+                                    <Link
+                                        href={link.href}
+                                        className={cn(
+                                            "px-4 py-2 text-sm font-black uppercase tracking-widest transition-all relative group/nav",
+                                            isCurrentUrl(link.href) ? "text-blue-600" : "text-slate-600 hover:text-blue-600"
+                                        )}
+                                    >
+                                        {link.name}
+                                        {link.dropdown && <ChevronDown className={cn("inline-block ml-1 h-3 w-3 transition-transform duration-300", activeDropdown === link.name && "rotate-180")} />}
+                                        <span className={cn(
+                                            "absolute bottom-0 left-4 right-4 h-0.5 bg-blue-600 transform origin-left transition-transform duration-300",
+                                            isCurrentUrl(link.href) ? "scale-x-100" : "scale-x-0 group-hover/nav:scale-x-100"
+                                        )} />
+                                    </Link>
 
+                                    {/* Premium Dropdown */}
                                     {link.dropdown && (
-                                        <div className="absolute left-0 top-full mt-2 w-48 bg-white  rounded-md shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                                            {link.dropdown.map((item) => (
-                                                <Link
-                                                    key={item.name}
-                                                    href={item.href}
-                                                    className={cn(
-                                                        'block px-4 py-3 text-sm hover:bg-blue-50',
-                                                        isCurrentUrl(item.href)
-                                                            ? 'text-blue-700 bg-blue-50'
-                                                            : 'text-gray-600'
-                                                    )}
-                                                >
-                                                    {item.name}
-                                                </Link>
-                                            ))}
+                                        <div className={cn(
+                                            "absolute top-full left-1/2 -translate-x-1/2 pt-4 w-64 transition-all duration-300 transform",
+                                            activeDropdown === link.name ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
+                                        )}>
+                                            <div className="bg-white rounded-4xl shadow-2xl shadow-blue-900/10 border border-slate-100 p-3 overflow-hidden">
+                                                {link.dropdown.map((item) => (
+                                                    <Link
+                                                        key={item.name}
+                                                        href={item.href}
+                                                        className="flex flex-col p-4 rounded-2xl hover:bg-blue-50 transition-colors group/item"
+                                                    >
+                                                        <span className="text-sm font-black text-slate-900 group-hover/item:text-blue-600 transition-colors">{item.name}</span>
+                                                        {item.description && <span className="text-[10px] text-slate-400 font-bold mt-1 uppercase tracking-wider">{item.description}</span>}
+                                                    </Link>
+                                                ))}
+                                            </div>
                                         </div>
                                     )}
                                 </div>
                             ))}
                         </nav>
 
-                        {/* Mobile Button */}
-                        <button
-                            className="lg:hidden p-2"
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        >
-                            {isMenuOpen ? <X /> : <Menu />}
-                        </button>
-                    </div>
+                        {/* Right Actions */}
+                        <div className="flex items-center gap-4">
+                            <button className="hidden lg:flex items-center justify-center p-3 rounded-2xl bg-slate-50 text-slate-400 hover:bg-blue-600 hover:text-white transition-all">
+                                <Search className="h-5 w-5" />
+                            </button>
+                            <Link
+                                href="/admissions"
+                                className="h-12 lg:h-14 px-6 lg:px-8 bg-slate-900 text-white font-black text-xs lg:text-sm uppercase tracking-widest rounded-2xl flex items-center gap-3 hover:bg-blue-600 transition-all active:scale-95 shadow-xl shadow-slate-900/10 animate-cta-pulse"
+                            >
+                                <span className="hidden sm:inline">Apply Now</span>
+                                <ArrowRight className="h-4 w-4" />
+                            </Link>
 
-                    {/* Mobile Menu */}
-                    {isMenuOpen && (
-                        <div className="lg:hidden pb-4 ">
+                            {/* Mobile Menu Toggle */}
+                            <button
+                                className="lg:hidden p-3 rounded-2xl bg-blue-50 text-blue-600"
+                                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            >
+                                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Mobile Menu Overlay */}
+                <div className={cn(
+                    "fixed inset-0 bg-white z-60 transition-all duration-500 ease-in-out transform lg:hidden",
+                    isMenuOpen ? "translate-x-0" : "translate-x-full"
+                )}>
+                    <div className="p-6 flex flex-col h-full">
+                        <div className="flex justify-between items-center mb-12">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                                    <GraduationCap className="h-6 w-6 text-white" />
+                                </div>
+                                <h1 className="text-xl font-black text-slate-900 leading-none tracking-tighter uppercase italic">
+                                    Jaya Bageshwori
+                                </h1>
+                            </div>
+                            <button
+                                className="p-3 bg-slate-100 rounded-2xl text-slate-900"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                <X className="h-6 w-6" />
+                            </button>
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto space-y-6">
                             {navLinks.map((link) => (
                                 <div key={link.name}>
                                     {link.dropdown ? (
-                                        <>
-                                            <button
-                                                onClick={() =>
-                                                    toggleMobileDropdown(
-                                                        link.name
-                                                    )
-                                                }
-                                                className="w-full flex justify-between px-4 py-3 text-left font-medium"
-                                            >
-                                                {link.name}
-                                                <ChevronDown
-                                                    className={cn(
-                                                        'h-4 w-4 transition-transform',
-                                                        mobileDropdownOpen ===
-                                                            link.name &&
-                                                            'rotate-180'
-                                                    )}
-                                                />
-                                            </button>
-                                            {mobileDropdownOpen ===
-                                                link.name && (
-                                                <div className="pl-6">
-                                                    {link.dropdown.map(
-                                                        (item) => (
-                                                            <Link
-                                                                key={item.name}
-                                                                href={item.href}
-                                                                className="block px-4 py-2 text-sm text-gray-600"
-                                                            >
-                                                                {item.name}
-                                                            </Link>
-                                                        )
-                                                    )}
-                                                </div>
-                                            )}
-                                        </>
+                                        <div className="space-y-4">
+                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{link.name}</p>
+                                            <div className="grid grid-cols-1 gap-4 pl-4 border-l-2 border-slate-100">
+                                                {link.dropdown.map(item => (
+                                                    <Link
+                                                        key={item.name}
+                                                        href={item.href}
+                                                        className="text-2xl font-black text-slate-900 hover:text-blue-600 transition-colors"
+                                                        onClick={() => setIsMenuOpen(false)}
+                                                    >
+                                                        {item.name}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </div>
                                     ) : (
                                         <Link
                                             href={link.href}
-                                            className="block px-4 py-3 font-medium"
+                                            className="text-3xl font-black text-slate-900 hover:text-blue-600 transition-colors block"
+                                            onClick={() => setIsMenuOpen(false)}
                                         >
                                             {link.name}
                                         </Link>
@@ -212,9 +239,39 @@ export default function Navbar() {
                                 </div>
                             ))}
                         </div>
-                    )}
+
+                        <div className="pt-8 border-t border-slate-100 space-y-4">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
+                                    <Phone className="h-5 w-5" />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Support Line</p>
+                                    <p className="text-sm font-black text-slate-900">+977-01-4444444</p>
+                                </div>
+                            </div>
+                            <Link
+                                href="/admissions"
+                                className="w-full h-16 bg-blue-600 text-white font-black text-sm uppercase tracking-[0.2em] rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-blue-600/20 animate-cta-pulse"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Apply Now <ArrowRight className="h-4 w-4" />
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+                <style>{`
+                    @keyframes cta-pulse {
+                        0%, 100% { transform: scale(1); box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1), 0 8px 10px -6px rgba(37, 99, 235, 0.1); }
+                        50% { transform: scale(1.03); box-shadow: 0 20px 30px -5px rgba(37, 99, 235, 0.3), 0 12px 15px -6px rgba(37, 99, 235, 0.2); }
+                    }
+                    .animate-cta-pulse {
+                        animation: cta-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+                    }
+                `}</style>
+            </header>
+            <div className="h-20 lg:h-32" /> {/* Spacer */}
         </>
-    )
+    );
 }
