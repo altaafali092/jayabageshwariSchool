@@ -48,7 +48,7 @@ const NoticeCarousel = () => {
     }, [isAutoplay, nextNotice]);
 
     return (
-        <section className="relative py-24 bg-white overflow-hidden">
+        <section className="relative py-12 bg-white overflow-hidden">
             {/* Artistic Background Overlay */}
             <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
                 <div className="absolute top-10 left-10 w-64 h-64 bg-red-600 rounded-full blur-3xl" />
@@ -98,8 +98,8 @@ const NoticeCarousel = () => {
                                 <div
                                     key={notice.id}
                                     className={`absolute inset-0 transition-all duration-700 ease-in-out ${index === activeIndex
-                                            ? 'opacity-100 translate-x-0 scale-100 pointer-events-auto'
-                                            : 'opacity-0 translate-x-12 scale-95 pointer-events-none'
+                                        ? 'opacity-100 translate-x-0 scale-100 pointer-events-auto'
+                                        : 'opacity-0 translate-x-12 scale-95 pointer-events-none'
                                         }`}
                                 >
                                     <div className="h-full bg-slate-50 rounded-[2.5rem] border border-slate-100 p-8 md:p-12 shadow-2xl shadow-slate-200/50 flex flex-col justify-between group overflow-hidden relative">

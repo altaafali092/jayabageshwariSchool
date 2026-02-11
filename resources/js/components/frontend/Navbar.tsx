@@ -103,15 +103,15 @@ export default function Navbar() {
                     "fixed top-0 lg:top-[42px] left-0 w-full z-50 transition-all duration-400 ease-in-out",
                     isScrolled
                         ? "bg-white/95 backdrop-blur-xl shadow-lg shadow-blue-900/5 py-3 lg:top-0"
-                        : "bg-white py-4 lg:py-6"
+                        : "bg-white py-2 lg:py-6"
                 )}
             >
                 <div className="container mx-auto px-6 lg:px-20">
                     <div className="flex justify-between items-center">
                         {/* Logo Hub */}
                         <Link href="/" className="flex items-center gap-4 group">
-                            <div className="relative w-12 h-12 lg:w-14 lg:h-14 overflow-hidden rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/20 group-hover:rotate-6 transition-transform duration-500">
-                                <GraduationCap className="h-7 w-7 lg:h-8 lg:w-8 text-white" />
+                            <div className="relative w-12 h-12 lg:w-14 lg:h-14 overflow-hidden rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/20 group-hover:rotate-6 transition-transform duration-500">
+                                <img src="./assets/logo.png" alt="" />
                             </div>
                             <div>
                                 <h1 className="text-xl lg:text-2xl font-black text-slate-900 leading-none tracking-tighter">
@@ -176,7 +176,7 @@ export default function Navbar() {
                             </button>
                             <Link
                                 href="/admissions"
-                                className="h-12 lg:h-14 px-6 lg:px-8 bg-slate-900 text-white font-black text-xs lg:text-sm uppercase tracking-widest rounded-2xl flex items-center gap-3 hover:bg-blue-600 transition-all active:scale-95 shadow-xl shadow-slate-900/10 animate-cta-pulse"
+                                className="h-12 lg:h-12 px-6 lg:px-8 bg-slate-900 text-white font-black text-xs lg:text-sm uppercase tracking-widest rounded-2xl flex items-center gap-3 hover:bg-blue-600 transition-all active:scale-95 shadow-xl shadow-slate-900/10 animate-cta-pulse"
                             >
                                 <span className="hidden sm:inline">Apply Now</span>
                                 <ArrowRight className="h-4 w-4" />
@@ -267,48 +267,7 @@ export default function Navbar() {
                         ))}
                     </div>
 
-                    {/* Mobile Menu Footer */}
-                    <div className="p-6 bg-white border-t border-slate-100 space-y-6">
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="flex items-center gap-3 p-3 rounded-2xl bg-blue-50 border border-blue-100">
-                                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-600 shadow-sm shrink-0">
-                                    <Phone className="h-5 w-5" />
-                                </div>
-                                <div className="min-w-0">
-                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest truncate">Call Us</p>
-                                    <p className="text-xs font-black text-slate-900 truncate">081-533337</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-slate-600 shadow-sm shrink-0">
-                                    <Globe className="h-5 w-5" />
-                                </div>
-                                <div className="min-w-0">
-                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest truncate">Support</p>
-                                    <p className="text-xs font-black text-slate-900 truncate">English</p>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div className="flex justify-between items-center px-2">
-                            <div className="flex gap-4">
-                                <Facebook className="w-5 h-5 text-slate-400 hover:text-blue-600 cursor-pointer transition-colors" />
-                                <Instagram className="w-5 h-5 text-slate-400 hover:text-blue-600 cursor-pointer transition-colors" />
-                                <Youtube className="w-5 h-5 text-slate-400 hover:text-blue-600 cursor-pointer transition-colors" />
-                            </div>
-                            <Link href="/login" className="text-[11px] font-black uppercase tracking-[0.2em] text-blue-600 flex items-center gap-2">
-                                <User className="w-4 h-4" /> Admin Portal
-                            </Link>
-                        </div>
-
-                        <Link
-                            href="/admissions"
-                            className="w-full h-10 bg-slate-900 text-white font-black text-sm uppercase tracking-[0.2em] rounded-xl flex items-center justify-center gap-3 shadow-xl shadow-slate-900/10 animate-cta-pulse active:scale-[0.98] transition-all"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Apply Now  h<ArrowRight className="h-4 w-4" />
-                        </Link>
-                    </div>
                 </div>
 
                 <style>{`
@@ -321,7 +280,7 @@ export default function Navbar() {
                     }
                 `}</style>
             </header>
-            <div className="h-[72px] lg:h-[110px]" />
+            <div className="h-[80px] lg:h-[110px]" />
         </>
     );
 }

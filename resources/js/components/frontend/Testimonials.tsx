@@ -50,12 +50,15 @@ const Testimonials = () => {
                     <div className="space-y-8">
                         <div className="space-y-4">
                             <h2 className="text-4xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight">
-                                Explore Our <br />
-                                <span className="text-orange-600">Community</span> Today
+                                Voices From Our <br />
+                                <span className="text-orange-600">School Community</span>
                             </h2>
+
                             <p className="text-lg text-slate-600 font-medium max-w-lg leading-relaxed">
-                                Join a network of passionate educators and students to shape a better future together.
+                                Hear inspiring messages from our Chairman, dedicated teachers, and proud students
+                                who together shape the learning culture of our school.
                             </p>
+
                         </div>
 
                         <div className="flex">
