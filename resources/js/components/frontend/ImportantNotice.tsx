@@ -36,8 +36,8 @@ const ImportantNotice = () => {
     if (!isVisible) return null;
 
     return (
-        <section className="bg-white border-b border-slate-100">
-            <div className="container mx-auto px-6 py-4">
+        <section className="bg-blue-200 border-b border-slate-100">
+            <div className="container mx-auto px-4 py-2">
                 <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
                     {/* Notice Label */}
                     <div className="flex shrink-0 items-center gap-3">
@@ -62,8 +62,8 @@ const ImportantNotice = () => {
                                         <div
                                             key={notice.id}
                                             className={`absolute inset-0 flex items-center gap-4 transition-all duration-700 ease-in-out ${index === currentIndex
-                                                    ? 'opacity-100 translate-y-0'
-                                                    : 'opacity-0 -translate-y-8'
+                                                ? 'opacity-100 translate-y-0'
+                                                : 'opacity-0 -translate-y-8'
                                                 }`}
                                         >
                                             <div className="hidden sm:flex items-center gap-1 px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-black rounded-lg uppercase whitespace-nowrap">

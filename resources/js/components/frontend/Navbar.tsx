@@ -28,6 +28,7 @@ export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+    const [mobileDropdowns, setMobileDropdowns] = useState<Record<string, boolean>>({});
     const { isCurrentUrl } = useCurrentUrl();
 
     useEffect(() => {
@@ -37,6 +38,13 @@ export default function Navbar() {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const toggleMobileDropdown = (name: string) => {
+        setMobileDropdowns(prev => ({
+            ...prev,
+            [name]: !prev[name]
+        }));
+    };
 
     const navLinks: NavLink[] = [
         { name: 'Home', href: '/' },
@@ -57,8 +65,8 @@ export default function Navbar() {
 
     return (
         <>
-            {/* ================= TOP UTILITY BAR ================= */}
-            <div className="hidden lg:block bg-blue-950 text-slate-300 py-2.5 px-6 lg:px-20 border-b border-blue-900/30 relative z-60">
+            {/* ================= TOP UTILITY BAR (Desktop Only) ================= */}
+            <div className="hidden lg:flex bg-blue-950 text-slate-300 py-2.5 px-6 lg:px-20 border-b border-blue-900/30 relative z-60">
                 <div className="container mx-auto flex justify-between items-center text-[11px] font-bold uppercase tracking-widest">
                     <div className="flex items-center gap-8">
                         <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer group">
@@ -92,10 +100,10 @@ export default function Navbar() {
             {/* ================= MAIN NAVIGATION ================= */}
             <header
                 className={cn(
-                    "fixed top-0 lg:top-[42px] left-0 w-full z-50 transition-all duration-500 ease-in-out",
+                    "fixed top-0 lg:top-[42px] left-0 w-full z-50 transition-all duration-400 ease-in-out",
                     isScrolled
-                        ? "bg-white/90 backdrop-blur-xl shadow-2xl shadow-blue-900/10 py-3 lg:top-0"
-                        : "bg-white/80 backdrop-blur-md py-5"
+                        ? "bg-white/95 backdrop-blur-xl shadow-lg shadow-blue-900/5 py-3 lg:top-0"
+                        : "bg-white py-4 lg:py-6"
                 )}
             >
                 <div className="container mx-auto px-6 lg:px-20">
@@ -163,7 +171,7 @@ export default function Navbar() {
 
                         {/* Right Actions */}
                         <div className="flex items-center gap-4">
-                            <button className="hidden lg:flex items-center justify-center p-3 rounded-2xl bg-slate-50 text-slate-400 hover:bg-blue-600 hover:text-white transition-all">
+                            <button className="hidden lg:flex items-center justify-center p-3 rounded-2xl bg-white text-slate-400 hover:bg-blue-600 hover:text-white transition-all shadow-sm">
                                 <Search className="h-5 w-5" />
                             </button>
                             <Link
@@ -176,10 +184,15 @@ export default function Navbar() {
 
                             {/* Mobile Menu Toggle */}
                             <button
-                                className="lg:hidden p-3 rounded-2xl bg-blue-50 text-blue-600"
+                                className="lg:hidden p-2.5 rounded-xl bg-blue-600 text-white shadow-lg shadow-blue-600/40 active:scale-90 transition-all"
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                aria-label="Toggle Menu"
                             >
-                                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                                {isMenuOpen ? (
+                                    <X className="h-7 w-7" strokeWidth={3} />
+                                ) : (
+                                    <Menu className="h-7 w-7" strokeWidth={3} />
+                                )}
                             </button>
                         </div>
                     </div>
@@ -187,77 +200,114 @@ export default function Navbar() {
 
                 {/* Mobile Menu Overlay */}
                 <div className={cn(
-                    "fixed inset-0 bg-white z-60 transition-all duration-500 ease-in-out transform lg:hidden",
+                    "fixed inset-0 bg-slate-50 z-60 transition-all duration-500 ease-in-out transform lg:hidden flex flex-col",
                     isMenuOpen ? "translate-x-0" : "translate-x-full"
                 )}>
-                    <div className="p-6 flex flex-col h-full">
-                        <div className="flex justify-between items-center mb-12">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                                    <GraduationCap className="h-6 w-6 text-white" />
-                                </div>
-                                <h1 className="text-xl font-black text-slate-900 leading-none tracking-tighter uppercase italic">
-                                    Jaya Bageshwori
-                                </h1>
+                    {/* Mobile Menu Header */}
+                    <div className="p-6 flex justify-between items-center border-b border-slate-200 bg-blue-100">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                                <GraduationCap className="h-6 w-6 text-white" />
                             </div>
-                            <button
-                                className="p-3 bg-slate-100 rounded-2xl text-slate-900"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                <X className="h-6 w-6" />
-                            </button>
+                            <h1 className="text-xl font-black text-slate-900 leading-none tracking-tighter uppercase italic">
+                                JBS <span className="text-blue-600 italic">SCHOOL</span>
+                            </h1>
                         </div>
+                        <button
+                            className="p-3 bg-white rounded-2xl text-slate-900 shadow-sm active:scale-90 transition-transform"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            <X className="h-6 w-6" />
+                        </button>
+                    </div>
 
-                        <div className="flex-1 overflow-y-auto space-y-6">
-                            {navLinks.map((link) => (
-                                <div key={link.name}>
-                                    {link.dropdown ? (
-                                        <div className="space-y-4">
-                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{link.name}</p>
-                                            <div className="grid grid-cols-1 gap-4 pl-4 border-l-2 border-slate-100">
-                                                {link.dropdown.map(item => (
-                                                    <Link
-                                                        key={item.name}
-                                                        href={item.href}
-                                                        className="text-2xl font-black text-slate-900 hover:text-blue-600 transition-colors"
-                                                        onClick={() => setIsMenuOpen(false)}
-                                                    >
-                                                        {item.name}
-                                                    </Link>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <Link
-                                            href={link.href}
-                                            className="text-3xl font-black text-slate-900 hover:text-blue-600 transition-colors block"
-                                            onClick={() => setIsMenuOpen(false)}
+                    {/* Mobile Menu Content */}
+                    <div className="flex-1 overflow-y-auto p-6 space-y-2">
+                        {navLinks.map((link) => (
+                            <div key={link.name} className="border-b border-slate-100 last:border-0 pb-2 mb-2">
+                                {link.dropdown ? (
+                                    <div className="space-y-1">
+                                        <button
+                                            onClick={() => toggleMobileDropdown(link.name)}
+                                            className="w-full flex justify-between items-center py-4 group"
                                         >
-                                            {link.name}
-                                        </Link>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
+                                            <span className="text-2xl font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase tracking-tight">{link.name}</span>
+                                            <ChevronDown className={cn(
+                                                "h-6 w-6 text-slate-400 transition-transform duration-300",
+                                                mobileDropdowns[link.name] && "rotate-180 text-blue-600"
+                                            )} />
+                                        </button>
+                                        <div className={cn(
+                                            "overflow-hidden transition-all duration-300 space-y-1 pl-4 border-l-2 border-blue-100",
+                                            mobileDropdowns[link.name] ? "max-h-96 opacity-100 py-2" : "max-h-0 opacity-0"
+                                        )}>
+                                            {link.dropdown.map(item => (
+                                                <Link
+                                                    key={item.name}
+                                                    href={item.href}
+                                                    className="block py-3 group"
+                                                    onClick={() => setIsMenuOpen(false)}
+                                                >
+                                                    <p className="text-lg font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{item.name}</p>
+                                                    {item.description && <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">{item.description}</p>}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <Link
+                                        href={link.href}
+                                        className="block py-4 text-2xl font-black text-slate-900 hover:text-blue-600 transition-colors uppercase tracking-tight"
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                )}
+                            </div>
+                        ))}
+                    </div>
 
-                        <div className="pt-8 border-t border-slate-100 space-y-4">
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
+                    {/* Mobile Menu Footer */}
+                    <div className="p-6 bg-white border-t border-slate-100 space-y-6">
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="flex items-center gap-3 p-3 rounded-2xl bg-blue-50 border border-blue-100">
+                                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-600 shadow-sm shrink-0">
                                     <Phone className="h-5 w-5" />
                                 </div>
-                                <div>
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Support Line</p>
-                                    <p className="text-sm font-black text-slate-900">+977-01-4444444</p>
+                                <div className="min-w-0">
+                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest truncate">Call Us</p>
+                                    <p className="text-xs font-black text-slate-900 truncate">081-533337</p>
                                 </div>
                             </div>
-                            <Link
-                                href="/admissions"
-                                className="w-full h-16 bg-blue-600 text-white font-black text-sm uppercase tracking-[0.2em] rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-blue-600/20 animate-cta-pulse"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                Apply Now <ArrowRight className="h-4 w-4" />
+                            <div className="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-slate-600 shadow-sm shrink-0">
+                                    <Globe className="h-5 w-5" />
+                                </div>
+                                <div className="min-w-0">
+                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest truncate">Support</p>
+                                    <p className="text-xs font-black text-slate-900 truncate">English</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-between items-center px-2">
+                            <div className="flex gap-4">
+                                <Facebook className="w-5 h-5 text-slate-400 hover:text-blue-600 cursor-pointer transition-colors" />
+                                <Instagram className="w-5 h-5 text-slate-400 hover:text-blue-600 cursor-pointer transition-colors" />
+                                <Youtube className="w-5 h-5 text-slate-400 hover:text-blue-600 cursor-pointer transition-colors" />
+                            </div>
+                            <Link href="/login" className="text-[11px] font-black uppercase tracking-[0.2em] text-blue-600 flex items-center gap-2">
+                                <User className="w-4 h-4" /> Admin Portal
                             </Link>
                         </div>
+
+                        <Link
+                            href="/admissions"
+                            className="w-full h-10 bg-slate-900 text-white font-black text-sm uppercase tracking-[0.2em] rounded-xl flex items-center justify-center gap-3 shadow-xl shadow-slate-900/10 animate-cta-pulse active:scale-[0.98] transition-all"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            Apply Now  h<ArrowRight className="h-4 w-4" />
+                        </Link>
                     </div>
                 </div>
 
@@ -271,7 +321,8 @@ export default function Navbar() {
                     }
                 `}</style>
             </header>
-            <div className="h-20 lg:h-32" /> {/* Spacer */}
+            <div className="h-[72px] lg:h-[110px]" />
         </>
     );
 }
+
