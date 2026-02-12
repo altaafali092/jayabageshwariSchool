@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, GraduationCap, Users, Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, GraduationCap, Users, Sparkles, Play } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const slides = [
@@ -40,7 +40,6 @@ const slides = [
 
 const HeroCarousel = () => {
     const [current, setCurrent] = useState(0);
-    const [isPaused, setIsPaused] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
@@ -61,9 +60,7 @@ const HeroCarousel = () => {
     }, [nextSlide]);
 
     return (
-        <div
-            className="relative h-[650px] md:h-[750px] w-full overflow-hidden group bg-slate-900"
-        >
+        <div className="relative h-[650px] md:h-[750px] w-full overflow-hidden group bg-slate-900">
             {/* Slides */}
             {slides.map((slide, index) => (
                 <div
@@ -83,7 +80,7 @@ const HeroCarousel = () => {
                                 index === current ? "scale-110" : "scale-100"
                             )}
                         />
-                        {/* Multi-layered Overlays */}
+                        {/* Overlays */}
                         <div className="absolute inset-0 bg-linear-to-r from-slate-950/90 via-slate-950/50 to-transparent" />
                         <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent md:bg-linear-to-t md:from-slate-950/60" />
                     </div>
@@ -103,7 +100,7 @@ const HeroCarousel = () => {
 
                                 {/* Title */}
                                 <h1 className={cn(
-                                    "text-5xl md:text-7xl font-black text-white leading-[1.1] transition-all duration-700 delay-500",
+                                    "text-5xl md:text-8xl font-black text-white leading-[0.9] uppercase italic tracking-tighter transition-all duration-700 delay-500",
                                     index === current && isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                                 )}>
                                     {slide.title.split(' ').map((word, i) => (
@@ -113,7 +110,7 @@ const HeroCarousel = () => {
 
                                 {/* Description */}
                                 <p className={cn(
-                                    "text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed transition-all duration-700 delay-700",
+                                    "text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed font-bold uppercase tracking-tight transition-all duration-700 delay-700",
                                     index === current && isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                                 )}>
                                     {slide.description}
@@ -121,22 +118,21 @@ const HeroCarousel = () => {
 
                                 {/* CTAs */}
                                 <div className={cn(
-                                    "flex flex-wrap items-center gap-6 pt-4 transition-all duration-700 delay-900",
+                                    "flex flex-wrap items-center gap-6 pt-6 transition-all duration-700 delay-900",
                                     index === current && isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                                 )}>
-                                    <button className="group relative px-8 py-4 bg-blue-600 text-white font-black rounded-2xl overflow-hidden transition-all hover:bg-blue-700 hover:shadow-2xl hover:shadow-blue-500/30 active:scale-95">
-                                        <span className="relative z-10 flex items-center gap-2">
+                                    <button className="group relative h-20 px-12 bg-blue-600 text-white font-black text-xs uppercase tracking-[0.2em] rounded-4xl overflow-hidden transition-all hover:bg-white hover:text-blue-950 hover:shadow-2xl hover:shadow-blue-500/30 active:scale-95 italic">
+                                        <span className="relative z-10 flex items-center gap-3">
                                             {slide.primaryCta}
                                             <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                                         </span>
-                                        <div className="absolute inset-0 bg-linear-to-r from-blue-400/0 via-white/20 to-blue-400/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                                     </button>
 
-                                    <button className="flex items-center gap-3 px-8 py-4 text-white font-bold bg-white/5 backdrop-blur-xl border border-white/20 rounded-2xl hover:bg-white/10 transition-all active:scale-95 group">
-                                        <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center transition-transform group-hover:rotate-12">
-                                            <ChevronRight className="w-5 h-5" />
-                                        </div>
+                                    <button className="flex h-20 items-center gap-4 px-12 text-white font-black text-xs uppercase tracking-[0.2em] bg-white/5 backdrop-blur-xl border border-white/20 rounded-4xl hover:bg-white/10 transition-all active:scale-95 group italic">
                                         {slide.secondaryCta}
+                                        <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center transition-transform group-hover:rotate-12">
+                                            <Play className="w-4 h-4 fill-white" />
+                                        </div>
                                     </button>
                                 </div>
                             </div>
@@ -147,7 +143,7 @@ const HeroCarousel = () => {
 
             {/* Premium Controls */}
             <div className="absolute inset-x-12 bottom-12 z-30 flex items-center justify-between">
-                {/* Dots Navigation with Progress Effect */}
+                {/* Dots Navigation */}
                 <div className="flex gap-4">
                     {slides.map((_, index) => (
                         <button
@@ -197,4 +193,3 @@ const HeroCarousel = () => {
 };
 
 export default HeroCarousel;
-

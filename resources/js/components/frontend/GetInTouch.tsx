@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Clock, Send, MessageSquare, Globe, Headphones, ArrowRight } from 'lucide-react';
+import { Link } from '@inertiajs/react';
 
 const GetInTouch = () => {
     return (
@@ -69,10 +70,13 @@ const GetInTouch = () => {
 
                     {/* Simple Action Button */}
                     <div className="pt-2">
-                        <button className="px-10 py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition-all active:scale-95 flex items-center gap-3 mx-auto">
+                        <Link
+                            href="/contact"
+                            className="px-10 py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition-all active:scale-95 flex items-center gap-3 mx-auto w-fit"
+                        >
                             Contact Us Today
                             <ArrowRight className="w-4 h-4" />
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -20,8 +20,8 @@ const Footer = () => {
                     {/* Brand Section */}
                     <div className="space-y-6">
                         <div className="flex items-center gap-3 text-white">
-                            <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
-                                <GraduationCap className="w-7 h-7" />
+                            <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
+                                <img src="./assets/logo.png" alt="" />
                             </div>
                             <div>
                                 <h3 className="text-xl font-black tracking-tighter leading-none">JAYA</h3>
@@ -50,12 +50,19 @@ const Footer = () => {
                             Quick Links
                         </h4>
                         <ul className="space-y-3">
-                            {['About Us', 'Admissions', 'Academic Calendar', 'Curriculum', 'School News', 'Careers'].map((item) => (
-                                <li key={item}>
-                                    <a href="#" className="text-sm hover:text-blue-500 transition-colors flex items-center gap-2 group">
+                            {[
+                                { name: 'About History', href: '/about/history' },
+                                { name: 'Admissions', href: '/admissions' },
+                                { name: 'Academic Levels', href: '/academics' },
+                                { name: 'Why Choose Us', href: '/about/why-choose-us' },
+                                { name: 'Latest News', href: '/news-events' },
+                                { name: 'Official Notices', href: '/notices' }
+                            ].map((item) => (
+                                <li key={item.name}>
+                                    <Link href={item.href} className="text-sm hover:text-blue-500 transition-colors flex items-center gap-2 group">
                                         <ArrowRight className="w-3 h-3 text-slate-700 group-hover:text-blue-600 transition-colors" />
-                                        {item}
-                                    </a>
+                                        {item.name}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>

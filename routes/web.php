@@ -1,17 +1,26 @@
 <?php
 
+use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
-Route::get('/', function () {
-    return Inertia::render('frontend/welcome', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
-})->name('home');
+Route::get('/', [FrontController::class, 'index'])->name('home');
+
+Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
+Route::get('/admissions', [FrontController::class, 'admissions'])->name('admissions');
+Route::get('/news-events', [FrontController::class, 'news'])->name('news');
+Route::get('/notices', [FrontController::class, 'notices'])->name('notices');
+Route::get('/academics', [FrontController::class, 'academics'])->name('academics');
+Route::get('/facilities', [FrontController::class, 'facilities'])->name('facilities');
+Route::get('/about/history', [FrontController::class, 'history'])->name('about.history');
+Route::get('/about/mission-vision', [FrontController::class, 'missionVision'])->name('about.mission');
+Route::get('/about/management', [FrontController::class, 'management'])->name('about.management');
+Route::get('/about/why-choose-us', [FrontController::class, 'whyChooseUs'])->name('about.why-us');
+Route::get('/gallery', [FrontController::class, 'gallery'])->name('gallery');
 
 Route::get('dashboard', function () {
     return Inertia::render('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/settings.php';
+require __DIR__ . '/settings.php';

@@ -53,14 +53,41 @@ export default function Navbar() {
             href: '#',
             dropdown: [
                 { name: 'Our History', href: '/about/history', description: 'Transforming lives since 1995' },
+                { name: 'Mission & Vision', href: '/about/mission-vision', description: 'Our goals and aspirations' },
+                { name: 'Management Team', href: '/about/management', description: 'Experienced leadership' },
                 { name: 'Why Choose Us', href: '/about/why-choose-us', description: 'Academic excellence and innovation' },
                 { name: 'Our Campus', href: '/gallery', description: 'Take a look at our world-class facilities' },
             ],
         },
-        { name: 'Academics', href: '/academics' },
+        {
+            name: 'Academics',
+            href: '/academics',
+            dropdown: [
+                { name: 'Primary Level', href: '/academics?level=primary', description: 'Strong foundations for young minds' },
+                { name: 'Secondary Level', href: '/academics?level=secondary', description: 'Advanced learning and board preparation' },
+                { name: 'Higher Secondary', href: '/academics?level=higher-secondary', description: 'Gateway to professional careers' },
+            ],
+        },
         { name: 'Admissions', href: '/admissions' },
-        { name: 'Life at JBS', href: '/facilities' },
-        { name: 'Updates', href: '/updates' },
+        {
+            name: 'Life at JBS',
+            href: '/facilities',
+            dropdown: [
+                { name: 'Hostel & Residency', href: '/facilities?type=hostel', description: 'Safe and comfortable home away from home' },
+                { name: 'Transportation', href: '/facilities?type=transportation', description: 'Extensive fleet covering the entire city' },
+                { name: 'Sports Academy', href: '/facilities?type=sports', description: 'Training future athletes in various disciplines' },
+                { name: 'Digital Library', href: '/facilities?type=library', description: 'Vast resource center for curious minds' },
+            ],
+        },
+        {
+            name: 'Updates', href: '/updates',
+            dropdown: [
+                { name: 'News & Events', href: '/news-events', description: 'Stay updated with school activities' },
+                { name: 'Notices', href: '/notices', description: 'Important academic announcements' },
+
+            ]
+        },
+        { name: 'Contact', href: '/contact' },
     ];
 
     return (
@@ -171,9 +198,7 @@ export default function Navbar() {
 
                         {/* Right Actions */}
                         <div className="flex items-center gap-4">
-                            <button className="hidden lg:flex items-center justify-center p-3 rounded-2xl bg-white text-slate-400 hover:bg-blue-600 hover:text-white transition-all shadow-sm">
-                                <Search className="h-5 w-5" />
-                            </button>
+
                             <Link
                                 href="/admissions"
                                 className="h-12 lg:h-12 px-6 lg:px-8 bg-slate-900 text-white font-black text-xs lg:text-sm uppercase tracking-widest rounded-2xl flex items-center gap-3 hover:bg-blue-600 transition-all active:scale-95 shadow-xl shadow-slate-900/10 animate-cta-pulse"
