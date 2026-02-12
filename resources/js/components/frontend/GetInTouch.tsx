@@ -9,7 +9,7 @@ const GetInTouch = () => {
             <div
                 className="absolute inset-0 bg-fixed bg-center bg-cover opacity-25 grayscale-[0.3]"
                 style={{
-                    backgroundImage: 'url("./assets/para.avif")',
+                    backgroundImage: 'url("/assets/para.avif")',
                 }}
             />
 

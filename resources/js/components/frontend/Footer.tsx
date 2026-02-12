@@ -21,7 +21,7 @@ const Footer = () => {
                     <div className="space-y-6">
                         <div className="flex items-center gap-3 text-white">
                             <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
-                                <img src="./assets/logo.png" alt="" />
+                                <img src="/assets/logo.png" alt="" />
                             </div>
                             <div>
                                 <h3 className="text-xl font-black tracking-tighter leading-none">JAYA</h3>

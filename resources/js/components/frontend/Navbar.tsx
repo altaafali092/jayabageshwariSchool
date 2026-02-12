@@ -138,7 +138,7 @@ export default function Navbar() {
                         {/* Logo Hub */}
                         <Link href="/" className="flex items-center gap-4 group">
                             <div className="relative w-12 h-12 lg:w-14 lg:h-14 overflow-hidden rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/20 group-hover:rotate-6 transition-transform duration-500">
-                                <img src="./assets/logo.png" alt="" />
+                                <img src="/assets/logo.png" alt="" />
                             </div>
                             <div>
                                 <h1 className="text-xl lg:text-2xl font-black text-slate-900 leading-none tracking-tighter">
