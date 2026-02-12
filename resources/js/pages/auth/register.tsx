@@ -8,10 +8,11 @@ import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout';
 import { login } from '@/routes';
 import { store } from '@/routes/register';
+import AuthCardLayout from '@/layouts/auth/auth-card-layout';
 
 export default function Register() {
     return (
-        <AuthLayout
+        <AuthCardLayout
             title="Create an account"
             description="Enter your details below to create your account"
         >
@@ -109,6 +110,6 @@ export default function Register() {
                     </>
                 )}
             </Form>
-        </AuthLayout>
+        </AuthCardLayout>
     );
 }

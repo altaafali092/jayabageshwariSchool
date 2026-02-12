@@ -10,6 +10,8 @@ import AuthLayout from '@/layouts/auth-layout';
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
+import AuthCardLayout from '@/layouts/auth/auth-card-layout';
+import AuthSimpleLayout from '@/layouts/auth/auth-simple-layout';
 
 type Props = {
     status?: string;
@@ -23,14 +25,14 @@ export default function Login({
     canRegister,
 }: Props) {
     return (
-        <AuthLayout
+        <AuthCardLayout
             title="Log in to your account"
             description="Enter your email and password below to log in"
         >
             <Head title="Log in" />
 
             <Form
-                {...store.form()}
+                {...store()}
                 resetOnSuccess={['password']}
                 className="flex flex-col gap-6"
             >
@@ -115,6 +117,6 @@ export default function Login({
                     {status}
                 </div>
             )}
-        </AuthLayout>
+        </AuthCardLayout>
     );
 }

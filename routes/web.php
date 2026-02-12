@@ -19,8 +19,4 @@ Route::get('/about/management', [FrontController::class, 'management'])->name('a
 Route::get('/about/why-choose-us', [FrontController::class, 'whyChooseUs'])->name('about.why-us');
 Route::get('/gallery', [FrontController::class, 'gallery'])->name('gallery');
 
-Route::get('dashboard', function () {
-    return Inertia::render('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 require __DIR__ . '/settings.php';
