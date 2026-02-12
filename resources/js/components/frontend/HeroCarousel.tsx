@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 const slides = [
     {
         id: 1,
-        image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1186&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         badge: "Excellence in Education",
         badgeIcon: <GraduationCap className="w-4 h-4" />,
         title: "Nurturing Minds, Building Futures",
@@ -27,7 +27,7 @@ const slides = [
     },
     {
         id: 3,
-        image: "https://images.unsplash.com/photo-1524178232363-1fb28f74b0cd?q=80&w=2070&auto=format&fit=crop",
+        image: "https://images.unsplash.com/flagged/photo-1554473675-d0904f3cbf38?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         badge: "Holistic Growth",
         badgeIcon: <Users className="w-4 h-4" />,
         title: "A Vibrant Community for Everyone",
