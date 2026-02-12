@@ -42,19 +42,19 @@ const Testimonials = () => {
     };
 
     return (
-        <section className="py-16 bg-slate-100 overflow-hidden">
+        <section className="py-16 bg-slate-100 dark:bg-slate-950 transition-colors duration-300 overflow-hidden">
             <div className="container mx-auto px-6">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
                     {/* Left Side: Brand Story & CTA */}
                     <div className="space-y-8">
                         <div className="space-y-4">
-                            <h2 className="text-4xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight">
+                            <h2 className="text-4xl lg:text-6xl font-black text-slate-900 dark:text-white leading-tight tracking-tight">
                                 Voices From Our <br />
-                                <span className="text-orange-600">School Community</span>
+                                <span className="text-orange-600 dark:text-orange-500">School Community</span>
                             </h2>
 
-                            <p className="text-lg text-slate-600 font-medium max-w-lg leading-relaxed">
+                            <p className="text-lg text-slate-600 dark:text-slate-400 font-medium max-w-lg leading-relaxed">
                                 Hear inspiring messages from our Chairman, dedicated teachers, and proud students
                                 who together shape the learning culture of our school.
                             </p>
@@ -62,21 +62,21 @@ const Testimonials = () => {
                         </div>
 
                         <div className="flex">
-                            <button className="h-14 px-8 bg-orange-600 text-white font-black text-base rounded-2xl shadow-xl shadow-orange-600/20 hover:bg-slate-900 transition-all active:scale-95 flex items-center gap-3">
+                            <button className="h-14 px-8 bg-orange-600 dark:bg-orange-500 text-white font-black text-base rounded-2xl shadow-xl shadow-orange-600/20 dark:shadow-orange-950/40 hover:bg-slate-900 dark:hover:bg-slate-800 transition-all active:scale-95 flex items-center gap-3">
                                 Become a Member
                                 <ChevronRight className="w-5 h-5" />
                             </button>
                         </div>
 
                         {/* Awards/Logos section */}
-                        <div className="space-y-4 pt-8 border-t border-slate-200">
-                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Our Excellence Recognized By</p>
-                            <div className="flex flex-wrap gap-6 items-center opacity-60">
-                                <div className="flex items-center gap-2 text-slate-800">
+                        <div className="space-y-4 pt-8 border-t border-slate-200 dark:border-slate-800">
+                            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Our Excellence Recognized By</p>
+                            <div className="flex flex-wrap gap-6 items-center opacity-60 dark:opacity-40">
+                                <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
                                     <GraduationCap className="w-5 h-5" />
                                     <span className="font-black text-base tracking-tighter">MOE Nepal</span>
                                 </div>
-                                <div className="flex items-center gap-2 text-slate-800">
+                                <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
                                     <Users className="w-5 h-5" />
                                     <span className="font-black text-base tracking-tighter">PABSON</span>
                                 </div>
@@ -90,7 +90,7 @@ const Testimonials = () => {
                             {getVisibleItems().map((item) => (
                                 <div
                                     key={`${item.id}-${currentIndex}`}
-                                    className="w-full bg-white p-10 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 flex gap-8 items-start transition-all duration-700 ease-in-out transform"
+                                    className="w-full bg-white dark:bg-slate-900 p-10 rounded-[2.5rem] shadow-xl shadow-slate-200/50 dark:shadow-black/50 border border-slate-100 dark:border-slate-800 flex gap-8 items-start transition-all duration-700 ease-in-out transform"
                                     style={{
                                         animation: 'slideInVertical 0.7s ease-out forwards'
                                     }}
@@ -98,14 +98,14 @@ const Testimonials = () => {
                                     <img
                                         src={item.image}
                                         alt={item.name}
-                                        className="w-20 h-20 rounded-2xl object-cover shrink-0 border-4 border-slate-50 shadow-md"
+                                        className="w-20 h-20 rounded-2xl object-cover shrink-0 border-4 border-slate-50 dark:border-slate-800 shadow-md"
                                     />
                                     <div className="space-y-4 flex-1">
                                         <div className="space-y-1">
-                                            <h4 className="font-black text-slate-900 text-xl leading-none">{item.name}</h4>
-                                            <p className="text-xs font-bold text-orange-600 uppercase tracking-[0.2em]">{item.role}</p>
+                                            <h4 className="font-black text-slate-900 dark:text-white text-xl leading-none">{item.name}</h4>
+                                            <p className="text-xs font-bold text-orange-600 dark:text-orange-400 uppercase tracking-[0.2em]">{item.role}</p>
                                         </div>
-                                        <p className="text-slate-600 font-bold leading-relaxed text-sm italic pr-4">
+                                        <p className="text-slate-600 dark:text-slate-400 font-bold leading-relaxed text-sm italic pr-4">
                                             "{item.message}"
                                         </p>
                                         <div className="flex gap-1 pt-1">

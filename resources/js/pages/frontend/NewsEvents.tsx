@@ -86,7 +86,7 @@ const NewsEvents = () => {
         <FrontLayout>
             <Head title="News & Events - Jaya Bageshwori" />
 
-            <main className="flex-1 bg-white">
+            <main className="flex-1 bg-white dark:bg-slate-950 transition-colors duration-300">
                 {/* ================= HERO SECTION ================= */}
                 <section className="relative pt-24 pb-16 bg-blue-950 overflow-hidden">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--tw-gradient-stops))] from-blue-900/40 via-transparent to-transparent" />
@@ -105,7 +105,7 @@ const NewsEvents = () => {
                 </section>
 
                 {/* ================= FILTER & SEARCH BAR ================= */}
-                <section className="sticky top-[80px] lg:top-[80px] z-40 border-b border-slate-100 py-6 px-2 lg:px-0 shadow-lg shadow-blue-900/5 backdrop-blur-md bg-slate-50/90">
+                <section className="sticky top-[80px] lg:top-[110px] z-40 border-b border-slate-100 dark:border-slate-800 py-6 px-2 lg:px-0 shadow-lg shadow-blue-900/5 dark:shadow-black/20 backdrop-blur-md bg-slate-50/90 dark:bg-slate-950/90 transition-colors duration-300">
                     <div className="container mx-auto px-6 lg:px-20">
                         <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
                             {/* Categories */}
@@ -118,7 +118,7 @@ const NewsEvents = () => {
                                             "whitespace-nowrap px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all",
                                             activeCategory === cat
                                                 ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20"
-                                                : "bg-slate-50 text-slate-500 hover:bg-slate-100"
+                                                : "bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800"
                                         )}
                                     >
                                         {cat}
@@ -132,7 +132,7 @@ const NewsEvents = () => {
                                 <input
                                     type="text"
                                     placeholder="SEARCH ARTICLES..."
-                                    className="w-full h-12 pl-12 pr-4 bg-slate-50 border border-slate-100 rounded-full text-xs font-bold text-slate-900 outline-none focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/5 transition-all uppercase tracking-widest placeholder:text-slate-300"
+                                    className="w-full h-12 pl-12 pr-4 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full text-xs font-bold text-slate-900 dark:text-white outline-none focus:bg-white dark:focus:bg-slate-800 focus:border-blue-600 dark:focus:border-blue-500 focus:ring-4 focus:ring-blue-600/5 transition-all uppercase tracking-widest placeholder:text-slate-300 dark:placeholder:text-slate-600"
                                 />
                             </div>
                         </div>
@@ -140,15 +140,12 @@ const NewsEvents = () => {
                 </section>
 
                 {/* ================= ARTICLES GRID ================= */}
-                <section className="py-24 bg-slate-50/50">
+                <section className="py-24 bg-slate-50/50 dark:bg-slate-950/50 transition-colors duration-300">
                     <div className="container mx-auto px-6 lg:px-20">
-                        {/* Featured Article */}
-
-
                         {/* Smaller Compact Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                             {filteredItems.filter(item => !item.isFeatured || activeCategory !== 'All').map((item) => (
-                                <div key={item.id} className="group flex flex-col bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-xl shadow-slate-950/2 hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-700">
+                                <div key={item.id} className="group flex flex-col bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden shadow-xl shadow-slate-950/2 dark:shadow-black/20 hover:shadow-2xl hover:shadow-blue-900/10 dark:hover:shadow-black/40 transition-all duration-700">
                                     <div className="relative aspect-3/2 overflow-hidden">
                                         <img
                                             src={item.image}
@@ -156,7 +153,7 @@ const NewsEvents = () => {
                                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                                         />
                                         <div className="absolute top-4 left-4">
-                                            <span className="px-3 py-1 rounded-lg bg-white/95 backdrop-blur-md shadow-sm text-slate-900 text-[8px] font-black uppercase tracking-widest italic border border-white/20">
+                                            <span className="px-3 py-1 rounded-lg bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-sm text-slate-900 dark:text-white text-[8px] font-black uppercase tracking-widest italic border border-white/20 dark:border-slate-800">
                                                 {item.category}
                                             </span>
                                         </div>
@@ -168,25 +165,25 @@ const NewsEvents = () => {
                                                 <Calendar className="w-3 h-3" />
                                                 {item.date}
                                             </span>
-                                            <span className="w-1 h-1 rounded-full bg-slate-200" />
+                                            <span className="w-1 h-1 rounded-full bg-slate-200 dark:bg-slate-800" />
                                             <span className="flex items-center gap-1.5 text-[8px] font-black uppercase tracking-widest">
                                                 <Clock className="w-3 h-3" />
                                                 {item.time}
                                             </span>
                                         </div>
 
-                                        <h3 className="text-lg font-black text-slate-900 uppercase italic tracking-tight leading-tight mb-4 group-hover:text-blue-600 transition-colors line-clamp-2">
+                                        <h3 className="text-lg font-black text-slate-900 dark:text-white uppercase italic tracking-tight leading-tight mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
                                             {item.title}
                                         </h3>
 
-                                        <p className="text-[11px] font-bold text-slate-500 line-clamp-2 mb-6 opacity-70 leading-relaxed uppercase tracking-tight">
+                                        <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 line-clamp-2 mb-6 opacity-70 leading-relaxed uppercase tracking-tight">
                                             {item.excerpt}
                                         </p>
 
-                                        <div className="mt-auto pt-4 border-t border-slate-50">
+                                        <div className="mt-auto pt-4 border-t border-slate-50 dark:border-slate-800">
                                             <button className="flex items-center justify-between w-full group/btn">
-                                                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest italic group-hover/btn:text-blue-600 transition-colors">View Details</span>
-                                                <div className="w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center group-hover/btn:bg-blue-600 group-hover/btn:text-white transition-all">
+                                                <span className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest italic group-hover/btn:text-blue-600 dark:group-hover/btn:text-blue-400 transition-colors">View Details</span>
+                                                <div className="w-8 h-8 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center group-hover/btn:bg-blue-600 dark:group-hover/btn:bg-blue-500 group-hover/btn:text-white transition-all">
                                                     <ArrowRight className="w-3.5 h-3.5" />
                                                 </div>
                                             </button>
@@ -198,7 +195,7 @@ const NewsEvents = () => {
 
                         {/* Pagination or Load More */}
                         <div className="mt-20 flex justify-center">
-                            <button className="px-12 h-16 bg-slate-900 text-white rounded-4xl flex items-center justify-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition-all shadow-2xl shadow-slate-950/20 italic group">
+                            <button className="px-12 h-16 bg-slate-900 dark:bg-blue-600 text-white rounded-4xl flex items-center justify-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 dark:hover:bg-blue-700 transition-all shadow-2xl shadow-slate-950/20 dark:shadow-blue-900/20 italic group">
                                 Load Older Articles
                                 <ArrowRight className="w-4 h-4 rotate-90 group-hover:translate-y-1 transition-transform" />
                             </button>

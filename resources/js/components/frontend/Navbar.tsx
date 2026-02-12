@@ -12,11 +12,15 @@ import {
     ChevronDown,
     ArrowRight,
     Search,
-    Globe
+    Globe,
+    Sun,
+    Moon,
+    Monitor
 } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 import { cn } from '@/lib/utils';
 import { useCurrentUrl } from '@/hooks/use-current-url';
+import { useAppearance } from '@/hooks/use-appearance';
 
 type NavLink = {
     name: string;
@@ -30,6 +34,7 @@ export default function Navbar() {
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
     const [mobileDropdowns, setMobileDropdowns] = useState<Record<string, boolean>>({});
     const { isCurrentUrl } = useCurrentUrl();
+    const { appearance, updateAppearance } = useAppearance();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -129,8 +134,8 @@ export default function Navbar() {
                 className={cn(
                     "fixed top-0 lg:top-[42px] left-0 w-full z-50 transition-all duration-400 ease-in-out",
                     isScrolled
-                        ? "bg-white/95 backdrop-blur-xl shadow-lg shadow-blue-900/5 py-3 lg:top-0"
-                        : "bg-white py-2 lg:py-6"
+                        ? "bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl shadow-lg shadow-blue-900/5 py-3 lg:top-0 border-b border-slate-200/50 dark:border-slate-800/50"
+                        : "bg-white dark:bg-slate-950 py-2 lg:py-6"
                 )}
             >
                 <div className="container mx-auto px-6 lg:px-20">
@@ -141,10 +146,10 @@ export default function Navbar() {
                                 <img src="/assets/logo.png" alt="" />
                             </div>
                             <div>
-                                <h1 className="text-xl lg:text-2xl font-black text-slate-900 leading-none tracking-tighter">
+                                <h1 className="text-xl lg:text-2xl font-black text-slate-900 dark:text-white leading-none tracking-tighter">
                                     JAYA <span className="text-blue-600">BAGESHWORI</span>
                                 </h1>
-                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] mt-1 italic">Knowledge is Power</p>
+                                <p className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] mt-1 italic">Knowledge is Power</p>
                             </div>
                         </Link>
 
@@ -161,7 +166,7 @@ export default function Navbar() {
                                         href={link.href}
                                         className={cn(
                                             "px-2 py-2 text-sm font-black uppercase tracking-widest transition-all relative group/nav",
-                                            isCurrentUrl(link.href) ? "text-blue-600" : "text-slate-600 hover:text-blue-600"
+                                            isCurrentUrl(link.href) ? "text-blue-600" : "text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400"
                                         )}
                                     >
                                         {link.name}
@@ -178,15 +183,15 @@ export default function Navbar() {
                                             "absolute top-full left-1/2 -translate-x-1/2 pt-4 w-64 transition-all duration-300 transform",
                                             activeDropdown === link.name ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
                                         )}>
-                                            <div className="bg-white rounded-4xl shadow-2xl shadow-blue-900/10 border border-slate-100 p-3 overflow-hidden">
+                                            <div className="bg-white dark:bg-slate-900 rounded-4xl shadow-2xl shadow-blue-900/10 dark:shadow-black/50 border border-slate-100 dark:border-slate-800 p-3 overflow-hidden">
                                                 {link.dropdown.map((item) => (
                                                     <Link
                                                         key={item.name}
                                                         href={item.href}
-                                                        className="flex flex-col p-4 rounded-2xl hover:bg-blue-50 transition-colors group/item"
+                                                        className="flex flex-col p-4 rounded-2xl hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors group/item"
                                                     >
-                                                        <span className="text-sm font-black text-slate-900 group-hover/item:text-blue-600 transition-colors">{item.name}</span>
-                                                        {item.description && <span className="text-[10px] text-slate-400 font-bold mt-1 uppercase tracking-wider">{item.description}</span>}
+                                                        <span className="text-sm font-black text-slate-900 dark:text-slate-100 group-hover/item:text-blue-600 transition-colors">{item.name}</span>
+                                                        {item.description && <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold mt-1 uppercase tracking-wider">{item.description}</span>}
                                                     </Link>
                                                 ))}
                                             </div>
@@ -201,11 +206,24 @@ export default function Navbar() {
 
                             <Link
                                 href="/admissions"
-                                className="h-12 lg:h-12 px-6 lg:px-8 bg-slate-900 text-white font-black text-xs lg:text-sm uppercase tracking-widest rounded-2xl flex items-center gap-3 hover:bg-blue-600 transition-all active:scale-95 shadow-xl shadow-slate-900/10 animate-cta-pulse"
+                                className="h-12 lg:h-12 px-6 lg:px-8 bg-slate-900 dark:bg-blue-600 text-white font-black text-xs lg:text-sm uppercase tracking-widest rounded-2xl flex items-center gap-3 hover:bg-blue-600 dark:hover:bg-blue-700 transition-all active:scale-95 shadow-xl shadow-slate-900/10 dark:shadow-blue-900/20 animate-cta-pulse"
                             >
                                 <span className="hidden sm:inline">Apply Now</span>
                                 <ArrowRight className="h-4 w-4" />
                             </Link>
+
+                            {/* Theme Toggle Button */}
+                            <button
+                                onClick={() => updateAppearance(appearance === 'dark' ? 'light' : 'dark')}
+                                className="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-all shadow-sm border border-slate-200 dark:border-slate-700 group"
+                                aria-label="Toggle Theme"
+                            >
+                                {appearance === 'dark' ? (
+                                    <Sun className="h-5 w-5 transition-transform group-hover:rotate-45" />
+                                ) : (
+                                    <Moon className="h-5 w-5 transition-transform group-hover:-rotate-12" />
+                                )}
+                            </button>
 
                             {/* Mobile Menu Toggle */}
                             <button
@@ -225,38 +243,47 @@ export default function Navbar() {
 
                 {/* Mobile Menu Overlay */}
                 <div className={cn(
-                    "fixed inset-0 bg-slate-50 z-60 transition-all duration-500 ease-in-out transform lg:hidden flex flex-col",
+                    "fixed inset-0 bg-slate-50 dark:bg-slate-950 z-60 transition-all duration-500 ease-in-out transform lg:hidden flex flex-col",
                     isMenuOpen ? "translate-x-0" : "translate-x-full"
                 )}>
                     {/* Mobile Menu Header */}
-                    <div className="p-6 flex justify-between items-center border-b border-slate-200 bg-blue-100">
+                    <div className="p-6 flex justify-between items-center border-b border-slate-200 dark:border-slate-800 bg-blue-100 dark:bg-slate-900">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
                                 <GraduationCap className="h-6 w-6 text-white" />
                             </div>
-                            <h1 className="text-xl font-black text-slate-900 leading-none tracking-tighter uppercase italic">
+                            <h1 className="text-xl font-black text-slate-900 dark:text-white leading-none tracking-tighter uppercase italic">
                                 JBS <span className="text-blue-600 italic">SCHOOL</span>
                             </h1>
                         </div>
-                        <button
-                            className="p-3 bg-white rounded-2xl text-slate-900 shadow-sm active:scale-90 transition-transform"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            <X className="h-6 w-6" />
-                        </button>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => updateAppearance(appearance === 'dark' ? 'light' : 'dark')}
+                                className="p-3 bg-white dark:bg-slate-800 rounded-2xl text-slate-900 dark:text-slate-100 shadow-sm active:scale-90 transition-transform"
+                                aria-label="Toggle Theme"
+                            >
+                                {appearance === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                            </button>
+                            <button
+                                className="p-3 bg-white dark:bg-slate-800 rounded-2xl text-slate-900 dark:text-slate-100 shadow-sm active:scale-90 transition-transform"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                <X className="h-6 w-6" />
+                            </button>
+                        </div>
                     </div>
 
                     {/* Mobile Menu Content */}
                     <div className="flex-1 overflow-y-auto p-6 space-y-2">
                         {navLinks.map((link) => (
-                            <div key={link.name} className="border-b border-slate-100 last:border-0 pb-2 mb-2">
+                            <div key={link.name} className="border-b border-slate-100 dark:border-slate-800 last:border-0 pb-2 mb-2">
                                 {link.dropdown ? (
                                     <div className="space-y-1">
                                         <button
                                             onClick={() => toggleMobileDropdown(link.name)}
                                             className="w-full flex justify-between items-center py-4 group"
                                         >
-                                            <span className="text-2xl font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase tracking-tight">{link.name}</span>
+                                            <span className="text-2xl font-black text-slate-900 dark:text-slate-100 group-hover:text-blue-600 transition-colors uppercase tracking-tight">{link.name}</span>
                                             <ChevronDown className={cn(
                                                 "h-6 w-6 text-slate-400 transition-transform duration-300",
                                                 mobileDropdowns[link.name] && "rotate-180 text-blue-600"
@@ -273,8 +300,8 @@ export default function Navbar() {
                                                     className="block py-3 group"
                                                     onClick={() => setIsMenuOpen(false)}
                                                 >
-                                                    <p className="text-lg font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{item.name}</p>
-                                                    {item.description && <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">{item.description}</p>}
+                                                    <p className="text-lg font-bold text-slate-800 dark:text-slate-200 group-hover:text-blue-600 transition-colors">{item.name}</p>
+                                                    {item.description && <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">{item.description}</p>}
                                                 </Link>
                                             ))}
                                         </div>
@@ -282,7 +309,7 @@ export default function Navbar() {
                                 ) : (
                                     <Link
                                         href={link.href}
-                                        className="block py-4 text-2xl font-black text-slate-900 hover:text-blue-600 transition-colors uppercase tracking-tight"
+                                        className="block py-4 text-2xl font-black text-slate-900 dark:text-slate-100 hover:text-blue-600 transition-colors uppercase tracking-tight"
                                         onClick={() => setIsMenuOpen(false)}
                                     >
                                         {link.name}
