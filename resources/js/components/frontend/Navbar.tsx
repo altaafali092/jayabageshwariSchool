@@ -160,7 +160,7 @@ export default function Navbar() {
                                     <Link
                                         href={link.href}
                                         className={cn(
-                                            "px-4 py-2 text-sm font-black uppercase tracking-widest transition-all relative group/nav",
+                                            "px-2 py-2 text-sm font-black uppercase tracking-widest transition-all relative group/nav",
                                             isCurrentUrl(link.href) ? "text-blue-600" : "text-slate-600 hover:text-blue-600"
                                         )}
                                     >
@@ -305,8 +305,7 @@ export default function Navbar() {
                     }
                 `}</style>
             </header>
-            <div className="h-[80px] lg:h-[110px]" />
+            <div className="h-[85px] lg:h-[95px]" />
         </>
     );
 }
-

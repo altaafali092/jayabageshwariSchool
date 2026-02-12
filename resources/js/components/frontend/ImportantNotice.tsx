@@ -36,9 +36,9 @@ const ImportantNotice = () => {
     if (!isVisible) return null;
 
     return (
-        <section className="bg-blue-200 border-b border-slate-100">
-            <div className="container mx-auto px-4 py-2">
-                <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
+        <section className="bg-blue-200 border-b border-slate-100 relative z-30">
+            <div className="container mx-auto px-4 py-3 lg:py-2">
+                <div className="flex flex-col sm:flex-row items-center gap-4 lg:gap-12">
                     {/* Notice Label */}
                     <div className="flex shrink-0 items-center gap-3">
                         <div className="relative">
@@ -54,51 +54,51 @@ const ImportantNotice = () => {
                     </div>
 
                     {/* Scrolling/Static Notice Area */}
-                    <div className="flex-1 w-full overflow-hidden bg-slate-50 rounded-2xl p-4 lg:p-2 border border-slate-100">
-                        <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
-                            <div className="flex-1 overflow-hidden h-12 flex items-center">
-                                <div className="relative w-full h-full">
+                    <div className="flex-1 w-full min-w-0 overflow-hidden bg-white/50 backdrop-blur-sm rounded-xl px-3 py-2 border border-blue-300/30">
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="flex-1 overflow-hidden h-10 flex items-center relative">
+                                <div className="w-full h-full relative">
                                     {notices.map((notice, index) => (
                                         <div
                                             key={notice.id}
-                                            className={`absolute inset-0 flex items-center gap-4 transition-all duration-700 ease-in-out ${index === currentIndex
+                                            className={`absolute inset-x-0 top-0 h-full flex items-center gap-3 transition-all duration-700 ease-in-out ${index === currentIndex
                                                 ? 'opacity-100 translate-y-0'
                                                 : 'opacity-0 -translate-y-8'
                                                 }`}
                                         >
-                                            <div className="hidden sm:flex items-center gap-1 px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-black rounded-lg uppercase whitespace-nowrap">
+                                            <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 bg-red-100 text-red-700 text-[9px] font-black rounded-md uppercase whitespace-nowrap">
                                                 <AlertCircle className="w-3 h-3" />
-                                                Latest
+                                                New
                                             </div>
-                                            <p className="text-slate-700 font-bold text-sm lg:text-base line-clamp-1">
-                                                {notice.title} — <span className="font-medium text-slate-500">{notice.details}</span>
+                                            <p className="text-slate-700 font-bold text-xs sm:text-sm lg:text-base truncate pr-4">
+                                                <span className="text-red-600 uppercase italic tracking-tighter mr-2">{notice.title}</span>
+                                                <span className="font-medium text-slate-500 hidden sm:inline">— {notice.details}</span>
                                             </p>
                                         </div>
                                     ))}
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-4 shrink-0">
-                                <div className="flex items-center gap-1.5 mr-2">
+                            <div className="flex items-center gap-3 shrink-0">
+                                <div className="hidden sm:flex items-center gap-1">
                                     {notices.map((_, i) => (
                                         <div
                                             key={i}
-                                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-red-600 w-4' : 'bg-slate-300'
+                                            className={`w-1 h-1 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-red-600 w-3' : 'bg-slate-300'
                                                 }`}
                                         />
                                     ))}
                                 </div>
-                                <a href="/notices" className="flex items-center gap-2 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors group">
-                                    View All
-                                    <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                <a href="/notices" className="flex items-center gap-1.5 text-[10px] font-black text-blue-600 hover:text-blue-700 transition-colors group px-2 py-1 bg-white rounded-lg border border-slate-100 shadow-sm">
+                                    VIEW
+                                    <ChevronRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
                                 </a>
-                                <div className="hidden lg:block w-px h-6 bg-slate-200" />
                                 <button
                                     onClick={() => setIsVisible(false)}
-                                    className="p-1 hover:bg-slate-200 rounded-lg transition-colors text-slate-400"
+                                    className="p-1.5 hover:bg-white rounded-lg transition-colors text-slate-400 border border-transparent hover:border-slate-100"
                                     title="Dismiss"
                                 >
-                                    <X className="w-4 h-4" />
+                                    <X className="w-3.5 h-3.5" />
                                 </button>
                             </div>
                         </div>

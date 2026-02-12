@@ -9,6 +9,7 @@ import NoticeCarousel from '@/components/frontend/NoticeCarousel';
 import GetInTouch from '@/components/frontend/GetInTouch';
 import Testimonials from '@/components/frontend/Testimonials';
 import FrontLayout from './Layouts/FrontLayout';
+import PopupNotice from '@/components/frontend/PopupNotice';
 
 const Welcome = () => {
     return (
@@ -16,6 +17,9 @@ const Welcome = () => {
         <FrontLayout>
             <Head title="JBS" />
             <main className="flex-1">
+                {/* Important Announcements Popup */}
+                <PopupNotice />
+
                 {/* High-Visibility Alert Bar */}
                 <ImportantNotice />
 

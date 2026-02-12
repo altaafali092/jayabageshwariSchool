@@ -100,7 +100,7 @@ const Facilities = () => {
                 </section>
 
                 {/* ================= CATEGORY SELECTOR (Dropdown/Tabs) ================= */}
-                <section className="sticky top-[80px] lg:top-[110px] z-40 border-b border-slate-100 py-4 lg:py-0 shadow-lg shadow-blue-900/5 backdrop-blur-md bg-slate-50/90 overflow-hidden">
+                <section className="sticky top-[80px] lg:top-[80px] z-40 border-b border-slate-100 py-4 lg:py-0 shadow-lg shadow-blue-900/5 backdrop-blur-md bg-slate-50/90 overflow-hidden">
                     <div className="container mx-auto px-6 lg:px-20">
                         <div className="flex items-center justify-center lg:justify-between">
                             {/* Horizontal Tabs (Desktop) */}
