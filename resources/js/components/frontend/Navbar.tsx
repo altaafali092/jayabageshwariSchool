@@ -98,7 +98,7 @@ export default function Navbar() {
     return (
         <>
             {/* ================= TOP UTILITY BAR (Desktop Only) ================= */}
-            <div className="hidden lg:flex bg-blue-950 text-slate-300 py-2.5 px-6 lg:px-8 xl:px-20 border-b border-blue-900/30 relative z-60">
+            <div className="hidden lg:flex bg-blue-950 text-slate-300 py-2.5 px-4 lg:px-6 xl:px-8 border-b border-blue-900/30 relative z-60">
                 <div className="container mx-auto flex justify-between items-center text-[11px] font-bold uppercase tracking-widest">
                     <div className="flex items-center gap-8">
                         <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer group">
@@ -138,7 +138,7 @@ export default function Navbar() {
                         : "bg-white dark:bg-slate-950 py-2 lg:py-6"
                 )}
             >
-                <div className="container mx-auto px-6 lg:px-8 xl:px-20">
+                <div className="container mx-auto px-4 lg:px-6 xl:px-8">
                     <div className="flex justify-between items-center">
                         {/* Logo Hub */}
                         <Link href="/" className="flex items-center gap-4 group shrink-0">
