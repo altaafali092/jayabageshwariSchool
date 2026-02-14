@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, Images, LayoutGrid } from 'lucide-react';
+import { BookOpen, Folder, Images, LayoutGrid, Newspaper, NotepadTextDashed } from 'lucide-react';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -17,6 +17,8 @@ import type { NavItem } from '@/types';
 import AppLogo from './app-logo';
 import { dashboard } from '@/actions/App/Http/Controllers/Admin/DashboardController';
 import { index as sliderIndex } from '@/actions/App/Http/Controllers/Admin/SliderController';
+import { index as newsCategoryIndex } from '@/routes/admin/news-category';
+import { index as NewsEventIndex } from '@/routes/admin/news-event';
 
 const mainNavItems: NavItem[] = [
     {
@@ -28,21 +30,38 @@ const mainNavItems: NavItem[] = [
         title: 'Slider',
         href: sliderIndex(),
         icon: Images,
+    },
+    {
+        title: 'News & Notices',
+        href: '#',
+        icon: Newspaper,
+        items: [
+            {
+                title: 'Category',
+                href: newsCategoryIndex(),
+                icon: Newspaper,
+            },
+            {
+                title: 'News,Notices & Event',
+                href: NewsEventIndex(),
+                icon: NotepadTextDashed,
+            }
+        ]
     }
 ];
 
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
-    },
-];
+// const footerNavItems: NavItem[] = [
+//     {
+//         title: 'Repository',
+//         href: 'https://github.com/laravel/react-starter-kit',
+//         icon: Folder,
+//     },
+//     {
+//         title: 'Documentation',
+//         href: 'https://laravel.com/docs/starter-kits#react',
+//         icon: BookOpen,
+//     },
+// ];
 
 export function AppSidebar() {
     return (
@@ -64,7 +83,7 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+                {/* <NavFooter items={footerNavItems} className="mt-auto" /> */}
                 <NavUser />
             </SidebarFooter>
         </Sidebar>

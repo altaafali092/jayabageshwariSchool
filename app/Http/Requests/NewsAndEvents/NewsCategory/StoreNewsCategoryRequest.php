@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\slider;
+namespace App\Http\Requests\NewsAndEvents\NewsCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreSliderRequest extends FormRequest
+class StoreNewsCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +24,7 @@ class StoreSliderRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'badge' => ['nullable', 'string', 'max:255'],
-            'description' => ['nullable', 'string', 'max:255'],
-            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'slug' => ['required', 'alpha_dash', Rule::unique('news_categories', 'slug')->withoutTrashed()],
         ];
     }
 }

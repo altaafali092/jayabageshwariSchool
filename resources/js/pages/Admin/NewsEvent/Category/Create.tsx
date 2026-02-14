@@ -5,14 +5,13 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
+import { Textarea } from "@/components/ui/textarea"
 import { ArrowLeft } from "lucide-react"
 import { type BreadcrumbItem } from "@/types"
-
 import InputError from "@/components/input-error"
-import { index, store, update } from "@/routes/admin/slider"
-import { Textarea } from "@headlessui/react"
-import { Slider } from "@/types/admin/slider"
+import { index, store } from "@/routes/admin/news-category"
+
+
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -20,10 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: "Create", href: "#" },
 ]
 
-interface SliderProps {
-    slider: Slider
-}
-export default function SliderCreate({ slider }: SliderProps) {
+export default function Create() {
     const handleCancel = () => window.history.back()
 
     return (
@@ -43,9 +39,9 @@ export default function SliderCreate({ slider }: SliderProps) {
                             Back
                         </Button>
                         <div>
-                            <h1 className="text-2xl font-bold tracking-tight">Create Slider</h1>
+                            <h1 className="text-2xl font-bold tracking-tight">Create Category</h1>
                             <p className="text-muted-foreground">
-                                Add a new slider with image and description.
+                                Add a new category.
                             </p>
                         </div>
                     </div>
@@ -55,27 +51,27 @@ export default function SliderCreate({ slider }: SliderProps) {
                 <div className="w-full">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Slider Details</CardTitle>
+                            <CardTitle>Category Details</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <Form
-                                action={update(slider.id).url}
+                                action={store().url}
                                 method="post"
                                 className="space-y-6"
                             >
 
                                 {({ errors }) => (
                                     <>
-                                        <input type="hidden" name="_method" value="put" />
+
                                         {/* Name and Image in one row */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
-                                                <Label htmlFor="title">Slider Name</Label>
+                                                <Label htmlFor="title">Categroy Name <span className="text-red-500">*</span></Label>
                                                 <Input
                                                     id="title"
                                                     name="title"
                                                     type="text"
-                                                    defaultValue={slider.title}
+                                                    placeholder="e.g., News"
                                                 />
                                                 {errors.title && (
                                                     <p className="text-sm text-red-500">
@@ -83,30 +79,27 @@ export default function SliderCreate({ slider }: SliderProps) {
                                                     </p>
                                                 )}
                                             </div>
-
-
                                             <div className="space-y-2">
-                                                <Label htmlFor="image">Image</Label>
-                                                <Input id="image" type="file" name="image" />
-                                                <InputError message={errors.image} />
+                                                <Label htmlFor="slug">Slug <span className="text-red-500">*</span></Label>
+                                                <Input
+                                                    id="slug"
+                                                    name="slug"
+                                                    type="text"
+                                                    placeholder="e.g., news_categoey"
+                                                />
+                                                {errors.badge && (
+                                                    <p className="text-sm text-red-500">
+                                                        {errors.badge}
+                                                    </p>
+                                                )}
+                                                <p className="text-sm text-muted-foreground">
+                                                    slug should be unique and in lowercase use _ instead of space.
+                                                </p>
                                             </div>
 
-                                        </div>
 
-                                        {/* Description */}
-                                        <div className="space-y-2">
-                                            <Label htmlFor="description">Description</Label>
-                                            <Textarea
-                                                id="description"
-                                                name="description"
-                                                placeholder="Optional description"
-                                                rows={4}
-                                            />
-                                            {errors.description && (
-                                                <p className="text-sm text-red-500">
-                                                    {errors.description}
-                                                </p>
-                                            )}
+
+
                                         </div>
 
                                         {/* Buttons */}

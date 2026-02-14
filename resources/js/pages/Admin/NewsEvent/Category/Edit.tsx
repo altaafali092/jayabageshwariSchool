@@ -5,14 +5,12 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
 import { ArrowLeft } from "lucide-react"
 import { type BreadcrumbItem } from "@/types"
+import { index, store, update } from "@/routes/admin/news-category"
+import { NewsCategory } from "@/types/admin/NewsCategory"
 
-import InputError from "@/components/input-error"
-import { index, store, update } from "@/routes/admin/slider"
-import { Textarea } from "@headlessui/react"
-import { Slider } from "@/types/admin/slider"
+
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -20,15 +18,16 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: "Create", href: "#" },
 ]
 
-interface SliderProps {
-    slider: Slider
+interface CategoryProps {
+    newsCategory: NewsCategory
 }
-export default function SliderCreate({ slider }: SliderProps) {
+
+export default function Edit({ newsCategory }: CategoryProps) {
     const handleCancel = () => window.history.back()
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Create Food Category" />
+            <Head title="Edit Food Category" />
             <div className="flex h-full flex-1 flex-col gap-6 p-4">
                 {/* Header */}
                 <div className="flex items-center justify-between">
@@ -43,9 +42,9 @@ export default function SliderCreate({ slider }: SliderProps) {
                             Back
                         </Button>
                         <div>
-                            <h1 className="text-2xl font-bold tracking-tight">Create Slider</h1>
+                            <h1 className="text-2xl font-bold tracking-tight">Create Category</h1>
                             <p className="text-muted-foreground">
-                                Add a new slider with image and description.
+                                Update a category.
                             </p>
                         </div>
                     </div>
@@ -55,11 +54,11 @@ export default function SliderCreate({ slider }: SliderProps) {
                 <div className="w-full">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Slider Details</CardTitle>
+                            <CardTitle>Category Details</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <Form
-                                action={update(slider.id).url}
+                                action={update(newsCategory.id).url}
                                 method="post"
                                 className="space-y-6"
                             >
@@ -69,13 +68,14 @@ export default function SliderCreate({ slider }: SliderProps) {
                                         <input type="hidden" name="_method" value="put" />
                                         {/* Name and Image in one row */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
                                             <div className="space-y-2">
-                                                <Label htmlFor="title">Slider Name</Label>
+                                                <Label htmlFor="title">Categroy Name <span className="text-red-500">*</span></Label>
                                                 <Input
                                                     id="title"
                                                     name="title"
                                                     type="text"
-                                                    defaultValue={slider.title}
+                                                    defaultValue={newsCategory.title}
                                                 />
                                                 {errors.title && (
                                                     <p className="text-sm text-red-500">
@@ -83,30 +83,27 @@ export default function SliderCreate({ slider }: SliderProps) {
                                                     </p>
                                                 )}
                                             </div>
-
-
                                             <div className="space-y-2">
-                                                <Label htmlFor="image">Image</Label>
-                                                <Input id="image" type="file" name="image" />
-                                                <InputError message={errors.image} />
+                                                <Label htmlFor="slug">Slug <span className="text-red-500">*</span></Label>
+                                                <Input
+                                                    id="slug"
+                                                    name="slug"
+                                                    type="text"
+                                                    defaultValue={newsCategory.slug}
+                                                />
+                                                {errors.slug && (
+                                                    <p className="text-sm text-red-500">
+                                                        {errors.slug}
+                                                    </p>
+                                                )}
+                                                <p className="text-sm text-muted-foreground">
+                                                    slug should be unique and in lowercase use _ instead of space.
+                                                </p>
                                             </div>
 
-                                        </div>
 
-                                        {/* Description */}
-                                        <div className="space-y-2">
-                                            <Label htmlFor="description">Description</Label>
-                                            <Textarea
-                                                id="description"
-                                                name="description"
-                                                placeholder="Optional description"
-                                                rows={4}
-                                            />
-                                            {errors.description && (
-                                                <p className="text-sm text-red-500">
-                                                    {errors.description}
-                                                </p>
-                                            )}
+
+
                                         </div>
 
                                         {/* Buttons */}

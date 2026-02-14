@@ -1,36 +1,57 @@
-import { Link } from '@inertiajs/react';
 import {
-    SidebarGroup,
-    SidebarGroupLabel,
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
     SidebarMenu,
-    SidebarMenuButton,
     SidebarMenuItem,
-} from '@/components/ui/sidebar';
-import { useCurrentUrl } from '@/hooks/use-current-url';
-import type { NavItem } from '@/types';
+    SidebarMenuButton,
+} from "@/components/ui/sidebar";
+import { Link } from "@inertiajs/react";
+import { ChevronDown } from "lucide-react";
+import type { NavItem } from "@/types";
 
-export function NavMain({ items = [] }: { items: NavItem[] }) {
-    const { isCurrentUrl } = useCurrentUrl();
-
+export function NavMain({ items }: { items: NavItem[] }) {
     return (
-        <SidebarGroup className="px-2 py-0">
-            <SidebarGroupLabel>Platform</SidebarGroupLabel>
-            <SidebarMenu>
-                {items.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton
-                            asChild
-                            isActive={isCurrentUrl(item.href)}
-                            tooltip={{ children: item.title }}
-                        >
-                            <Link href={item.href} prefetch>
-                                {item.icon && <item.icon />}
-                                <span>{item.title}</span>
+        <SidebarMenu>
+            {items.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                    {item.items ? (
+                        <Collapsible>
+                            <CollapsibleTrigger asChild>
+                                <SidebarMenuButton>
+                                    {item.icon && <item.icon className="mr-2" />}
+                                    {item.title}
+                                    <ChevronDown className="ml-auto h-4 w-4" />
+                                </SidebarMenuButton>
+                            </CollapsibleTrigger>
+
+                            <CollapsibleContent>
+                                <div className="ml-6 mt-1 flex flex-col gap-1">
+                                    {item.items.map((sub) => (
+                                        <Link
+                                            key={sub.title}
+                                            href={sub.href}
+                                            className="flex items-center gap-2 rounded-md px-2 py-1 text-sm hover:bg-muted"
+                                        >
+                                            {sub.icon && <sub.icon className="h-4 w-4" />}
+                                            {sub.title}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </CollapsibleContent>
+                        </Collapsible>
+                    ) : (
+                        <SidebarMenuButton asChild>
+                            <Link href={item.href}>
+                                {item.icon && <item.icon className="mr-2" />}
+                                {item.title}
                             </Link>
                         </SidebarMenuButton>
-                    </SidebarMenuItem>
-                ))}
-            </SidebarMenu>
-        </SidebarGroup>
+                    )}
+                </SidebarMenuItem>
+            ))}
+        </SidebarMenu>
     );
 }

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 import { usePage } from "@inertiajs/react"
-import toast from "react-hot-toast"
+import toast from 'react-hot-toast'
 
 export default function FlashToast() {
     const { flash } = usePage().props as {

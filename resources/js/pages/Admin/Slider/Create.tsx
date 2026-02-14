@@ -6,12 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-
 import { ArrowLeft } from "lucide-react"
 import { type BreadcrumbItem } from "@/types"
-
 import InputError from "@/components/input-error"
 import { index, store } from "@/routes/admin/slider"
+
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -78,6 +77,16 @@ export default function SliderCreate() {
                                                         {errors.title}
                                                     </p>
                                                 )}
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="badge">Badge</Label>
+                                                <Input
+                                                    id="badge"
+                                                    name="badge"
+                                                    type="text"
+                                                    placeholder="e.g., Beverages"
+                                                />
+                                                <InputError message={errors.badge} />
                                             </div>
 
 

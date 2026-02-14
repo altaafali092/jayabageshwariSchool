@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\slider\StoreSliderRequest;
 use App\Http\Requests\slider\UpdateSliderRequest;
 use App\Models\slider;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class SliderController extends Controller
@@ -35,7 +36,9 @@ class SliderController extends Controller
      */
     public function store(StoreSliderRequest $request)
     {
-        //
+
+        slider::create($request->validated());
+        return to_route('admin.slider.index')->with('success', 'Slider created successfully');
     }
 
     /**
@@ -61,21 +64,39 @@ class SliderController extends Controller
      */
     public function update(UpdateSliderRequest $request, slider $slider)
     {
-        //
+        $data = $request->validated();
+
+        // // if you want old image deleted when new one is uploaded
+        // if ($request->hasFile('image')) {
+        //     deleteFile($slider->getRawOriginal('image'));
+        // }
+
+        $slider->update($data);
+
+        return to_route('admin.slider.index')->with('success', 'Slider updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(slider $slider)
     {
-        //
+        $slider->delete();
+        return to_route('admin.slider.index')->with('success', 'Slider deleted successfully');
     }
+
+
     public function status(slider $slider)
     {
+
+        $imagePath = $slider->getRawOriginal('image');
+        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+            Storage::disk('public')->delete($imagePath);
+        }
         $slider->update([
-            'status' => !$slider->status
+            'status' => !$slider->status,
         ]);
-        return redirect()->back()->with('success', 'Slider status updated');
+
+        return back()->with('success', 'Slider status updated');
     }
 }
