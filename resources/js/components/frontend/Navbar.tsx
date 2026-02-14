@@ -98,7 +98,7 @@ export default function Navbar() {
     return (
         <>
             {/* ================= TOP UTILITY BAR (Desktop Only) ================= */}
-            <div className="hidden lg:flex bg-blue-950 text-slate-300 py-2.5 px-6 lg:px-20 border-b border-blue-900/30 relative z-60">
+            <div className="hidden lg:flex bg-blue-950 text-slate-300 py-2.5 px-6 lg:px-8 xl:px-20 border-b border-blue-900/30 relative z-60">
                 <div className="container mx-auto flex justify-between items-center text-[11px] font-bold uppercase tracking-widest">
                     <div className="flex items-center gap-8">
                         <div className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer group">
@@ -138,15 +138,15 @@ export default function Navbar() {
                         : "bg-white dark:bg-slate-950 py-2 lg:py-6"
                 )}
             >
-                <div className="container mx-auto px-6 lg:px-20">
+                <div className="container mx-auto px-6 lg:px-8 xl:px-20">
                     <div className="flex justify-between items-center">
                         {/* Logo Hub */}
-                        <Link href="/" className="flex items-center gap-4 group">
+                        <Link href="/" className="flex items-center gap-4 group shrink-0">
                             <div className="relative w-12 h-12 lg:w-14 lg:h-14 overflow-hidden rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/20 group-hover:rotate-6 transition-transform duration-500">
                                 <img src="/assets/logo.png" alt="" />
                             </div>
                             <div>
-                                <h1 className="text-xl lg:text-2xl font-black text-slate-900 dark:text-white leading-none tracking-tighter">
+                                <h1 className="text-xl lg:text-2xl font-black text-slate-900 dark:text-white leading-none tracking-tighter whitespace-nowrap">
                                     JAYA <span className="text-blue-600">BAGESHWORI</span>
                                 </h1>
                                 <p className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] mt-1 italic">Knowledge is Power</p>
