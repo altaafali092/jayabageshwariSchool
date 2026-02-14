@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, Images, LayoutGrid, Newspaper, NotepadTextDashed } from 'lucide-react';
+import { BookOpen, Folder, GalleryVerticalEndIcon, Images, LayoutGrid, Newspaper, NotepadTextDashed } from 'lucide-react';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -19,6 +19,7 @@ import { dashboard } from '@/actions/App/Http/Controllers/Admin/DashboardControl
 import { index as sliderIndex } from '@/actions/App/Http/Controllers/Admin/SliderController';
 import { index as newsCategoryIndex } from '@/routes/admin/news-category';
 import { index as NewsEventIndex } from '@/routes/admin/news-event';
+import { index as galleryIndex } from '@/routes/admin/gallery';
 
 const mainNavItems: NavItem[] = [
     {
@@ -30,6 +31,11 @@ const mainNavItems: NavItem[] = [
         title: 'Slider',
         href: sliderIndex(),
         icon: Images,
+    },
+    {
+        title: 'Gallery',
+        href: galleryIndex(),
+        icon: GalleryVerticalEndIcon,
     },
     {
         title: 'News & Notices',

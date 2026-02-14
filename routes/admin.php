@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\NewsEventController;
 use App\Http\Controllers\Admin\SliderController;
@@ -15,4 +16,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('news-category/{newsCategory}/status', [NewsCategoryController::class, 'status'])->name('newsCategory.status');
     Route::resource('news-event', NewsEventController::class);
     Route::get('news-event/{newsEvent}/status', [NewsEventController::class, 'status'])->name('newsEvent.status');
+    Route::resource('gallery', GalleryController::class);
+    Route::get('gallery/{gallery}/status', [GalleryController::class, 'status'])->name('gallery.status');
 });
