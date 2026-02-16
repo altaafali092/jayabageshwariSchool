@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AcademicLevelController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\NewsCategoryController;
@@ -18,4 +19,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('news-event/{newsEvent}/status', [NewsEventController::class, 'status'])->name('newsEvent.status');
     Route::resource('gallery', GalleryController::class);
     Route::get('gallery/{gallery}/status', [GalleryController::class, 'status'])->name('gallery.status');
+    Route::resource('facility', App\Http\Controllers\Admin\FacilityController::class);
+    Route::get('facility/{facility}/status', [App\Http\Controllers\Admin\FacilityController::class, 'status'])->name('facility.status');
+    Route::resource('academic-level', AcademicLevelController::class);
+    Route::get('academic-level/{academicLevel}/status', [AcademicLevelController::class, 'status'])->name('academicLevel.status');
 });

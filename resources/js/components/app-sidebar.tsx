@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, GalleryVerticalEndIcon, Images, LayoutGrid, Newspaper, NotepadTextDashed } from 'lucide-react';
+import { BookOpen, Folder, GalleryVerticalEndIcon, GraduationCap, Images, LayoutGrid, Newspaper, NotepadTextDashed, School } from 'lucide-react';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -20,6 +20,8 @@ import { index as sliderIndex } from '@/actions/App/Http/Controllers/Admin/Slide
 import { index as newsCategoryIndex } from '@/routes/admin/news-category';
 import { index as NewsEventIndex } from '@/routes/admin/news-event';
 import { index as galleryIndex } from '@/routes/admin/gallery';
+import { index as facilityIndex } from '@/routes/admin/facility';
+import { index as AcademicLevelIndex } from '@/routes/admin/academic-level';
 
 const mainNavItems: NavItem[] = [
     {
@@ -38,6 +40,11 @@ const mainNavItems: NavItem[] = [
         icon: GalleryVerticalEndIcon,
     },
     {
+        title: 'Facility',
+        href: facilityIndex(),
+        icon: Images,
+    },
+    {
         title: 'News & Notices',
         href: '#',
         icon: Newspaper,
@@ -46,6 +53,23 @@ const mainNavItems: NavItem[] = [
                 title: 'Category',
                 href: newsCategoryIndex(),
                 icon: Newspaper,
+            },
+            {
+                title: 'News,Notices & Event',
+                href: NewsEventIndex(),
+                icon: NotepadTextDashed,
+            }
+        ]
+    },
+    {
+        title: 'Academics',
+        href: '#',
+        icon: School,
+        items: [
+            {
+                title: 'Acedamics Level',
+                href: AcademicLevelIndex(),
+                icon: GraduationCap,
             },
             {
                 title: 'News,Notices & Event',

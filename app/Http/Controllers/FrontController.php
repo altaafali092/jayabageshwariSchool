@@ -38,7 +38,20 @@ class FrontController extends Controller
 
     public function facilities()
     {
-        return Inertia::render('frontend/Facilities');
+        $facilities = \App\Models\Facility::where('status', true)
+            ->orderBy('position')
+            ->get();
+
+        return Inertia::render('frontend/Facilities', [
+            'overview_main' => $facilities->where('category', \App\Enums\FacilityEnum::OVERVIEW_MAIN->value)->values(),
+            'overview_lifestyle' => $facilities->where('category', \App\Enums\FacilityEnum::OVERVIEW_LIFESTYLE->value)->values(),
+            'hostel_features' => $facilities->where('category', \App\Enums\FacilityEnum::HOSTEL_FEATURE->value)->values(),
+            'transport_features' => $facilities->where('category', \App\Enums\FacilityEnum::TRANSPORT_FEATURE->value)->values(),
+            'transport_stats' => $facilities->where('category', \App\Enums\FacilityEnum::TRANSPORT_STATS->value)->values(),
+            'sports_items' => $facilities->where('category', \App\Enums\FacilityEnum::SPORTS_ITEM->value)->values(),
+            'library_stats' => $facilities->where('category', \App\Enums\FacilityEnum::LIBRARY_STATS->value)->values(),
+            'library_images' => $facilities->where('category', \App\Enums\FacilityEnum::LIBRARY_IMAGES->value)->values(),
+        ]);
     }
 
     public function history()
