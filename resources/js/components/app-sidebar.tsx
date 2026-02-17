@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, GalleryVerticalEndIcon, GraduationCap, Images, LayoutGrid, Newspaper, NotepadTextDashed, School } from 'lucide-react';
+import { BookOpen, Folder, GalleryVerticalEndIcon, GraduationCap, Images, LayoutGrid, Newspaper, NotepadTextDashed, School, School2 } from 'lucide-react';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -22,6 +22,7 @@ import { index as NewsEventIndex } from '@/routes/admin/news-event';
 import { index as galleryIndex } from '@/routes/admin/gallery';
 import { index as facilityIndex } from '@/routes/admin/facility';
 import { index as AcademicLevelIndex } from '@/routes/admin/academic-level';
+import { index as AcademicSectionIndex } from '@/routes/admin/academic-section';
 
 const mainNavItems: NavItem[] = [
     {
@@ -72,9 +73,9 @@ const mainNavItems: NavItem[] = [
                 icon: GraduationCap,
             },
             {
-                title: 'News,Notices & Event',
-                href: NewsEventIndex(),
-                icon: NotepadTextDashed,
+                title: 'Academic Section',
+                href: AcademicSectionIndex(),
+                icon: School2,
             }
         ]
     }

@@ -22,4 +22,13 @@ class AcademicLevel extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
+    public function sections()
+    {
+        return $this->hasMany(AcademicSection::class);
+    }
+
+    // public function media()
+    // {
+    //     return $this->hasMany(AcademicMedia::class);
+    // }
 }
