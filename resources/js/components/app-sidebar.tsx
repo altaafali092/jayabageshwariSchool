@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, GalleryVerticalEndIcon, GraduationCap, Images, LayoutGrid, Newspaper, NotepadTextDashed, School, School2 } from 'lucide-react';
+import { BookOpen, Folder, GalleryVerticalEndIcon, GraduationCap, Images, LayoutGrid, Newspaper, NotepadTextDashed, School, School2, StretchHorizontal } from 'lucide-react';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -16,13 +16,16 @@ import {
 import type { NavItem } from '@/types';
 import AppLogo from './app-logo';
 import { dashboard } from '@/actions/App/Http/Controllers/Admin/DashboardController';
-import { index as sliderIndex } from '@/actions/App/Http/Controllers/Admin/SliderController';
+
 import { index as newsCategoryIndex } from '@/routes/admin/news-category';
 import { index as NewsEventIndex } from '@/routes/admin/news-event';
 import { index as galleryIndex } from '@/routes/admin/gallery';
 import { index as facilityIndex } from '@/routes/admin/facility';
 import { index as AcademicLevelIndex } from '@/routes/admin/academic-level';
 import { index as AcademicSectionIndex } from '@/routes/admin/academic-section';
+
+import { index as sliderIndex } from '@/routes/admin/slider';
+import { index as AcademicItemIndex } from '@/routes/admin/academic-item';
 
 const mainNavItems: NavItem[] = [
     {
@@ -76,6 +79,11 @@ const mainNavItems: NavItem[] = [
                 title: 'Academic Section',
                 href: AcademicSectionIndex(),
                 icon: School2,
+            },
+            {
+                title: 'Academic Items',
+                href: AcademicItemIndex(),
+                icon: StretchHorizontal,
             }
         ]
     }

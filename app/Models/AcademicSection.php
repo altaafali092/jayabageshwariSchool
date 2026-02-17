@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AcademicSection extends Model
 {
-    use HasFactory , SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'academic_level_id',
@@ -23,5 +23,10 @@ class AcademicSection extends Model
     public function academicLevel()
     {
         return $this->belongsTo(AcademicLevel::class);
+    }
+    public function academicItems()
+    {
+        return $this->hasMany(AcademicItems::class)
+            ->orderBy('sort_order');
     }
 }

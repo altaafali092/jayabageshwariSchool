@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AcademicItemsController;
 use App\Http\Controllers\Admin\AcademicLevelController;
 use App\Http\Controllers\Admin\AcademicSectionController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -26,4 +27,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('academic-level/{academicLevel}/status', [AcademicLevelController::class, 'status'])->name('academicLevel.status');
     Route::resource('academic-section', AcademicSectionController::class);
     Route::get('academic-section/{academicSection}/status', [AcademicSectionController::class, 'status'])->name('academicSection.status');
+    Route::resource('academic-item', AcademicItemsController::class);
+    Route::get('academic-item/{academicItem}/status', [AcademicItemsController::class, 'status'])->name('academicItem.status');
 });
