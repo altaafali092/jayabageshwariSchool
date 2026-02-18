@@ -29,6 +29,7 @@ class StoreAcedamicLevelRequest extends FormRequest
             'subtitle' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'sort_order' => ['required', 'integer'],
+            'image' => ['nullable', 'image', 'max:2048'],
         ];
     }
 }

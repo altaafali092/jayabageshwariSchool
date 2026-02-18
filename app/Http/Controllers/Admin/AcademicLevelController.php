@@ -44,6 +44,7 @@ class AcademicLevelController extends Controller
      */
     public function show(AcademicLevel $academicLevel)
     {
+
         return Inertia::render('Admin/Acedamics/AcedamicsLevel/Show', [
             'academicLevel' => $academicLevel,
         ]);
@@ -54,6 +55,7 @@ class AcademicLevelController extends Controller
      */
     public function edit(AcademicLevel $academicLevel)
     {
+
         return Inertia::render('Admin/Acedamics/AcedamicsLevel/Edit', [
             'academicLevel' => $academicLevel,
         ]);

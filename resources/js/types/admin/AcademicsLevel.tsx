@@ -7,4 +7,7 @@ export type AcademicsLevel = {
     subtitle: string;
     badge: string;
     sort_order: number;
+    image: string | null;
+    created_at: string;
+    updated_at: string;
 }

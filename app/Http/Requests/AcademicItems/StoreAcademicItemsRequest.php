@@ -11,7 +11,7 @@ class StoreAcademicItemsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class StoreAcademicItemsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'academic_section_id' => ['required', 'exists:academic_sections,id'],
+            'title' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'icon' => ['nullable', 'string', 'max:100'],
+            'meta_key' => ['nullable', 'string', 'max:50'],
+            'meta_value' => ['nullable', 'string', 'max:255'],
+            'sort_order' => ['nullable', 'integer'],
         ];
     }
 }

@@ -8,6 +8,9 @@ export interface AcademicItem {
     description: string | null
     sort_order: number
     status: boolean
+    icon: string | null
+    meta_key: string | null
+    meta_value: string | null
 
     academic_section?: {
         id: number

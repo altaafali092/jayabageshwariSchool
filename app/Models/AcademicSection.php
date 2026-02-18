@@ -24,9 +24,15 @@ class AcademicSection extends Model
     {
         return $this->belongsTo(AcademicLevel::class);
     }
-    public function academicItems()
+
+    public function academicItem()
     {
-        return $this->hasMany(AcademicItems::class)
+        return $this->hasMany(AcademicItems::class);
+    }
+
+    public function media()
+    {
+        return $this->morphMany(AcademicMedia::class, 'mediable')
             ->orderBy('sort_order');
     }
 }

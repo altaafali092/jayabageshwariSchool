@@ -18,7 +18,7 @@ class AcademicItemsController extends Controller
     public function index()
     {
 
-        $acedamicItems = AcademicItems::with('academicSections')->latest()->paginate(7);
+        $acedamicItems = AcademicItems::with('academicSection')->latest()->paginate(7);
         return Inertia::render('Admin/Acedamics/AcademicItems/Index', [
             'academicItems' => $acedamicItems,
         ]);
@@ -40,17 +40,21 @@ class AcademicItemsController extends Controller
      */
     public function store(StoreAcademicItemsRequest $request)
     {
+
         AcademicItems::create($request->validated());
-        return to_route('admin.academic-items.index')
+        return to_route('admin.academic-item.index')
             ->with('success', 'Academic Item created successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(AcademicItems $academicItem)
     {
-        //
+        $academicItem->load('academicSection');
+        return Inertia::render('Admin/Acedamics/AcademicItems/Show', [
+            'academicItem' => $academicItem,
+        ]);
     }
 
     /**
@@ -71,7 +75,7 @@ class AcademicItemsController extends Controller
     public function update(UpdateAcademicItemsRequest $request, AcademicItems $academicItem)
     {
         $academicItem->update($request->validated());
-        return to_route('admin.academic-items.index')
+        return to_route('admin.academic-item.index')
             ->with('success', 'Academic Item updated successfully');
     }
 

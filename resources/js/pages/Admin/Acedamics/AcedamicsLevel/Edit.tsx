@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import InputError from "@/components/input-error"
-
 import { ArrowLeft } from "lucide-react"
 import { type BreadcrumbItem } from "@/types"
 import { AcademicsLevel } from "@/types/admin/AcademicsLevel"
@@ -52,7 +51,7 @@ export default function Edit({ academicLevel }: Props) {
                     </div>
                 </div>
 
-                {/* Form */}
+                {/* FORM */}
                 <Card>
                     <CardHeader>
                         <CardTitle>Academic Level Details</CardTitle>
@@ -67,11 +66,8 @@ export default function Edit({ academicLevel }: Props) {
                                 <>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div className="space-y-2">
-                                            <Label htmlFor="title">
-                                                Academic Level Name <span className="text-red-500">*</span>
-                                            </Label>
+                                            <Label>Title *</Label>
                                             <Input
-                                                id="title"
                                                 name="title"
                                                 defaultValue={academicLevel.title}
                                             />
@@ -79,26 +75,17 @@ export default function Edit({ academicLevel }: Props) {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <Label htmlFor="slug">
-                                                Slug <span className="text-red-500">*</span>
-                                            </Label>
+                                            <Label>Slug *</Label>
                                             <Input
-                                                id="slug"
                                                 name="slug"
                                                 defaultValue={academicLevel.slug}
                                             />
                                             <InputError message={errors.slug} />
-                                            <p className="text-sm text-muted-foreground">
-                                                Must be unique and lowercase, use underscores instead of spaces.
-                                            </p>
                                         </div>
 
                                         <div className="space-y-2">
-                                            <Label htmlFor="badge">
-                                                Badge <span className="text-red-500">*</span>
-                                            </Label>
+                                            <Label>Badge *</Label>
                                             <Input
-                                                id="badge"
                                                 name="badge"
                                                 defaultValue={academicLevel.badge}
                                             />
@@ -106,40 +93,53 @@ export default function Edit({ academicLevel }: Props) {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <Label htmlFor="subtitle">Subtitle</Label>
+                                            <Label>Subtitle</Label>
                                             <Input
-                                                id="subtitle"
                                                 name="subtitle"
                                                 defaultValue={academicLevel.subtitle}
                                             />
-                                            <InputError message={errors.subtitle} />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="image">Image</Label>
+                                            <Input
+                                                id="image"
+                                                name="image"
+                                                type="file"
+
+                                            />
+                                            <InputError message={errors.image} />
+
                                         </div>
 
                                         <div className="space-y-2">
-                                            <Label htmlFor="sort_order">
-                                                Sort Order <span className="text-red-500">*</span>
-                                            </Label>
+                                            <Label>Sort Order *</Label>
                                             <Input
-                                                id="sort_order"
-                                                name="sort_order"
                                                 type="number"
+                                                name="sort_order"
                                                 defaultValue={academicLevel.sort_order}
                                             />
-                                            <InputError message={errors.sort_order} />
                                         </div>
                                     </div>
 
                                     <div className="space-y-2">
-                                        <Label htmlFor="description">Description</Label>
+                                        <Label>Description</Label>
                                         <Textarea
-                                            id="description"
                                             name="description"
                                             rows={4}
                                             defaultValue={academicLevel.description}
                                         />
-                                        <InputError message={errors.description} />
                                     </div>
 
+                                    <div className="space-y-2">
+                                        <label htmlFor="Old image">Old Image</label>
+                                        {academicLevel.image && (
+                                            <img
+                                                src={academicLevel.image}
+                                                alt={academicLevel.title}
+                                                className="w-32 h-32 object-cover rounded-md mb-2 border"
+                                            />
+                                        )}
+                                    </div>
                                     <div className="flex gap-2 pt-4">
                                         <Button type="submit">Update</Button>
                                         <Button
@@ -155,6 +155,7 @@ export default function Edit({ academicLevel }: Props) {
                         </Form>
                     </CardContent>
                 </Card>
+
             </div>
         </AppLayout>
     )

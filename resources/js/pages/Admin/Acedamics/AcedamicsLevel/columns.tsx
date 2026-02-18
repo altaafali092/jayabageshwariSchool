@@ -1,12 +1,11 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Link, router } from "@inertiajs/react";
-import { Pencil, Trash } from "lucide-react";
+import { Eye, Pencil, Trash } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
-
 import { AcademicsLevel } from "@/types/admin/AcademicsLevel";
 import { status } from "@/routes/admin/academicLevel";
-import { destroy, edit } from "@/routes/admin/academic-level";
+import { destroy, edit, show } from "@/routes/admin/academic-level";
 
 
 
@@ -67,11 +66,11 @@ export const columns: ColumnDef<AcademicsLevel>[] = [
                             <Pencil className="h-4 w-4" />
                         </Link>
                     </Button>
-                    {/* <Button variant="outline" size="sm" asChild>
-                        <Link href={show(slider.id)}>
-                            <ScanEye className="h-4 w-4" />
+                    <Button variant="outline" size="sm" asChild>
+                        <Link href={show(acedamiclevel.id)}>
+                            <Eye className="h-4 w-4" />
                         </Link>
-                    </Button> */}
+                    </Button>
                     <Button
                         variant="destructive"
                         size="sm"

@@ -22,12 +22,12 @@ export const columns: ColumnDef<AcademicItem>[] = [
     },
 
     {
-        accessorKey: "key",
-        header: "Key",
+        accessorKey: "title",
+        header: "Title",
     },
     {
-        accessorKey: "academic_level.title",
-        header: "Acedamics Level",
+        accessorKey: "academic_section.title",
+        header: "Section",
     },
 
     {

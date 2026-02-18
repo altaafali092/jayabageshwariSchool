@@ -27,14 +27,12 @@ class UpdateAcedamicLevelRequest extends FormRequest
 
         return [
             'title' => ['required', 'string', 'max:255'],
-
-
             'slug' => ['required', 'alpha_dash', Rule::unique('academic_levels', 'slug')->ignore($academicLevel)->withoutTrashed()],
-
             'badge' => ['nullable', 'string', 'max:255'],
             'subtitle' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'sort_order' => ['required', 'integer'],
+            'image' => ['nullable', 'image', 'max:2048'],
         ];
     }
 }

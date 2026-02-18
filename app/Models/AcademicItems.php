@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AcademicItems extends Model
 {
-     protected $fillable = [
+    protected $fillable = [
         'academic_section_id',
         'title',
         'description',
@@ -16,8 +16,13 @@ class AcademicItems extends Model
         'sort_order',
     ];
 
-    public function academicSections()
+    public function academicSection()
     {
         return $this->belongsTo(AcademicSection::class);
+    }
+    public function media()
+    {
+        return $this->morphMany(AcademicMedia::class, 'mediable')
+            ->orderBy('sort_order');
     }
 }

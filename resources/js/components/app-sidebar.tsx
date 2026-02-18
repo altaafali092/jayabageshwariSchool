@@ -24,8 +24,8 @@ import { index as facilityIndex } from '@/routes/admin/facility';
 import { index as AcademicLevelIndex } from '@/routes/admin/academic-level';
 import { index as AcademicSectionIndex } from '@/routes/admin/academic-section';
 
-import { index as sliderIndex } from '@/routes/admin/slider';
 import { index as AcademicItemIndex } from '@/routes/admin/academic-item';
+import { index as sliderIndex } from '@/routes/admin/slider';
 
 const mainNavItems: NavItem[] = [
     {

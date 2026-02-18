@@ -10,9 +10,8 @@ import FlashToast from '@/components/FlashToast'
 
 import { columns } from './columns'
 
-import { AcademicSection } from '@/types/admin/AcademicSection'
-import { create, index } from '@/routes/admin/academic-section'
 import { AcademicItem } from '@/types/admin/AcademicItems'
+import { create, index } from '@/routes/admin/academic-item'
 
 interface Props {
     academicItems: PaginatedData<AcademicItem>

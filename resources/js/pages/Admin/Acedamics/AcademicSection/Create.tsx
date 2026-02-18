@@ -21,7 +21,7 @@ interface Props {
     academicLevels: AcademicsLevel[];
 }
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: "Sliders", href: index().url },
+    { title: "Academic Section", href: index().url },
     { title: "Create", href: "#" },
 ]
 

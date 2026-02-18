@@ -113,6 +113,17 @@ export default function Create() {
 
                                             </div>
                                             <div className="space-y-2">
+                                                <Label htmlFor="image">Image</Label>
+                                                <Input
+                                                    id="image"
+                                                    name="image"
+                                                    type="file"
+
+                                                />
+                                                <InputError message={errors.image} />
+
+                                            </div>
+                                            <div className="space-y-2">
                                                 <Label htmlFor="sort_order">sort_order <span className="text-red-500">*</span></Label>
                                                 <Input
                                                     id="sort_order"
