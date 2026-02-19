@@ -11,6 +11,7 @@ export interface AcademicItem {
     icon: string | null
     meta_key: string | null
     meta_value: string | null
+    image: string | null
 
     academic_section?: {
         id: number

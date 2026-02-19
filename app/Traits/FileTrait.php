@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 trait FileTrait
 {
-    public function castingFile(string $defaultData = '', string $defaultPath = '', ?string $fileToDelete = null): Attribute
+    public function castingFile(string $defaultData = '', string $defaultPath = ''): Attribute
     {
         return Attribute::make(
 
@@ -24,7 +24,6 @@ trait FileTrait
                     return [];
                 }
 
-                // Convert file paths to URLs
                 return array_map(function ($file) use ($defaultData) {
                     if (filter_var($file, FILTER_VALIDATE_URL)) return $file;
                     if (Storage::disk('public')->exists($file)) {
@@ -35,36 +34,38 @@ trait FileTrait
             },
 
             // SETTER
-            set: function ($value) use ($defaultPath, $fileToDelete) {
+            set: function ($value, array $attributes) use ($defaultPath) {
+
+                // 🔥 DELETE OLD FILES
+                if (!empty($attributes['image'])) {
+                    $oldFiles = json_decode($attributes['image'], true) ?? [];
+
+                    foreach ($oldFiles as $oldFile) {
+                        if (Storage::disk('public')->exists($oldFile)) {
+                            Storage::disk('public')->delete($oldFile);
+                        }
+                    }
+                }
+
                 if (empty($value)) {
                     return null;
                 }
 
                 $storedFiles = [];
 
-                // Ensure $value is an array for uniform handling
                 if (!is_array($value)) {
                     $value = [$value];
                 }
 
                 foreach ($value as $file) {
-                    // If already a URL or string path → keep it
-                    if (is_string($file)) {
-                        $storedFiles[] = $file;
-                    }
-                    // If uploaded file → store it
-                    elseif ($file instanceof UploadedFile) {
 
-                        // Delete old file if specified (optional)
-                        if (!empty($fileToDelete) && Storage::disk('public')->exists($fileToDelete)) {
-                            Storage::disk('public')->delete($fileToDelete);
-                        }
-
+                    if ($file instanceof UploadedFile) {
                         $storedFiles[] = $file->store($defaultPath, 'public');
+                    } elseif (is_string($file)) {
+                        $storedFiles[] = $file;
                     }
                 }
 
-                // Store JSON string in DB
                 return json_encode($storedFiles);
             }
         );

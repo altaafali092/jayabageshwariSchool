@@ -23,11 +23,13 @@ class UpdateAcedamicLevelRequest extends FormRequest
 
     public function rules(): array
     {
+
         $academicLevel = $this->route('academicLevel'); // route-model binding
 
         return [
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'alpha_dash', Rule::unique('academic_levels', 'slug')->ignore($academicLevel)->withoutTrashed()],
+
+            'slug' => ['required', 'alpha_dash', Rule::unique('academic_levels', 'slug')->withoutTrashed()->ignore($this->$academicLevel)],
             'badge' => ['nullable', 'string', 'max:255'],
             'subtitle' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],

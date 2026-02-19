@@ -31,7 +31,6 @@ class StoreGalleryRequest extends FormRequest
             'video_url' => ['nullable', 'url', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
 
-            //
         ];
     }
 }

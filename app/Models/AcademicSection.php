@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\FileTrait;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AcademicSection extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, FileTrait;
 
     protected $fillable = [
         'academic_level_id',
@@ -17,6 +19,7 @@ class AcademicSection extends Model
         'subtitle',
         'description',
         'sort_order',
+        'image',
         'status',
     ];
 
@@ -30,9 +33,8 @@ class AcademicSection extends Model
         return $this->hasMany(AcademicItems::class);
     }
 
-    public function media()
+    public function image(): Attribute
     {
-        return $this->morphMany(AcademicMedia::class, 'mediable')
-            ->orderBy('sort_order');
+        return $this->castingFile(defaultPath: 'AcademicSection');
     }
 }

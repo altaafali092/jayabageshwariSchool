@@ -8,6 +8,7 @@ use App\Http\Requests\AcademicSection\UpdateAcademicSEctionRequest;
 use App\Models\AcademicLevel;
 use App\Models\AcademicSection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class AcademicSectionController extends Controller
@@ -74,16 +75,20 @@ class AcademicSectionController extends Controller
      */
     public function update(UpdateAcademicSEctionRequest $request, AcademicSection $academicSection)
     {
+
         $academicSection->update($request->validated());
-        return to_route('admin.academic-section.index', $academicSection->academic_level_id)
+        return to_route('admin.academic-section.index')
             ->with('success', 'Academic Section updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(AcademicSection $academicSection)
     {
+        
+        deleteFiles($academicSection->image);
         $academicSection->delete();
         return back()
             ->with('success', 'Academic Section deleted successfully');

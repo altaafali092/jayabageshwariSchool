@@ -133,6 +133,15 @@ export default function Create({ academicLevels }: Props) {
                                                 <InputError message={errors.sort_order} />
 
                                             </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="image">Image</Label>
+                                                <Input
+                                                    id="image"
+                                                    name="image"
+                                                    type="file"
+                                                />
+                                                <InputError message={errors.image} />
+                                            </div>
 
                                         </div>
 

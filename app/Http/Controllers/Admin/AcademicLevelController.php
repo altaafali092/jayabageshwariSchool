@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AcademicLevel\StoreAcedamicLevelRequest;
 use App\Http\Requests\AcademicLevel\UpdateAcedamicLevelRequest;
 use App\Models\AcademicLevel;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class AcademicLevelController extends Controller
@@ -66,6 +67,7 @@ class AcademicLevelController extends Controller
      */
     public function update(UpdateAcedamicLevelRequest $request, AcademicLevel $academicLevel)
     {
+
         $academicLevel->update($request->validated());
         return to_route('admin.academic-level.index')
             ->with('success', 'Academic Level updated successfully');
@@ -76,6 +78,7 @@ class AcademicLevelController extends Controller
      */
     public function destroy(AcademicLevel $academicLevel)
     {
+        deleteFiles($academicLevel->image);
         $academicLevel->delete();
         return back()
             ->with('success', 'Academic Level deleted successfully');

@@ -8,6 +8,7 @@ use App\Http\Requests\AcademicItems\UpdateAcademicItemsRequest;
 use App\Models\AcademicItems;
 use App\Models\AcademicSection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class AcademicItemsController extends Controller
@@ -74,7 +75,9 @@ class AcademicItemsController extends Controller
      */
     public function update(UpdateAcademicItemsRequest $request, AcademicItems $academicItem)
     {
+
         $academicItem->update($request->validated());
+
         return to_route('admin.academic-item.index')
             ->with('success', 'Academic Item updated successfully');
     }
@@ -84,6 +87,7 @@ class AcademicItemsController extends Controller
      */
     public function destroy(AcademicItems $academicItem)
     {
+        deleteFiles($academicItem->image);
         $academicItem->delete();
         return back()
             ->with('success', 'Academic Item deleted successfully');

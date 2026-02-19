@@ -62,12 +62,6 @@ export default function Create({ academicSections }: Props) {
                         {({ errors }) => (
                             <>
 
-                                {/* Hidden Section ID */}
-                                {/* <input
-                                    type="hidden"
-                                    name="academic_section_id"
-                                    value={academicSections}
-                                /> */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                                     {/* Title */}
@@ -112,6 +106,16 @@ export default function Create({ academicSections }: Props) {
                                             Use Lucide icon name exactly (case-sensitive)
                                         </p>
                                         <InputError message={errors.icon} />
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <Label>Image</Label>
+                                        <Input
+                                            name="image"
+                                            type="file"
+                                            accept="image/*"
+                                        />
+                                        <InputError message={errors.image} />
                                     </div>
 
                                     {/* Meta Fields */}

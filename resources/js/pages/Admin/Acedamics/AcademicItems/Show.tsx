@@ -101,7 +101,9 @@ export default function Show({ academicItem }: Props) {
                                 )}
                             </div>
                         </CardContent>
+
                     </Card>
+
 
                     {/* Sidebar / Meta Info */}
                     <div className="space-y-6">
@@ -119,6 +121,7 @@ export default function Show({ academicItem }: Props) {
                                     <p className="text-sm font-medium break-all">{academicItem.meta_value || "-"}</p>
                                 </div>
                             </CardContent>
+
                         </Card>
 
                         <Card>
@@ -136,6 +139,11 @@ export default function Show({ academicItem }: Props) {
                                 </div>
                             </CardContent>
                         </Card>
+
+                    </div>
+
+                    <div className="col-span-1">
+                        <img className="w-60 h-60" src={academicItem.image || "no image here "} alt="" />
                     </div>
                 </div>
             </div>

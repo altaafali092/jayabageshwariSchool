@@ -27,6 +27,7 @@ class UpdateAcademicSEctionRequest extends FormRequest
             'title' => ['nullable', 'string', 'max:255'],
             'subtitle' => ['nullable', 'string', 'max:255'],
             'sort_order' => ['nullable', 'integer'],
+            'image' => ['nullable', 'image', 'max:2048'],
             'description' => ['nullable', 'string'],
         ];
     }

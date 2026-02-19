@@ -3,12 +3,11 @@ import { Head, Link } from "@inertiajs/react"
 import AppLayout from "@/layouts/app-layout"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Edit, } from "lucide-react"
 import { type BreadcrumbItem } from "@/types"
 import { AcademicSection } from "@/types/admin/AcademicSection"
-import { index } from "@/routes/admin/academic-section"
+import { edit, index } from "@/routes/admin/academic-section"
+import { Badge } from "@/components/ui/badge"
 
 
 
@@ -44,75 +43,131 @@ export default function Show({ academicSection }: Props) {
 
                         <div>
                             <h1 className="text-2xl font-bold tracking-tight">
-                                Academic Section Details
+                                {academicSection.title}
                             </h1>
-                            <p className="text-muted-foreground">
-                                View academic section information.
-                            </p>
+
                         </div>
                     </div>
+
+                    <Button asChild>
+                        <Link href={edit(academicSection.id).url} className="flex items-center gap-2">
+                            <Edit className="h-4 w-4" />
+                            Edit
+                        </Link>
+                    </Button>
                 </div>
 
-                {/* Details Card */}
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Academic Section Information</CardTitle>
-                    </CardHeader>
+                {/* Content Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                    <CardContent className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Main Details */}
+                    <Card className="md:col-span-2">
+                        <CardHeader>
+                            <CardTitle>Academic Level Details</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                            {/* Academic Level */}
-                            <div className="space-y-1">
-                                <Label>Academic Level</Label>
-                                <p className="text-sm font-medium">
-                                    {academicSection.academic_level?.title ?? "-"}
-                                </p>
+                                {/* Title */}
+                                <div className="space-y-1">
+                                    <p className="text-sm font-medium text-muted-foreground">Title</p>
+                                    <p className="text-base font-medium">{academicSection.title || "-"}</p>
+                                </div>
+
+                                {/* Slug */}
+                                <div className="space-y-1">
+                                    <p className="text-sm font-medium text-muted-foreground">Academic Level</p>
+                                    <p className="text-base font-mono bg-muted px-2 py-1 rounded inline-block">
+                                        {academicSection.academic_level?.title || "-"}
+                                    </p>
+                                </div>
+
+
+                                <div className="space-y-1">
+                                    <p className="text-sm font-medium text-muted-foreground">Key</p>
+                                    <p className="text-base font-medium">{academicSection.key || "-"}</p>
+                                </div>
+
+
+
+                                <div className="space-y-1">
+                                    <p className="text-sm font-medium text-muted-foreground">Subtitle</p>
+                                    <p className="text-base font-medium">{academicSection.subtitle || "-"}</p>
+                                </div>
+
+                                {/* Sort Order */}
+                                <div className="space-y-1">
+                                    <p className="text-sm font-medium text-muted-foreground">Sort Order</p>
+                                    <p className="text-base font-medium">{academicSection.sort_order}</p>
+                                </div>
+
+                                {/* Status */}
+                                <div className="space-y-1">
+                                    <p className="text-sm font-medium text-muted-foreground">Status</p>
+                                    <Badge variant={academicSection.status ? "default" : "destructive"}>
+                                        {academicSection.status ? "Active" : "Inactive"}
+                                    </Badge>
+                                </div>
                             </div>
 
-                            {/* Key */}
+                            {/* Description */}
                             <div className="space-y-1">
-                                <Label>Section Key</Label>
-                                <p className="text-sm font-medium">
-                                    {academicSection.key}
-                                </p>
+                                <p className="text-sm font-medium text-muted-foreground">Description</p>
+                                {academicSection.description ? (
+                                    <p className="text-base leading-relaxed whitespace-pre-wrap">
+                                        {academicSection.description}
+                                    </p>
+                                ) : (
+                                    <p className="text-muted-foreground italic text-sm">No description provided.</p>
+                                )}
                             </div>
+                        </CardContent>
+                    </Card>
 
-                            {/* Title */}
-                            <div className="space-y-1">
-                                <Label>Title</Label>
-                                <p className="text-sm font-medium">
-                                    {academicSection.title ?? "-"}
-                                </p>
-                            </div>
+                    {/* Sidebar */}
+                    <div className="space-y-6">
 
-                            {/* Subtitle */}
-                            <div className="space-y-1">
-                                <Label>Subtitle</Label>
-                                <p className="text-sm font-medium">
-                                    {academicSection.subtitle ?? "-"}
-                                </p>
-                            </div>
+                        {/* Image Card */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Image</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                {academicSection.image ? (
+                                    <img
+                                        src={academicSection.image}
+                                        alt={academicSection.title}
+                                        className="w-full rounded-md object-cover aspect-video border"
+                                    />
+                                ) : (
+                                    <div className="w-full aspect-video rounded-md border bg-muted flex items-center justify-center">
+                                        <p className="text-sm text-muted-foreground">No image uploaded</p>
+                                    </div>
+                                )}
+                            </CardContent>
+                        </Card>
 
-                            {/* Sort Order */}
-                            <div className="space-y-1">
-                                <Label>Sort Order</Label>
-                                <p className="text-sm font-medium">
-                                    {academicSection.sort_order}
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Description */}
-                        <div className="space-y-1">
-                            <Label>Description</Label>
-                            <p className="text-sm text-muted-foreground">
-                                {academicSection.description || "No description provided."}
-                            </p>
-                        </div>
-                    </CardContent>
-                </Card>
+                        {/* System Info */}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>System Info</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div className="flex justify-between items-center text-sm">
+                                    <span className="text-muted-foreground">Created</span>
+                                    <span>{new Date(academicSection.created_at).toLocaleDateString()}</span>
+                                </div>
+                                <div className="flex justify-between items-center text-sm">
+                                    <span className="text-muted-foreground">Updated</span>
+                                    <span>{new Date(academicSection.updated_at).toLocaleDateString()}</span>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
             </div>
         </AppLayout>
     )
 }
+
+

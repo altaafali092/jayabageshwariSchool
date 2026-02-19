@@ -26,6 +26,7 @@ class UpdateAcademicItemsRequest extends FormRequest
             'title' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'icon' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'max:2048'],
             'meta_key' => ['nullable', 'string', 'max:255'],
             'meta_value' => ['nullable', 'string', 'max:255'],
             'sort_order' => ['nullable', 'integer'],

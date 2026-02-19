@@ -69,6 +69,7 @@ export default function Edit({ academicLevel }: Props) {
                                             <Label>Title *</Label>
                                             <Input
                                                 name="title"
+                                                type="text"
                                                 defaultValue={academicLevel.title}
                                             />
                                             <InputError message={errors.title} />
@@ -78,6 +79,7 @@ export default function Edit({ academicLevel }: Props) {
                                             <Label>Slug *</Label>
                                             <Input
                                                 name="slug"
+                                                type="text"
                                                 defaultValue={academicLevel.slug}
                                             />
                                             <InputError message={errors.slug} />
@@ -87,6 +89,7 @@ export default function Edit({ academicLevel }: Props) {
                                             <Label>Badge *</Label>
                                             <Input
                                                 name="badge"
+                                                type="text"
                                                 defaultValue={academicLevel.badge}
                                             />
                                             <InputError message={errors.badge} />
@@ -96,6 +99,7 @@ export default function Edit({ academicLevel }: Props) {
                                             <Label>Subtitle</Label>
                                             <Input
                                                 name="subtitle"
+                                                type="text"
                                                 defaultValue={academicLevel.subtitle}
                                             />
                                         </div>
@@ -125,6 +129,7 @@ export default function Edit({ academicLevel }: Props) {
                                         <Label>Description</Label>
                                         <Textarea
                                             name="description"
+                                            typeof="text"
                                             rows={4}
                                             defaultValue={academicLevel.description}
                                         />

@@ -111,6 +111,14 @@ export default function Edit({ academicItem, academicSections }: Props) {
                                         </p>
                                         <InputError message={errors.icon} />
                                     </div>
+                                    <div className="space-y-2">
+                                        <Label>Image</Label>
+                                        <Input
+                                            name="image"
+                                            type="file"
+                                        />
+                                        <InputError message={errors.image} />
+                                    </div>
 
                                     {/* Meta Key */}
                                     <div className="space-y-2">
@@ -156,6 +164,10 @@ export default function Edit({ academicItem, academicSections }: Props) {
                                         placeholder="Short descriptive text"
                                     />
                                     <InputError message={errors.description} />
+                                </div>
+                                <div >
+                                    <p>review of old image </p>
+                                    <img className="w-60 h-60" src={academicItem.image || "no image here "} alt={academicItem.title} />
                                 </div>
 
                                 {/* Submit */}

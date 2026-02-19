@@ -8,6 +8,7 @@ export interface AcademicSection {
     description: string | null
     sort_order: number
     status: boolean
+    image: string | null
 
     academic_level?: {
         id: number

@@ -12,8 +12,7 @@ import { type BreadcrumbItem } from "@/types"
 import { AcademicsLevel } from "@/types/admin/AcademicsLevel"
 import { AcademicSection } from "@/types/admin/AcademicSection"
 import { index, update } from "@/routes/admin/academic-section"
-import { destroyAcademicSection } from "@/routes/admin/academic-media"
-import { storeAcademicSection } from "@/actions/App/Http/Controllers/Admin/AcademicMediaController"
+
 
 
 
@@ -63,6 +62,7 @@ export default function Edit({ academicSection, academicLevels }: Props) {
                         <Form
                             action={update(academicSection.id).url}
                             method="post"
+                            encType="multipart/form-data"
                             className="space-y-6"
                         >
                             {({ errors }) => (
@@ -120,6 +120,15 @@ export default function Edit({ academicSection, academicLevels }: Props) {
                                             />
                                             <InputError message={errors.subtitle} />
                                         </div>
+                                        <div className="space-y-2">
+                                            <Label>Image</Label>
+                                            <Input
+                                                name="image"
+                                                type="file"
+
+                                            />
+                                            <InputError message={errors.image} />
+                                        </div>
 
                                         {/* Sort Order */}
                                         <div className="space-y-2">
@@ -146,6 +155,16 @@ export default function Edit({ academicSection, academicLevels }: Props) {
                                         <InputError message={errors.description} />
                                     </div>
 
+                                    <div>
+                                        {academicSection.image && (
+                                            <img
+                                                src={academicSection.image}
+                                                alt="Academic Section Image"
+                                                className="mt-2 h-48 w-48"
+                                            />
+                                        )}
+                                    </div>
+
                                     {/* Buttons */}
                                     <div className="flex gap-2 pt-4">
                                         <Button type="submit">Update</Button>
@@ -156,53 +175,6 @@ export default function Edit({ academicSection, academicLevels }: Props) {
                                 </>
                             )}
                         </Form>
-                    </CardContent>
-                </Card>
-
-
-                {/* 🔥 GALLERY SECTION */}
-                {/* Gallery */}
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Gallery</CardTitle>
-                    </CardHeader>
-
-                    <CardContent className="space-y-4">
-                        {/* Upload */}
-                        <Form
-                            action={storeAcademicSection(academicSection.id).url}
-                            method="post"
-                            encType="multipart/form-data"
-                        >
-                            <Input type="file" name="images[]" multiple accept="image/*" />
-                            <Button className="mt-2">Upload Images</Button>
-                        </Form>
-
-                        {/* Images */}
-                        {academicSection.media?.length > 0 && (
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {academicSection.media.map((image) => (
-                                    <div
-                                        key={image.id}
-                                        className="relative group rounded-md overflow-hidden border"
-                                    >
-                                        <img
-                                            src={`/storage/${image.file_path}`}
-                                            className="w-full h-32 object-cover"
-                                        />
-
-                                        <Form
-                                            action={destroyAcademicSection(image.id).url}
-                                            method="post"
-                                            className="absolute top-2 right-2 hidden group-hover:block"
-                                        >
-                                            <input type="hidden" name="_method" value="delete" />
-                                            <Button size="sm" variant="destructive">✕</Button>
-                                        </Form>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
                     </CardContent>
                 </Card>
 

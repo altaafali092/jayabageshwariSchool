@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Frontend\StoreContactFormRequest;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,6 +17,14 @@ class FrontController extends Controller
     public function contact()
     {
         return Inertia::render('frontend/Contact');
+    }
+    
+    public function contactForm(StoreContactFormRequest $request)
+    {
+        Contact::create($request->validated());
+        return back()->with([
+            'success' => 'Message sent successfully'
+        ]);
     }
 
     public function admissions()
