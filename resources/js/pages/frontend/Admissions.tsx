@@ -1,6 +1,6 @@
 import React from 'react';
 import FrontLayout from './Layouts/FrontLayout';
-import { Head } from '@inertiajs/react';
+import { Form, Head } from '@inertiajs/react';
 import {
     GraduationCap,
     FileText,
@@ -17,6 +17,10 @@ import {
     Clock,
     BookOpen
 } from 'lucide-react';
+import FormInput from '@/components/frontend/Admission/FormInput';
+import FormSelect from '@/components/frontend/Admission/FormSelect';
+import RequiredDocumnet from '@/components/frontend/Admission/RequiredDocumnet';
+
 
 const Admissions = () => {
     return (
@@ -102,28 +106,30 @@ const Admissions = () => {
                                         </div>
                                         <div className="p-8 lg:p-12">
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
-                                                {[
-                                                    { label: "First Name *", type: "text", placeholder: "e.g. Sujit" },
-                                                    { label: "Last Name *", type: "text", placeholder: "e.g. Bhandari" },
-                                                    { label: "Date of Birth *", type: "date" },
-                                                    { label: "Gender *", type: "select", options: ["Male", "Female", "Other"] },
-                                                    { label: "Grade Applying *", type: "select", options: ["Grade 8", "Nursery", "Grade 11"] },
-                                                    { label: "Nationality *", type: "text", value: "Nepalese" }
-                                                ].map((field, i) => (
-                                                    <div key={i} className="group/input relative space-y-2">
-                                                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1 group-focus-within/input:text-blue-600 dark:group-focus-within/input:text-blue-400 transition-colors">{field.label}</label>
-                                                        <div className="relative">
-                                                            {field.type === 'select' ? (
-                                                                <select className="w-full h-14 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl px-5 font-bold text-slate-900 dark:text-white outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-blue-600 dark:focus:border-blue-500 focus:ring-4 focus:ring-blue-600/5 transition-all appearance-none cursor-pointer">
-                                                                    {field.options?.map(opt => <option key={opt}>{opt}</option>)}
-                                                                </select>
-                                                            ) : (
-                                                                <input type={field.type} defaultValue={field.value} placeholder={field.placeholder} className="w-full h-14 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl px-5 font-bold text-slate-900 dark:text-white outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-blue-600 dark:focus:border-blue-500 focus:ring-4 focus:ring-blue-600/5 transition-all placeholder:text-slate-300 dark:placeholder:text-slate-600" />
-                                                            )}
-                                                            {field.type === 'select' && <ChevronRight className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 rotate-90 pointer-events-none" />}
-                                                        </div>
-                                                    </div>
-                                                ))}
+                                                <FormInput label="First Name *" name="first_name" required />
+                                                <FormInput label="Last Name *" name="last_name" required />
+                                                <FormInput label="Date of Birth *" type="date" name="dob" required />
+
+                                                <FormSelect
+                                                    label="Gender *"
+                                                    name="gender"
+                                                    required
+                                                    options={["Male", "Female", "Other"]}
+                                                />
+
+                                                <FormSelect
+                                                    label="Grade Applying *"
+                                                    name="grade"
+                                                    required
+                                                    options={["Grade 8", "Nursery", "Grade 11"]}
+                                                />
+
+                                                <FormInput
+                                                    label="Nationality *"
+                                                    name="nationality"
+                                                    defaultValue="Nepalese"
+                                                />
+
                                             </div>
                                         </div>
                                     </div>
@@ -144,131 +150,80 @@ const Admissions = () => {
                                         </div>
                                         <div className="p-8 lg:p-12">
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
-                                                {[
-                                                    { label: "Father's Name *", type: "text" },
-                                                    { label: "Mother's Name *", type: "text" },
-                                                    { label: "Parent's Phone *", type: "tel", placeholder: "+977" },
-                                                    { label: "Parent's Email *", type: "email", placeholder: "example@mail.com" },
-                                                    { label: "Permanent Address *", type: "text", full: true }
-                                                ].map((field, i) => (
-                                                    <div key={i} className={field.full ? "md:col-span-2 space-y-2" : "space-y-2"}>
-                                                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">{field.label}</label>
-                                                        <input type={field.type} placeholder={field.placeholder} className="w-full h-14 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl px-5 font-bold text-slate-900 dark:text-white outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-orange-600 dark:focus:border-orange-500 focus:ring-4 focus:ring-orange-600/5 transition-all placeholder:text-slate-300 dark:placeholder:text-slate-600" />
-                                                    </div>
-                                                ))}
+                                                <FormInput label="Father's Name" name="father_name" />
+                                                <FormInput label="Mother's Name" name="mother_name" />
+                                                <FormInput label="parent's Phone" name="parent_phone" />
+                                                <FormInput label="parent's Email" name="parent_email" />
+                                                <div className="md:col-span-2 space-y-2" >
+                                                    <FormInput label="permanent Address" name="permanent_address" />
+                                                </div>
+
+
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* SECTION: ACADEMIC & HEALTH */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                        <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-10 space-y-8 shadow-xl shadow-slate-900/2 dark:shadow-black/50 hover:shadow-2xl hover:shadow-blue-900/5 transition-all duration-500">
+                                    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-900/3 dark:shadow-black/50 overflow-hidden group/sec transition-all duration-500 hover:shadow-2xl hover:shadow-blue-900/5">
+                                        <div className="px-8 lg:px-12 py-10 bg-linear-to-r from-emerald-50/50 dark:from-emerald-900/20 to-transparent border-b border-slate-50 dark:border-slate-800 flex items-center justify-between">
                                             <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-slate-800 flex items-center justify-center text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/50">
+                                                <div className="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-center text-emerald-600 dark:text-emerald-500 group-hover/sec:bg-emerald-600 dark:group-hover/sec:bg-emerald-500 group-hover/sec:text-white transition-all duration-500">
                                                     <BookOpen className="w-5 h-5" />
                                                 </div>
-                                                <h3 className="text-lg font-black text-slate-900 dark:text-white uppercase italic tracking-tight">Academic</h3>
-                                            </div>
-                                            <div className="space-y-6">
-                                                <div className="space-y-2">
-                                                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Previous School</label>
-                                                    <input type="text" className="w-full h-14 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl px-5 font-bold text-slate-900 dark:text-white outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-blue-600 dark:focus:border-blue-500 transition-all" />
-                                                </div>
-                                                <div className="space-y-2">
-                                                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Last Grade</label>
-                                                    <input type="text" className="w-full h-14 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl px-5 font-bold text-slate-900 dark:text-white outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-blue-600 dark:focus:border-blue-500 transition-all" />
+                                                <div>
+                                                    <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight">Previous School Information</h3>
+                                                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pervious Infromation</p>
                                                 </div>
                                             </div>
+                                            <span className="text-4xl font-black text-slate-100 dark:text-slate-800 italic group-hover/sec:text-orange-50 dark:group-hover/sec:text-orange-900/50 transition-colors">03</span>
                                         </div>
 
-                                        <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-10 space-y-8 shadow-xl shadow-slate-900/2 dark:shadow-black/50 hover:shadow-2xl hover:shadow-blue-900/5 transition-all duration-500">
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-slate-800 flex items-center justify-center text-purple-600 dark:text-purple-400 border border-purple-100 dark:border-purple-900/50">
-                                                    <AlertCircle className="w-5 h-5" />
+                                        <div className="p-8 lg:p-12">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+
+                                                <div className="md:col-span-2 space-y-2">
+                                                    <FormInput label="Previous School Name *" name="pervious_school" />
+                                                    <FormInput label="Last Grade Completed *" name="last_grade" />
                                                 </div>
-                                                <h3 className="text-lg font-black text-slate-900 dark:text-white uppercase italic tracking-tight">Special Needs</h3>
-                                            </div>
-                                            <div className="space-y-6">
-                                                <div className="space-y-2">
-                                                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Medical (if any)</label>
-                                                    <textarea rows={1} className="w-full py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl px-5 font-bold text-slate-900 dark:text-white outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-purple-600 dark:focus:border-purple-500 transition-all resize-none" />
-                                                </div>
-                                                <div className="space-y-2">
-                                                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Requirements</label>
-                                                    <textarea rows={1} className="w-full py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl px-5 font-bold text-slate-900 dark:text-white outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-purple-600 dark:focus:border-purple-500 transition-all resize-none" />
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
 
-                                    <button className="w-full h-20 bg-slate-900 dark:bg-blue-600 text-white font-black rounded-[2.5rem] flex items-center justify-center gap-4 hover:bg-blue-600 dark:hover:bg-blue-700 shadow-2xl shadow-slate-900/10 dark:shadow-black/50 active:scale-[0.98] transition-all duration-500 uppercase tracking-[0.2em] italic group">
-                                        Finalize & Submit Application
+                                    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-900/3 dark:shadow-black/50 overflow-hidden group/sec transition-all duration-500 hover:shadow-2xl hover:shadow-blue-900/5">
+                                        <div className="px-8 lg:px-12 py-10 bg-linear-to-r from-green-50/50 dark:from-green-900/20 to-transparent border-b border-slate-50 dark:border-slate-800 flex items-center justify-between">
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-center text-green-600 dark:text-green-500 group-hover/sec:bg-green-600 dark:group-hover/sec:bg-green-500 group-hover/sec:text-white transition-all duration-500">
+                                                    <AlertCircle className="w-5 h-5" />
+                                                </div>
+                                                <div>
+                                                    <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight">Additional Information</h3>
+
+                                                </div>
+                                            </div>
+                                            <span className="text-4xl font-black text-slate-100 dark:text-slate-800 italic group-hover/sec:text-orange-50 dark:group-hover/sec:text-orange-900/50 transition-colors">04</span>
+                                        </div>
+
+                                        <div className="p-8 lg:p-12">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+                                                <div className="md:col-span-2 space-y-2">
+                                                    <FormInput label="Medical Information (if any)" name="medical" />
+                                                    <FormInput label="Require Special Attention (if any)" name="medical" />
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button className="w-80 h-12  bg-slate-900 dark:bg-blue-600 text-white font-black rounded-[2.5rem] flex items-center justify-center gap-4 hover:bg-blue-600 dark:hover:bg-blue-700 shadow-2xl shadow-slate-900/10 dark:shadow-black/50 active:scale-[0.98] transition-all duration-500 uppercase tracking-[0.2em] italic group">
+                                        Submit Application
                                         <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                                     </button>
                                 </div>
                             </div>
 
                             {/* SIDEBAR: DOCUMENTS & HELP */}
-                            <div className="lg:col-span-4 space-y-12">
-                                {/* Documents Checklist */}
-                                <div className="p-10 bg-slate-900 dark:bg-slate-900 rounded-[3rem] border dark:border-slate-800 text-white relative overflow-hidden group transition-colors duration-300">
-                                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-transform duration-700">
-                                        <FileText className="w-40 h-40" />
-                                    </div>
-                                    <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-8 relative z-10">Required <br />Documents</h3>
-                                    <ul className="space-y-5 relative z-10">
-                                        {[
-                                            "Passport size photograph (3 copies)",
-                                            "Birth certificate",
-                                            "Previous school transfer certificate",
-                                            "Last academic progress report",
-                                            "Citizenship certificate of parents",
-                                            "Student's citizenship certificate",
-                                            "Medical certificate",
-                                            "Duly filled application form"
-                                        ].map((item, i) => (
-                                            <li key={i} className="flex items-start gap-4 p-3 rounded-2xl bg-white/5 border border-transparent hover:border-white/10 transition-all">
-                                                <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center text-white shrink-0 mt-0.5">
-                                                    <CheckCircle2 className="w-3 h-3" />
-                                                </div>
-                                                <span className="text-[11px] font-bold leading-tight uppercase tracking-tight opacity-90">{item}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-
-                                {/* Help & Support */}
-                                <div className="p-10 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[3rem] shadow-xl shadow-slate-950/5 dark:shadow-black/50 space-y-8 transition-colors duration-300">
-                                    <div className="space-y-2">
-                                        <h3 className="text-2xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter leading-none">Need Help with <br />Admission?</h3>
-                                        <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-tight">Our admission team is here to assist you throughout the process</p>
-                                    </div>
-                                    <div className="space-y-6">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-slate-800 flex items-center justify-center text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-slate-700">
-                                                <Phone className="w-5 h-5" />
-                                            </div>
-                                            <div>
-                                                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Call Counselor</p>
-                                                <p className="text-sm font-black text-slate-950 dark:text-white italic">+977-081-533337</p>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-slate-800 flex items-center justify-center text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-slate-700">
-                                                <Clock className="w-5 h-5" />
-                                            </div>
-                                            <div>
-                                                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Office Hours</p>
-                                                <p className="text-sm font-black text-slate-950 dark:text-white italic">Sun - Fri: 9AM - 5PM</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button className="w-full h-14 border-2 border-slate-900/5 dark:border-slate-800 rounded-2xl flex items-center justify-center gap-3 font-black text-slate-900 dark:text-white uppercase tracking-widest text-xs hover:bg-slate-900 dark:hover:bg-blue-600 hover:text-white transition-all">
-                                        View FAQ
-                                        <ArrowRight className="w-4 h-4" />
-                                    </button>
-                                </div>
-                            </div>
+                            <RequiredDocumnet />
                         </div>
                     </div>
                 </section>

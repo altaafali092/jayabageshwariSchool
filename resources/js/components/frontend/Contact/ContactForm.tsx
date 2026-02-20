@@ -1,10 +1,13 @@
 
 import { contactForm } from "@/actions/App/Http/Controllers/FrontController";
 import InputError from "@/components/input-error";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { Form } from "@inertiajs/react";
-import { Send } from "lucide-react";
+import { Send, SendIcon } from "lucide-react";
 
 import React from 'react'
+import toast from "react-hot-toast";
 
 const ContactForm = () => {
     return (
@@ -17,9 +20,16 @@ const ContactForm = () => {
                 </div>
 
                 <Form action={contactForm().url} method="POST" encType="multipart/form-data"
+                    options={{
+                        preserveScroll: true,
+                        onSuccess: () => {
+                            toast.success('Message submitted successfully')
 
+                        },
+                    }}
+                    resetOnSuccess={['full_name', 'email', 'phone', 'subject', 'message']}
                     className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
-                    {({ errors }) => (
+                    {({ errors, processing }) => (
                         <>
                             <div className="space-y-3">
                                 <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest px-1">Full Name</label>
@@ -72,13 +82,20 @@ const ContactForm = () => {
                                 ></textarea>
                                 <InputError message={errors.message} />
                             </div>
-                            <div className="md:col-span-2">
-                                <button className="w-full h-18 bg-slate-950 dark:bg-blue-600 text-white font-black rounded-2xl flex items-center justify-center gap-4 hover:shadow-2xl hover:shadow-blue-600/20 dark:hover:shadow-blue-900/40 active:scale-[0.98] transition-all duration-500 overflow-hidden group/btn relative border border-transparent dark:border-blue-500/50">
-                                    <div className="absolute inset-0 bg-blue-600 dark:bg-blue-700 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
-                                    <span className="relative z-10 uppercase tracking-widest text-sm italic">Dispatch Message Now</span>
-                                    <Send className="relative z-10 w-5 h-5 group-hover/btn:translate-x-2 group-hover/btn:-translate-y-1 transition-transform" />
-                                </button>
+
+
+
+                            <div className="pt-6">
+                                <Button type="submit"
+                                    className="w-full h-14 bg-blue-600 dark:bg-blue-600 text-white font-black rounded-2xl flex items-center justify-center gap-3 hover:bg-slate-950 dark:hover:bg-blue-700 transition-all active:scale-[0.98] shadow-lg shadow-blue-600/20 dark:shadow-blue-900/40 uppercase tracking-widest text-xs italic"
+                                >
+
+                                    {processing && <Spinner />}
+                                    Dispatch Message <SendIcon className="h-4 w-4" />
+
+                                </Button>
                             </div>
+
                         </>
                     )}
                 </Form>

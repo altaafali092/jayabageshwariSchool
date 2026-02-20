@@ -27,6 +27,7 @@ import { index as AcademicSectionIndex } from '@/routes/admin/academic-section';
 import { index as AcademicItemIndex } from '@/routes/admin/academic-item';
 import { index as sliderIndex } from '@/routes/admin/slider';
 import { index as ContactIndex } from '@/routes/admin/contact';
+import { index as AdmisssionProcessIndex } from '@/routes/admin/admission-process';
 
 const mainNavItems: NavItem[] = [
     {
@@ -85,6 +86,23 @@ const mainNavItems: NavItem[] = [
                 title: 'Academic Items',
                 href: AcademicItemIndex(),
                 icon: StretchHorizontal,
+            }
+        ]
+    },
+    {
+        title: 'Admissions',
+        href: '#',
+        icon: GraduationCap,
+        items: [
+            {
+                title: 'Admission Process',
+                href: AdmisssionProcessIndex(),
+                icon: GraduationCap,
+            },
+            {
+                title: 'News,Notices & Event',
+                href: NewsEventIndex(),
+                icon: NotepadTextDashed,
             }
         ]
     },
