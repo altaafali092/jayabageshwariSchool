@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AcademicLevelController;
 use App\Http\Controllers\Admin\AcademicMediaController;
 use App\Http\Controllers\Admin\AcademicSectionController;
 use App\Http\Controllers\Admin\AdmissionProcessController;
+use App\Http\Controllers\Admin\AdmissionQueryController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
@@ -39,4 +40,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('admission-process', AdmissionProcessController::class);
     Route::get('admission-process/{admissionProcess}/status', [AdmissionProcessController::class, 'status'])->name('admissionProcess.status');
+    Route::resource('admission-query', AdmissionQueryController::class)->only(['index', 'show', 'destroy']);
 });

@@ -28,6 +28,7 @@ import { index as AcademicItemIndex } from '@/routes/admin/academic-item';
 import { index as sliderIndex } from '@/routes/admin/slider';
 import { index as ContactIndex } from '@/routes/admin/contact';
 import { index as AdmisssionProcessIndex } from '@/routes/admin/admission-process';
+import { index as AdmisssionQueryIndex } from '@/routes/admin/admission-query';
 
 const mainNavItems: NavItem[] = [
     {
@@ -100,9 +101,9 @@ const mainNavItems: NavItem[] = [
                 icon: GraduationCap,
             },
             {
-                title: 'News,Notices & Event',
-                href: NewsEventIndex(),
-                icon: NotepadTextDashed,
+                title: 'Admission Query',
+                href: AdmisssionQueryIndex(),
+                icon: MessageCircle,
             }
         ]
     },

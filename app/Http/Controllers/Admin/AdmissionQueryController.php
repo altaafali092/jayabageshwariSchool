@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdmissionQuery;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class AdmissionQueryController extends Controller
 {
@@ -12,54 +14,31 @@ class AdmissionQueryController extends Controller
      */
     public function index()
     {
-        //
+        $admissionQueries = AdmissionQuery::latest()->paginate(9);
+        return Inertia::render('Admin/Admission/AdmissionQuery/Index', [
+            'admissionQueries' => $admissionQueries,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function show(AdmissionQuery $admissionQuery)
     {
-        //
+        return Inertia::render('Admin/Admission/AdmissionQuery/Show', [
+            'admissionQuery' => $admissionQuery,
+            'grades' => config('GradeConfig.grade'),
+            'genders' => config('GenderConfig.genders'),
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(AdmissionQuery $admissionQuery)
     {
-        //
+        deleteFiles($admissionQuery->documents);
+        $admissionQuery->delete();
+        return back()->with('success', 'Admission Query deleted sucessfully');
     }
 }
