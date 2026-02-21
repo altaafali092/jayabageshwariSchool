@@ -10,6 +10,8 @@ Route::get('/', [FrontController::class, 'index'])->name('home');
 Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
 Route::post('/contact', [FrontController::class, 'contactForm'])->name('contact.form');
 Route::get('/admissions', [FrontController::class, 'admissions'])->name('admissions');
+Route::post('/admissions', [FrontController::class, 'admissionForm'])->name('admissions.form');
+
 Route::get('/news-events', [FrontController::class, 'news'])->name('news');
 Route::get('/notices', [FrontController::class, 'notices'])->name('notices');
 Route::get('/academics', [FrontController::class, 'academics'])->name('academics');

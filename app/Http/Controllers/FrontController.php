@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdmissionQuery\StoreAdmissionQueryRequest;
 use App\Http\Requests\Frontend\StoreContactFormRequest;
+use App\Models\AdmissionQuery;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -18,7 +20,7 @@ class FrontController extends Controller
     {
         return Inertia::render('frontend/Contact');
     }
-    
+
     public function contactForm(StoreContactFormRequest $request)
     {
         Contact::create($request->validated());
@@ -29,8 +31,21 @@ class FrontController extends Controller
 
     public function admissions()
     {
-        return Inertia::render('frontend/Admissions');
+        return Inertia::render('frontend/Admissions', [
+            'grades' => config('GradeConfig.grade'),
+            'genders' => config('GenderConfig.genders'),
+        ]);
     }
+
+    public function admissionForm(StoreAdmissionQueryRequest $request)
+    {
+        AdmissionQuery::create($request->validated());
+
+        return to_route('admissions')->with([
+            'success' => 'Admission form submitted successfully'
+        ]);
+    }
+
     public function news()
     {
         return Inertia::render('frontend/NewsEvents');

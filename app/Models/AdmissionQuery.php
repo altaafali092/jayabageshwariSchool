@@ -36,6 +36,6 @@ class AdmissionQuery extends Model
     ];
     public function documents(): Attribute
     {
-        return $this->castingFile(defaultPath: 'admission-query-documents');
+        return $this->castingFile(defaultPath: 'admission-query-documents', field: 'documents');
     }
 }

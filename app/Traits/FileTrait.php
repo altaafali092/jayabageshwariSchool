@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 trait FileTrait
 {
-    public function castingFile(string $defaultData = '', string $defaultPath = ''): Attribute
+    public function castingFile(string $defaultData = '', string $defaultPath = '', string $field = 'image'): Attribute
     {
         return Attribute::make(
 
@@ -34,11 +34,11 @@ trait FileTrait
             },
 
             // SETTER
-            set: function ($value, array $attributes) use ($defaultPath) {
+            set: function ($value, array $attributes) use ($defaultPath, $field) {
 
                 // 🔥 DELETE OLD FILES
-                if (!empty($attributes['image'])) {
-                    $oldFiles = json_decode($attributes['image'], true) ?? [];
+                if (!empty($attributes[$field])) {
+                    $oldFiles = json_decode($attributes[$field], true) ?? [];
 
                     foreach ($oldFiles as $oldFile) {
                         if (Storage::disk('public')->exists($oldFile)) {
