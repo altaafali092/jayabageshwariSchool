@@ -29,6 +29,7 @@ import { index as sliderIndex } from '@/routes/admin/slider';
 import { index as ContactIndex } from '@/routes/admin/contact';
 import { index as AdmisssionProcessIndex } from '@/routes/admin/admission-process';
 import { index as AdmisssionQueryIndex } from '@/routes/admin/admission-query';
+import { create } from '@/routes/admin/office-setting';
 
 const mainNavItems: NavItem[] = [
     {
@@ -110,6 +111,11 @@ const mainNavItems: NavItem[] = [
     {
         title: "Contact Message",
         href: ContactIndex(),
+        icon: MessageCircle
+    },
+    {
+        title: "Office Setting",
+        href: create(),
         icon: MessageCircle
     }
 

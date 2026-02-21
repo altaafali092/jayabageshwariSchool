@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\NewsEventController;
+use App\Http\Controllers\Admin\OfficeSettingController;
 use App\Http\Controllers\Admin\SliderController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +42,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('admission-process', AdmissionProcessController::class);
     Route::get('admission-process/{admissionProcess}/status', [AdmissionProcessController::class, 'status'])->name('admissionProcess.status');
     Route::resource('admission-query', AdmissionQueryController::class)->only(['index', 'show', 'destroy']);
+    Route::get('office-setting', [OfficeSettingController::class, 'create'])->name('office-setting.create');
+    Route::post('office-setting', [OfficeSettingController::class, 'store'])->name('office-setting.store');
 });
