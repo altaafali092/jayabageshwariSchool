@@ -31,7 +31,7 @@ export default function StaffIndex({ staffs }: Props) {
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-2xl tracking-tight uppercase italic font-black">Staff <span className="text-blue-600">Members</span></h1>
+                        <h1 className="text-xl tracking-tight uppercase font-black">Staff Members</h1>
                         <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
                             Manage school personnel, faculty profiles, and institutional hierarchy.
                         </p>

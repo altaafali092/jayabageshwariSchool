@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import FrontLayout from './Layouts/FrontLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import {
     Users,
     Mail,
@@ -12,21 +12,57 @@ import {
     ChevronRight,
     Briefcase,
     GraduationCap,
-    Heart
+    Heart,
+    ChevronLeft,
+    Filter
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Staff } from '@/types/admin/Staff';
+import { staffShow } from '@/actions/App/Http/Controllers/FrontController';
+import { staff } from '@/routes';
 
 interface Props {
     staffs: Record<string, Staff[]>;
+    departments: Record<string, string[]>;
 }
 
-const StaffPage = ({ staffs }: Props) => {
+const StaffView = ({ staffs, departments }: Props) => {
+    const [searchQuery, setSearchQuery] = useState('');
+    const [activeDept, setActiveDept] = useState<string | null>(null);
+
+    // Flatten staff for searching but keep structure for viewing
+    const filteredStaffs = useMemo(() => {
+        const result: Record<string, Staff[]> = {};
+
+        Object.entries(staffs).forEach(([dept, members]) => {
+            // Filter by department if one is selected
+            if (activeDept && dept !== activeDept) return;
+
+            const filteredMembers = members.filter(member =>
+                member.full_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                member.designation.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                member.department.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+
+            if (filteredMembers.length > 0) {
+                result[dept] = filteredMembers;
+            }
+        });
+
+        return result;
+    }, [staffs, searchQuery, activeDept]);
+
+    const totalResults = useMemo(() =>
+        Object.values(filteredStaffs).reduce((acc, curr) => acc + curr.length, 0),
+        [filteredStaffs]);
+
     return (
         <FrontLayout>
             <Head title="Our Faculty & Staff - Jaya Bageshwori" />
 
-            <main className="flex-1 bg-white dark:bg-slate-950 transition-colors duration-300">
+            <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-500">
                 {/* ================= HERO SECTION ================= */}
                 <section className="relative pt-32 pb-24 bg-blue-950 overflow-hidden">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--tw-gradient-stops))] from-blue-900/40 via-transparent to-transparent" />
@@ -44,107 +80,153 @@ const StaffPage = ({ staffs }: Props) => {
                     </div>
                 </section>
 
-                {/* ================= DEPARTMENTS ================= */}
-                <div className="space-y-32 py-32">
-                    {Object.entries(staffs).length > 0 ? (
-                        Object.entries(staffs).map(([dept, members], deptIdx) => (
-                            <section key={dept} className={cn(
-                                "container mx-auto px-6 lg:px-20",
-                                deptIdx % 2 === 1 ? "relative" : ""
-                            )}>
-                                {/* Department Header */}
-                                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 border-b border-slate-100 dark:border-slate-800 pb-8">
-                                    <div className="space-y-4">
-                                        <span className="text-[10px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-[0.3em]">Department</span>
-                                        <h2 className="text-3xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter">
-                                            {dept || 'General Administration'}
+                {/* ================= SEARCH & FILTERS ================= */}
+                <div className="sticky top-20 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-100 dark:border-slate-800 py-8">
+                    <div className="container mx-auto px-6 lg:px-20 space-y-8">
+                        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                            {/* Search */}
+                            <div className="relative flex-1 max-w-xl">
+                                <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                <Input
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    placeholder="Search by name, designation, or role..."
+                                    className="h-14 pl-14 pr-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border-none text-xs font-bold uppercase tracking-widest focus-visible:ring-2 focus-visible:ring-blue-600 transition-all"
+                                />
+                            </div>
+
+                            {/* Result Count */}
+                            <div className="flex items-center gap-3">
+                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                    Displaying {totalResults} Staff Members
+                                </span>
+                                {(searchQuery || activeDept) && (
+                                    <button
+                                        onClick={() => { setSearchQuery(''); setActiveDept(null); }}
+                                        className="text-[10px] font-black text-blue-600 uppercase tracking-widest hover:underline"
+                                    >
+                                        Clear Filters
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Department Chips */}
+                        <div className="flex flex-wrap gap-2">
+                            <button
+                                onClick={() => setActiveDept(null)}
+                                className={cn(
+                                    "px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all",
+                                    activeDept === null
+                                        ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-600/20"
+                                        : "bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 text-slate-400 hover:border-blue-600"
+                                )}
+                            >
+                                All Divisions
+                            </button>
+                            {Object.keys(staffs).map((dept) => (
+                                <button
+                                    key={dept}
+                                    onClick={() => setActiveDept(dept)}
+                                    className={cn(
+                                        "px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all",
+                                        activeDept === dept
+                                            ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-600/20"
+                                            : "bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 text-slate-400 hover:border-blue-600"
+                                    )}
+                                >
+                                    {dept}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* ================= STAFF GRID ================= */}
+                <div className="container mx-auto px-6 lg:px-20 py-20">
+                    {Object.entries(filteredStaffs).length > 0 ? (
+                        <div className="space-y-32">
+                            {Object.entries(filteredStaffs).map(([dept, members]) => (
+                                <section key={dept} className="space-y-12">
+                                    {/* Department Category Header */}
+                                    <div className="flex items-center gap-4">
+                                        <div className="h-[2px] w-12 bg-blue-600 rounded-full" />
+                                        <h2 className="text-2xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter">
+                                            {dept || 'General Wing'}
                                         </h2>
                                     </div>
-                                    <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-widest max-w-xs md:text-right">
-                                        Core professionals driving excellence within the {dept} division.
-                                    </p>
-                                </div>
 
-                                {/* Members Grid */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                                    {members.map((member, i) => (
-                                        <div key={member.id} className="group bg-white dark:bg-slate-900/50 rounded-[2.5rem] border border-slate-100 dark:border-slate-800/50 overflow-hidden hover:shadow-2xl hover:shadow-blue-900/5 dark:hover:shadow-black/20 transition-all duration-500 hover:-translate-y-2">
-                                            <div className="relative aspect-4/5 overflow-hidden">
-                                                <img
-                                                    src={member.image || 'https://images.unsplash.com/photo-1556155092-490a1ba16284?auto=format&fit=crop&q=80&w=400'}
-                                                    alt={member.full_name}
-                                                    className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110"
-                                                />
-                                                <div className="absolute inset-0 bg-blue-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                                        {members.map((member) => (
+                                            <div key={member.id} className="group relative bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 p-5">
+                                                {/* Portrait - Smaller & Centered Badge Style */}
+                                                <div className="relative aspect-square overflow-hidden rounded-[2rem] mb-6">
+                                                    <img
+                                                        src={member.image}
+                                                        alt={member.full_name}
+                                                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                                                    />
+                                                    {/* Sophisticated Hover Tint */}
+                                                    <div className="absolute inset-0 bg-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                                                {/* Social Overlay */}
-                                                <div className="absolute bottom-6 left-6 right-6 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center gap-3">
-                                                    {member.fb_url && (
-                                                        <a href={member.fb_url} target="_blank" className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-blue-600 transition-colors">
-                                                            <Facebook className="w-4 h-4" />
-                                                        </a>
-                                                    )}
-                                                    {member.linkedin_url && (
-                                                        <a href={member.linkedin_url} target="_blank" className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-blue-600 transition-colors">
-                                                            <Linkedin className="w-4 h-4" />
-                                                        </a>
-                                                    )}
-                                                    {member.insta_url && (
-                                                        <a href={member.insta_url} target="_blank" className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-pink-600 transition-colors">
-                                                            <Instagram className="w-4 h-4" />
-                                                        </a>
-                                                    )}
-                                                    {member.email && (
-                                                        <a href={`mailto:${member.email}`} className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-emerald-600 transition-colors">
-                                                            <Mail className="w-4 h-4" />
-                                                        </a>
-                                                    )}
+                                                    {/* Quick View Link (Overlay) */}
+                                                    <Link
+                                                        href={staffShow(member.id)}
+                                                        className="absolute inset-0 flex items-center justify-center bg-slate-950/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500"
+                                                    >
+                                                        <div className="px-6 py-3 bg-white rounded-xl text-[9px] font-black uppercase tracking-widest text-slate-900">
+                                                            View Profile
+                                                        </div>
+                                                    </Link>
+                                                </div>
+
+                                                <div className="space-y-4">
+                                                    <div className="space-y-1">
+                                                        <h3 className="text-sm lg:text-base font-black text-slate-900 dark:text-white uppercase italic tracking-tight leading-none group-hover:text-blue-600 transition-colors line-clamp-1">
+                                                            {member.full_name}
+                                                        </h3>
+                                                        <p className="text-[9px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest">
+                                                            {member.designation}
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="pt-4 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
+                                                        <div className="flex items-center gap-2">
+                                                            <div className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                                                            <span className="text-[8px] font-black text-slate-400 dark:text-slate-600 uppercase tracking-widest">
+                                                                {dept || 'Faculty'}
+                                                            </span>
+                                                        </div>
+                                                        {member.phone && (
+                                                            <span className="text-[8px] font-bold text-slate-400 dark:text-slate-500">
+                                                                {member.phone}
+                                                            </span>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            <div className="p-8 space-y-4">
-                                                <div className="space-y-1">
-                                                    <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase italic tracking-tight leading-tight group-hover:text-blue-600 transition-colors">
-                                                        {member.full_name}
-                                                    </h3>
-                                                    <p className="text-[10px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-[0.2em]">
-                                                        {member.designation}
-                                                    </p>
-                                                </div>
-
-                                                {member.bio && (
-                                                    <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 italic leading-relaxed line-clamp-2">
-                                                        "{member.bio}"
-                                                    </p>
-                                                )}
-
-                                                <div className="pt-4 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
-                                                    <span className="text-[9px] font-black text-slate-400 dark:text-slate-600 uppercase tracking-widest flex items-center gap-2">
-                                                        <Briefcase className="w-3 h-3" />
-                                                        {dept || 'Faculty'}
-                                                    </span>
-                                                    {member.phone && (
-                                                        <span className="text-[9px] font-bold text-slate-500 dark:text-slate-500">
-                                                            {member.phone}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
-                        ))
+                                        ))}
+                                    </div>
+                                </section>
+                            ))}
+                        </div>
                     ) : (
-                        <section className="container mx-auto px-6 py-32 text-center space-y-8">
-                            <div className="w-20 h-20 bg-slate-50 dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto">
-                                <Users className="w-10 h-10 text-slate-200 dark:text-slate-800" />
+                        <div className="py-32 text-center space-y-8">
+                            <div className="w-24 h-24 bg-slate-50 dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto">
+                                <Search className="w-10 h-10 text-slate-200 dark:text-slate-800" />
                             </div>
-                            <div className="space-y-2">
-                                <h2 className="text-2xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter">Directory Synchronizing</h2>
-                                <p className="text-slate-400 font-bold text-xs uppercase tracking-widest">Our staff profiles are currently being updated. Please check back soon.</p>
+                            <div className="space-y-3">
+                                <h2 className="text-3xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter">No Personnel Found</h2>
+                                <p className="text-slate-400 font-bold text-xs uppercase tracking-widest max-w-xs mx-auto">We couldn't find any staff matching "{searchQuery}" in our directory.</p>
+                                <Button
+                                    variant="ghost"
+                                    onClick={() => { setSearchQuery(''); setActiveDept(null); }}
+                                    className="text-[10px] font-black text-blue-600 uppercase tracking-widest"
+                                >
+                                    Reset Search Filters
+                                </Button>
                             </div>
-                        </section>
+                        </div>
                     )}
                 </div>
 
@@ -165,9 +247,9 @@ const StaffPage = ({ staffs }: Props) => {
                         </div>
                     </div>
                 </section>
-            </main>
+            </div>
         </FrontLayout>
     );
 };
 
-export default StaffPage;
+export default StaffView;

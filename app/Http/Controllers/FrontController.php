@@ -6,6 +6,7 @@ use App\Http\Requests\AdmissionQuery\StoreAdmissionQueryRequest;
 use App\Http\Requests\Frontend\StoreContactFormRequest;
 use App\Models\AdmissionQuery;
 use App\Models\Contact;
+use App\Models\Staff;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -106,7 +107,7 @@ class FrontController extends Controller
 
     public function staff()
     {
-        $staffs = \App\Models\Staff::where('is_active', true)
+        $staffs = Staff::where('is_active', true)
             ->orderBy('sort_order')
             ->orderBy('full_name')
             ->get()
@@ -114,6 +115,14 @@ class FrontController extends Controller
 
         return Inertia::render('frontend/Staff', [
             'staffs' => $staffs,
+            'departments' => config('StaffConfig.departments')
+        ]);
+    }
+
+    public function staffShow(Staff $staff)
+    {
+        return Inertia::render('frontend/StaffDetail', [
+            'staff' => $staff
         ]);
     }
 }
