@@ -81,7 +81,7 @@ const StaffView = ({ staffs, departments }: Props) => {
                 </section>
 
                 {/* ================= SEARCH & FILTERS ================= */}
-                <div className="sticky top-20 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-100 dark:border-slate-800 py-8">
+                <div className="sticky top-20 z-40 bg-gray-200 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-100 dark:border-slate-800 py-8">
                     <div className="container mx-auto px-6 lg:px-20 space-y-8">
                         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                             {/* Search */}
@@ -124,7 +124,7 @@ const StaffView = ({ staffs, departments }: Props) => {
                             >
                                 All Divisions
                             </button>
-                            {Object.keys(staffs).map((dept) => (
+                            {Object.keys(departments).map((dept) => (
                                 <button
                                     key={dept}
                                     onClick={() => setActiveDept(dept)}
