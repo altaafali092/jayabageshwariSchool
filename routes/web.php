@@ -20,6 +20,7 @@ Route::get('/about/history', [FrontController::class, 'history'])->name('about.h
 Route::get('/about/mission-vision', [FrontController::class, 'missionVision'])->name('about.mission');
 Route::get('/about/management', [FrontController::class, 'management'])->name('about.management');
 Route::get('/about/why-choose-us', [FrontController::class, 'whyChooseUs'])->name('about.why-us');
+Route::get('/staff', [FrontController::class, 'staff'])->name('staff');
 Route::get('/gallery', [FrontController::class, 'gallery'])->name('gallery');
 
 require __DIR__ . '/settings.php';

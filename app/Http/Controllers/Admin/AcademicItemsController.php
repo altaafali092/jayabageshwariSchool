@@ -77,7 +77,6 @@ class AcademicItemsController extends Controller
     {
 
         $academicItem->update($request->validated());
-
         return to_route('admin.academic-item.index')
             ->with('success', 'Academic Item updated successfully');
     }

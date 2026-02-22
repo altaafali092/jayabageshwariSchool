@@ -103,4 +103,17 @@ class FrontController extends Controller
     {
         return Inertia::render('frontend/Gallery');
     }
+
+    public function staff()
+    {
+        $staffs = \App\Models\Staff::where('is_active', true)
+            ->orderBy('sort_order')
+            ->orderBy('full_name')
+            ->get()
+            ->groupBy('department');
+
+        return Inertia::render('frontend/Staff', [
+            'staffs' => $staffs,
+        ]);
+    }
 }

@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, GalleryVerticalEndIcon, GraduationCap, Images, LayoutGrid, MessageCircle, Newspaper, NotepadTextDashed, School, School2, StretchHorizontal } from 'lucide-react';
+import { BookOpen, Folder, GalleryVerticalEndIcon, GraduationCap, Images, LayoutGrid, MessageCircle, Newspaper, NotepadTextDashed, School, School2, StretchHorizontal, Users } from 'lucide-react';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -29,6 +29,7 @@ import { index as sliderIndex } from '@/routes/admin/slider';
 import { index as ContactIndex } from '@/routes/admin/contact';
 import { index as AdmisssionProcessIndex } from '@/routes/admin/admission-process';
 import { index as AdmisssionQueryIndex } from '@/routes/admin/admission-query';
+import { index as StaffIndex } from '@/routes/admin/staff';
 import { create } from '@/routes/admin/office-setting';
 
 const mainNavItems: NavItem[] = [
@@ -117,6 +118,11 @@ const mainNavItems: NavItem[] = [
         title: "Office Setting",
         href: create(),
         icon: MessageCircle
+    },
+    {
+        title: "Staff Members",
+        href: StaffIndex(),
+        icon: Users
     }
 
 ];

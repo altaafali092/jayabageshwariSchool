@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\NewsEventController;
 use App\Http\Controllers\Admin\OfficeSettingController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\StaffController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -44,4 +45,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('admission-query', AdmissionQueryController::class)->only(['index', 'show', 'destroy']);
     Route::get('office-setting', [OfficeSettingController::class, 'create'])->name('office-setting.create');
     Route::post('office-setting', [OfficeSettingController::class, 'store'])->name('office-setting.store');
+    Route::resource('staff', StaffController::class);
+    Route::get('staff/{staff}/status', [StaffController::class, 'status'])->name('staff.status');
 });

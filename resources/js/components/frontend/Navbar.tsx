@@ -60,6 +60,7 @@ export default function Navbar() {
                 { name: 'Our History', href: '/about/history', description: 'Transforming lives since 1995' },
                 { name: 'Mission & Vision', href: '/about/mission-vision', description: 'Our goals and aspirations' },
                 { name: 'Management Team', href: '/about/management', description: 'Experienced leadership' },
+                { name: 'Staff Directory', href: '/staff', description: 'Meet our dedicated faculty' },
                 { name: 'Why Choose Us', href: '/about/why-choose-us', description: 'Academic excellence and innovation' },
                 { name: 'Our Campus', href: '/gallery', description: 'Take a look at our world-class facilities' },
             ],
