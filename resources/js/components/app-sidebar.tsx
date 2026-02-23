@@ -16,8 +16,6 @@ import {
 import type { NavItem } from '@/types';
 import AppLogo from './app-logo';
 import { dashboard } from '@/actions/App/Http/Controllers/Admin/DashboardController';
-
-import { index as newsCategoryIndex } from '@/routes/admin/news-category';
 import { index as NewsEventIndex } from '@/routes/admin/news-event';
 import { index as galleryIndex } from '@/routes/admin/gallery';
 import { index as facilityIndex } from '@/routes/admin/facility';
@@ -53,22 +51,11 @@ const mainNavItems: NavItem[] = [
         href: facilityIndex(),
         icon: Images,
     },
+
     {
-        title: 'News & Notices',
-        href: '#',
-        icon: Newspaper,
-        items: [
-            {
-                title: 'Category',
-                href: newsCategoryIndex(),
-                icon: Newspaper,
-            },
-            {
-                title: 'News,Notices & Event',
-                href: NewsEventIndex(),
-                icon: NotepadTextDashed,
-            }
-        ]
+        title: 'News,Notices & Event',
+        href: NewsEventIndex(),
+        icon: NotepadTextDashed,
     },
     {
         title: 'Academics',

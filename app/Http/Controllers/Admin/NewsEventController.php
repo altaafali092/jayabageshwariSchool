@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\NewsEventEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsAndEvents\NewsEvent\StoreNewsEventRequest;
 use App\Http\Requests\NewsAndEvents\NewsEvent\UpdateNewsEventRequest;
@@ -17,9 +18,15 @@ class NewsEventController extends Controller
      */
     public function index()
     {
-        $newsEvents = NewsEvent::latest()->paginate(7);
+        $categories = NewsEventEnum::getValuesWithLabels();
+        $newsEvents = NewsEvent::latest();
+        if (request()->has('type')) {
+            $newsEvents->where('category', request('type'));
+        }
+        $newsEvents = $newsEvents->paginate(7);
         return Inertia::render('Admin/NewsEvent/News&Event/Index', [
             'newsEvents' => $newsEvents,
+            'categories' => $categories,
         ]);
     }
 
@@ -28,9 +35,11 @@ class NewsEventController extends Controller
      */
     public function create()
     {
+        $categories = NewsEventEnum::getValuesWithLabels();
         $newsCategories = NewsCategory::where('status', true)->get();
         return Inertia::render('Admin/NewsEvent/News&Event/Create', [
             'newsCategories' => $newsCategories,
+            'categories' => $categories,
         ]);
     }
 
@@ -49,7 +58,6 @@ class NewsEventController extends Controller
      */
     public function show(NewsEvent $newsEvent)
     {
-        $newsEvent->load('newsCategory');
         return Inertia::render('Admin/NewsEvent/News&Event/Show', [
             'newsEvent' => $newsEvent,
         ]);
@@ -60,11 +68,10 @@ class NewsEventController extends Controller
      */
     public function edit(NewsEvent $newsEvent)
     {
-        $newsCategories = NewsCategory::where('status', true)->get();
-        $newsEvent->load('newsCategory');
+        $categories = NewsEventEnum::getValuesWithLabels();
         return Inertia::render('Admin/NewsEvent/News&Event/Edit', [
             'newsEvent' => $newsEvent,
-            'newsCategories' => $newsCategories,
+            'categories' => $categories,
         ]);
     }
 

@@ -17,13 +17,17 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: "News & Event", href: index().url },
     { title: "Edit", href: "#" },
 ]
+interface Category {
+    label: string;
+    value: string;
+}
 
 interface EditProps {
-    newsCategories: NewsCategory[]
+    categories: Category[]
     newsEvent: NewsEvent
 }
 
-export default function Edit({ newsCategories, newsEvent }: EditProps) {
+export default function Edit({ categories, newsEvent }: EditProps) {
     const handleCancel = () => window.history.back()
 
     const [previewImages, setPreviewImages] = useState<string[]>([])
@@ -86,18 +90,18 @@ export default function Edit({ newsCategories, newsEvent }: EditProps) {
                                                 Category <span className="text-red-500">*</span>
                                             </Label>
                                             <select
-                                                name="news_category_id"
-                                                defaultValue={newsEvent.news_category_id}
+                                                name="category"
+                                                defaultValue={newsEvent.category}
                                                 className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:ring-2 focus:ring-ring"
                                             >
                                                 <option value="">Select Category</option>
-                                                {newsCategories.map(category => (
-                                                    <option key={category.id} value={category.id}>
-                                                        {category.title}
+                                                {categories.map(category => (
+                                                    <option key={category.value} value={category.value}>
+                                                        {category.label}
                                                     </option>
                                                 ))}
                                             </select>
-                                            <InputError message={errors.news_category_id} />
+                                            <InputError message={errors.category} />
                                         </div>
 
                                         {/* Title */}

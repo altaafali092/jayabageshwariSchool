@@ -6,6 +6,8 @@ use App\Http\Requests\AdmissionQuery\StoreAdmissionQueryRequest;
 use App\Http\Requests\Frontend\StoreContactFormRequest;
 use App\Models\AdmissionQuery;
 use App\Models\Contact;
+use App\Models\NewsEvent;
+use App\Models\slider;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,7 +16,14 @@ class FrontController extends Controller
 {
     public function index()
     {
-        return Inertia::render('frontend/welcome');
+        $sliders = slider::where('status', true)->latest()->limit(5)->get();
+        $notices = NewsEvent::where(['status' => true, 'category' => 'notice'])->latest()->limit(5)->get();
+        $events = NewsEvent::where('status', true)->whereIn('category', ['notice', 'news'])->latest()->limit(5)->get();
+        return Inertia::render('frontend/welcome', [
+            'sliders' => $sliders,
+            'notices' => $notices,
+            'events' => $events,
+        ]);
     }
 
     public function contact()

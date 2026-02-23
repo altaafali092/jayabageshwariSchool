@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout'
 import { Button } from '@/components/ui/button'
 import { PaginatedData, type BreadcrumbItem } from '@/types'
-import { Head, Link } from '@inertiajs/react'
+import { Head, Link, router, usePage } from '@inertiajs/react'
 import { Plus } from 'lucide-react'
 
 import { DataTable } from '@/components/DataTable'
@@ -11,9 +11,16 @@ import FlashToast from '@/components/FlashToast'
 import { columns } from './columns'
 import { NewsEvent } from '@/types/admin/NewsEvent'
 import { create, index } from '@/routes/admin/news-event'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+
+interface Category {
+    label: string;
+    value: string;
+}
 
 interface Props {
     newsEvents: PaginatedData<NewsEvent>
+    categories: Category[]
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -23,8 +30,26 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ]
 
-export default function Index({ newsEvents }: Props) {
+export default function Index({ newsEvents, categories }: Props) {
     FlashToast()
+
+    const { url } = usePage()
+    const params = new URLSearchParams(url.split('?')[1])
+    const currentType = params.get('type') ?? 'all'
+
+    const handleTabChange = (value: string) => {
+        router.get(
+            index().url,
+            {
+                type: value === 'all' ? undefined : value,
+            },
+            {
+                preserveScroll: true,
+                preserveState: true,
+                replace: true,
+            }
+        )
+    }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -49,15 +74,29 @@ export default function Index({ newsEvents }: Props) {
                     </Button>
                 </div>
 
-                <div className="flex-1">
-                    <div className="container mx-auto py-6">
-                        <DataTable
-                            columns={columns}
-                            data={newsEvents.data}
-                        />
-                        <Pagination links={newsEvents.links} />
+                {/* Tabs */}
+                <Tabs value={currentType} onValueChange={handleTabChange}>
+                    <TabsList className="mb-4">
+                        <TabsTrigger value="all">All</TabsTrigger>
+
+                        {categories.map((category) => (
+                            <TabsTrigger
+                                key={category.value}
+                                value={category.value}
+                            >
+                                {category.label}
+                            </TabsTrigger>
+                        ))}
+                    </TabsList>
+
+                    {/* Data Table */}
+                    <div className="flex-1">
+                        <div className="container mx-auto py-4">
+                            <DataTable columns={columns} data={newsEvents.data} />
+                            <Pagination links={newsEvents.links} />
+                        </div>
                     </div>
-                </div>
+                </Tabs>
             </div>
         </AppLayout>
     )

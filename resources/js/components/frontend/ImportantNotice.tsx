@@ -1,30 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Megaphone, X, ChevronRight, AlertCircle, Calendar } from 'lucide-react';
+import { News } from '@/types/Frontend/Index';
 
-const ImportantNotice = () => {
+
+interface NewsProps {
+    notices: News[];
+}
+const ImportantNotice = ({ notices }: NewsProps) => {
     const [isVisible, setIsVisible] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const notices = [
-        {
-            id: 1,
-            title: "First Term Examination Results",
-            details: "Results will be published on the official web portal at 5:00 PM.",
-            isNew: true,
-        },
-        {
-            id: 2,
-            title: "Admission Open for Session 2026/27",
-            details: "Forms available at the administrative office and online.",
-            isNew: false,
-        },
-        {
-            id: 3,
-            title: "Annual Sports Week Postponed",
-            details: "New dates will be announced shortly due to weather conditions.",
-            isNew: false,
-        }
-    ];
+
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -72,7 +58,7 @@ const ImportantNotice = () => {
                                             </div>
                                             <p className="text-slate-700 dark:text-slate-200 font-bold text-xs sm:text-sm lg:text-base truncate pr-4">
                                                 <span className="text-red-600 dark:text-red-500 uppercase italic tracking-tighter mr-2">{notice.title}</span>
-                                                <span className="font-medium text-slate-500 dark:text-slate-400 hidden sm:inline">— {notice.details}</span>
+                                                <span className="font-medium text-slate-500 dark:text-slate-400 hidden sm:inline">— {notice.description}</span>
                                             </p>
                                         </div>
                                     ))}
@@ -104,13 +90,7 @@ const ImportantNotice = () => {
                         </div>
                     </div>
 
-                    {/* Quick Stats/Links - Only visible on desktop if space allows */}
-                    <div className="hidden xl:flex items-center gap-6">
-                        <div className="flex items-center gap-2">
-                            <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                            <span className="text-xs font-bold text-slate-600 dark:text-slate-400">Syllabus 2026</span>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </section>

@@ -16,7 +16,13 @@ import { index, store } from "@/routes/admin/news-event"
 
 
 
-
+interface category {
+    label: string;
+    value: string;
+}
+interface props {
+    categories: category[];
+}
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: "News & Event", href: index().url },
@@ -27,7 +33,7 @@ interface newsCategoryProps {
     newsCategories: NewsCategory[]
 }
 
-export default function Create({ newsCategories }: newsCategoryProps) {
+export default function Create({ categories }: props) {
     const handleCancel = () => window.history.back()
 
     return (
@@ -77,22 +83,22 @@ export default function Create({ newsCategories }: newsCategoryProps) {
                                                     Category <span className="text-red-500">*</span>
                                                 </Label>
                                                 <select
-                                                    id="news_category_id"
-                                                    name="news_category_id"
+                                                    id="category"
+                                                    name="category"
                                                     className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
                                                 >
                                                     <option value="">Select Category</option>
-                                                    {newsCategories.map((category) => (
-                                                        <option key={category.id} value={category.id}>
-                                                            {category.title}
+                                                    {categories.map((category) => (
+                                                        <option key={category.value} value={category.value}>
+                                                            {category.label}
                                                         </option>
                                                     ))}
                                                 </select>
-                                                <InputError message={errors.news_category_id} />
+                                                <InputError message={errors.category} />
                                             </div>
 
                                             <div className="space-y-2">
-                                                <Label htmlFor="title">Categroy Name <span className="text-red-500">*</span></Label>
+                                                <Label htmlFor="title">Title <span className="text-red-500">*</span></Label>
                                                 <Input
                                                     id="title"
                                                     name="title"
@@ -162,10 +168,6 @@ export default function Create({ newsCategories }: newsCategoryProps) {
                                                     Select multiple images (optional)
                                                 </p>
                                             </div>
-
-
-
-
                                         </div>
                                         <div className="space-y-2">
                                             <Label htmlFor="description">Description</Label>
@@ -177,7 +179,6 @@ export default function Create({ newsCategories }: newsCategoryProps) {
                                             />
                                             <InputError message={errors.description} />
                                         </div>
-
 
                                         {/* Buttons */}
                                         <div className="flex gap-2 pt-4">

@@ -24,10 +24,10 @@ class UpdateNewsEventRequest extends FormRequest
     {
         $newsEvent = $this->route('news_event');
         return [
-            'news_category_id' => ['required', 'exists:news_categories,id,status,1'],
+            'category' => ['required', 'string'],
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'alpha_dash', Rule::unique('news_events', 'slug')->ignore($newsEvent->id)->withoutTrashed()],
-            'image' => ['required', 'array', 'min:1'],
+            'image' => ['nullable', 'array', 'min:1'],
             'image.*' => ['image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
             'description' => ['required', 'string'],
             'event_date' => ['nullable', 'date'],

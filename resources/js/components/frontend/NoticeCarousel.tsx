@@ -1,33 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Megaphone, Calendar, ChevronLeft, ChevronRight, Pin, ArrowRight, ShieldAlert } from 'lucide-react';
+import { News } from '@/types/Frontend/Index';
 
-const NoticeCarousel = () => {
-    const notices = [
-        {
-            id: 1,
-            title: "School Re-opening After Winter Break",
-            description: "All classes will resume from February 25th, 2026. Students are required to come in full winter uniform and strictly follow the revised school timings.",
-            date: "Feb 15, 2026",
-            type: "General",
-            urgency: "High"
-        },
-        {
-            id: 2,
-            title: "Annual Sports Meet Registration",
-            description: "Registrations for the Annual Sports Meet 2026 are now open for classes 5 to 10. Interested students must register with their house captains by Friday.",
-            date: "Feb 18, 2026",
-            type: "Sports",
-            urgency: "Medium"
-        },
-        {
-            id: 3,
-            title: "Distribution of First Term Grade Sheets",
-            description: "Grade sheets for the recently concluded First Term Examinations will be distributed this coming Saturday during the PTA meeting.",
-            date: "Feb 22, 2026",
-            type: "Academic",
-            urgency: "High"
-        }
-    ];
+interface NoticeProps {
+    notices: News[];
+}
+const NoticeCarousel = ({ notices }: NoticeProps) => {
 
     const [activeIndex, setActiveIndex] = useState(0);
     const [isAutoplay, setIsAutoplay] = useState(true);
@@ -114,12 +92,12 @@ const NoticeCarousel = () => {
                                                     </div>
                                                     <div className="flex flex-col">
                                                         <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none mb-1">Posted On</span>
-                                                        <span className="text-sm font-black text-slate-900 dark:text-white leading-none">{notice.date}</span>
+                                                        <span className="text-sm font-black text-slate-900 dark:text-white leading-none">{notice.created_at}</span>
                                                     </div>
                                                 </div>
-                                                <div className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${notice.urgency === 'High' ? 'bg-red-600 text-white shadow-lg shadow-red-200 dark:shadow-red-900/40' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                                                <div className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${notice.category === 'High' ? 'bg-red-600 text-white shadow-lg shadow-red-200 dark:shadow-red-900/40' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
                                                     }`}>
-                                                    {notice.urgency} Urgency
+                                                    {notice.category} Notice
                                                 </div>
                                             </div>
 
@@ -135,7 +113,7 @@ const NoticeCarousel = () => {
                                         <div className="relative z-10 pt-8 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
                                             <div className="flex items-center gap-2 text-slate-500 dark:text-slate-500 font-bold text-sm">
                                                 <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                                                Category: {notice.type} Notice
+                                                Category: {notice.category} Notice
                                             </div>
                                             <a href={`/notices/${notice.id}`} className="inline-flex items-center gap-2 text-red-600 dark:text-red-400 font-black text-sm group/btn">
                                                 Read Fully

@@ -23,7 +23,7 @@ class StoreNewsEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'news_category_id' => ['required', 'exists:news_categories,id,status,1'],
+            'category' => ['required', 'string'],
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'alpha_dash', Rule::unique('news_events', 'slug')->withoutTrashed()],
             'image' => ['nullable', 'array', 'min:1'],

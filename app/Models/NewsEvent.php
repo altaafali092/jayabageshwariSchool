@@ -15,7 +15,7 @@ class NewsEvent extends Model
     use HasFactory, SoftDeletes, FileTrait;
 
     protected $fillable = [
-        'news_category_id',
+        'category',
         'title',
         'slug',
         'description',
@@ -31,10 +31,6 @@ class NewsEvent extends Model
     ];
 
 
-    public function newsCategory()
-    {
-        return $this->belongsTo(NewsCategory::class);
-    }
 
     public function image(): Attribute
     {

@@ -2,7 +2,7 @@ import { NewsCategory } from "./NewsCategory";
 
 export type NewsEvent = {
     id: number;
-    news_category_id: number;
+    category: string;
     title: string;
     slug: string;
     description: string;
@@ -14,5 +14,5 @@ export type NewsEvent = {
     deleted_at: string;
     created_at: string;
     updated_at: string;
-    news_category?: NewsCategory;
+
 }   
