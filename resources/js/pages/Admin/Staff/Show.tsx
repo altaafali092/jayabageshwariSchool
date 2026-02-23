@@ -109,8 +109,7 @@ export default function Show({ staff }: Props) {
                             <div className="space-y-1">
                                 <p className="text-sm font-medium text-muted-foreground">Description</p>
                                 {staff.bio ? (
-                                    <p className="text-base leading-relaxed whitespace-pre-wrap">
-                                        {staff.bio}
+                                    <p dangerouslySetInnerHTML={{ __html: staff.bio }} className="text-base leading-relaxed whitespace-pre-wrap">
                                     </p>
                                 ) : (
                                     <p className="text-muted-foreground italic text-sm">No description provided.</p>

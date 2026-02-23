@@ -133,6 +133,7 @@
 }
 
 
+
 @layer base {
     * {
         @apply border-border;
@@ -140,5 +141,92 @@
 
     body {
         @apply bg-background text-foreground;
+    }
+
+    /* Tiptap Styles */
+    .tiptap p.is-editor-empty:first-child::before {
+        @apply text-muted-foreground float-left h-0 pointer-events-none;
+        content: attr(data-placeholder);
+    }
+
+    .tiptap {
+        @apply outline-none;
+    }
+
+    .tiptap ul {
+        @apply list-disc ml-4;
+    }
+
+    .tiptap ol {
+        @apply list-decimal ml-4;
+    }
+
+    .tiptap blockquote {
+        @apply border-l-2 border-border pl-4 italic;
+    }
+
+    .tiptap h1 {
+        @apply text-2xl font-bold;
+    }
+
+    .tiptap h2 {
+        @apply text-xl font-bold;
+    }
+
+    .tiptap h3 {
+        @apply text-lg font-bold;
+    }
+
+    /* Force the resizer wrapper to only take up the width of the image */
+    .tiptap [data-type="image"] {
+        display: inline-block !important;
+        max-width: 100%;
+        vertical-align: bottom;
+        border: none !important;
+        outline: none !important;
+        @apply mr-2 mb-2;
+    }
+
+    .tiptap [data-type="image"]>div {
+        display: inline-block !important;
+        border: none !important;
+        outline: none !important;
+    }
+
+    .tiptap [data-type="image"] img {
+        @apply max-w-full h-auto block;
+        width: inherit;
+        border: none !important;
+        outline: none !important;
+    }
+
+    /* Only show the primary blue outline when an image is selected */
+    .tiptap .ProseMirror-selectednode [data-type="image"] img,
+    .tiptap img.ProseMirror-selectednode {
+        @apply !outline-2 !outline-primary !outline-offset-2;
+    }
+
+    /* Table Styles */
+    .tiptap table {
+        @apply border-collapse table-fixed w-full overflow-hidden my-4 border-2 border-border;
+        border: 1px solid var(--border);
+    }
+
+    .tiptap td,
+    .tiptap th {
+        @apply border border-border p-2 align-top box-border relative min-w-[100px];
+        border: 1px solid var(--border);
+    }
+
+    .tiptap th {
+        @apply font-bold text-left bg-muted/50;
+    }
+
+    .tiptap .selectedCell:after {
+        @apply z-10 content-[''] absolute inset-0 bg-primary/10 pointer-events-none;
+    }
+
+    .tiptap .column-resize-handle {
+        @apply absolute right-[-2px] top-0 bottom-[-2px] w-[4px] bg-primary cursor-col-resize;
     }
 }

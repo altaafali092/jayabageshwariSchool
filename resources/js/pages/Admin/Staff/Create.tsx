@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import RichTextEditor from "@/components/RichTextEditor"
 import { ArrowLeft } from "lucide-react"
 import { type BreadcrumbItem } from "@/types"
 import InputError from "@/components/input-error"
@@ -182,11 +182,10 @@ export default function StaffCreate({ departments }: departmentProps) {
                                         {/* Description */}
                                         <div className="space-y-2">
                                             <Label htmlFor="bio"> Professional Biography</Label>
-                                            <Textarea
+                                            <RichTextEditor
                                                 id="bio"
                                                 name="bio"
                                                 placeholder="Optional bio"
-                                                rows={4}
                                             />
                                             <InputError message={errors.bio} />
                                         </div>

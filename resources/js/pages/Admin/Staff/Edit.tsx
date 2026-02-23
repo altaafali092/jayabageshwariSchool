@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import RichTextEditor from "@/components/RichTextEditor"
 import { ArrowLeft } from "lucide-react"
 import { type BreadcrumbItem } from "@/types"
 import InputError from "@/components/input-error"
@@ -102,7 +102,7 @@ export default function StaffEdit({ departments, staff }: Props) {
                                                 <select
                                                     id="department"
                                                     name="department"
-                                                    defaultValue={staff.department}
+                                                    defaultValue={staff.department ?? ""}
                                                     className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
                                                 >
                                                     <option value="">Select Department</option>
@@ -130,7 +130,7 @@ export default function StaffEdit({ departments, staff }: Props) {
                                                     id="email"
                                                     name="email"
                                                     type="email"
-                                                    defaultValue={staff.email}
+                                                    defaultValue={staff.email ?? ""}
                                                 />
                                                 <InputError message={errors.email} />
                                             </div>
@@ -140,7 +140,7 @@ export default function StaffEdit({ departments, staff }: Props) {
                                                     id="phone"
                                                     name="phone"
                                                     type="text"
-                                                    defaultValue={staff.phone}
+                                                    defaultValue={staff.phone ?? ""}
                                                 />
                                                 <InputError message={errors.phone} />
                                             </div>
@@ -150,7 +150,7 @@ export default function StaffEdit({ departments, staff }: Props) {
                                                     id="fb_url"
                                                     name="fb_url"
                                                     type="text"
-                                                    defaultValue={staff.fb_url}
+                                                    defaultValue={staff.fb_url ?? ""}
                                                 />
                                                 <InputError message={errors.fb_url} />
                                             </div>
@@ -160,7 +160,7 @@ export default function StaffEdit({ departments, staff }: Props) {
                                                     id="insta_url"
                                                     name="insta_url"
                                                     type="text"
-                                                    defaultValue={staff.insta_url}
+                                                    defaultValue={staff.insta_url ?? ""}
                                                 />
                                                 <InputError message={errors.insta_url} />
                                             </div>
@@ -170,7 +170,7 @@ export default function StaffEdit({ departments, staff }: Props) {
                                                     id="linkedin_url"
                                                     name="linkedin_url"
                                                     type="text"
-                                                    defaultValue={staff.linkedin_url}
+                                                    defaultValue={staff.linkedin_url ?? ""}
                                                 />
                                                 <InputError message={errors.linkedin_url} />
                                             </div>
@@ -179,11 +179,10 @@ export default function StaffEdit({ departments, staff }: Props) {
                                         {/* Description */}
                                         <div className="space-y-2">
                                             <Label htmlFor="bio"> Professional Biography</Label>
-                                            <Textarea
+                                            <RichTextEditor
                                                 id="bio"
                                                 name="bio"
-                                                rows={4}
-                                                defaultValue={staff.bio}
+                                                defaultValue={staff.bio ?? ""}
                                             />
                                             <InputError message={errors.bio} />
                                         </div>

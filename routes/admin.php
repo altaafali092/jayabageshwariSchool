@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Admin\AcademicItemsController;
 use App\Http\Controllers\Admin\AcademicLevelController;
-use App\Http\Controllers\Admin\AcademicMediaController;
 use App\Http\Controllers\Admin\AcademicSectionController;
+use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\AdmissionProcessController;
 use App\Http\Controllers\Admin\AdmissionQueryController;
 use App\Http\Controllers\Admin\ContactController;
@@ -47,4 +47,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('office-setting', [OfficeSettingController::class, 'store'])->name('office-setting.store');
     Route::resource('staff', StaffController::class);
     Route::get('staff/{staff}/status', [StaffController::class, 'status'])->name('staff.status');
+    Route::post('upload', [UploadController::class, 'upload'])->name('upload');
 });
