@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\OfficeSetting;
+namespace App\Http\Requests\OfficeSetting;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOfficeSettingRequest extends FormRequest
+class OfficeSettingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

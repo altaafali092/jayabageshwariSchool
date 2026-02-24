@@ -5,11 +5,13 @@ export type * from './ui';
 import { InertiaLinkProps } from '@inertiajs/react';
 import type { Auth } from './auth';
 import { LucideIcon } from 'lucide-react';
+import { OfficeSetting } from './Frontend/Index';
 
 export type SharedData = {
     name: string;
     auth: Auth;
     sidebarOpen: boolean;
+    officeSettings: OfficeSetting;
     [key: string]: unknown;
 };
 

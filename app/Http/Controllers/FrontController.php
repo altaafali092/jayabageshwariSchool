@@ -18,7 +18,7 @@ class FrontController extends Controller
     {
         $sliders = slider::where('status', true)->latest()->limit(5)->get();
         $notices = NewsEvent::where(['status' => true, 'category' => 'notice'])->latest()->limit(5)->get();
-        $events = NewsEvent::where('status', true)->whereIn('category', ['notice', 'news'])->latest()->limit(5)->get();
+        $events = NewsEvent::where('status', true)->whereIn('category', ['event', 'news'])->latest()->limit(5)->get();
         return Inertia::render('frontend/welcome', [
             'sliders' => $sliders,
             'notices' => $notices,

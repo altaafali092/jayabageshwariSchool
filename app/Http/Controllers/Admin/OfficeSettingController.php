@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\OfficeSetting\StoreOfficeSettingRequest;
+use App\Http\Requests\OfficeSetting\OfficeSettingRequest;
 use App\Models\OfficeSetting;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
@@ -30,7 +30,7 @@ class OfficeSettingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOfficeSettingRequest $request)
+    public function store(OfficeSettingRequest $request)
     {
         $officeSetting = OfficeSetting::first();
         if ($officeSetting) {
@@ -41,12 +41,4 @@ class OfficeSettingController extends Controller
         Cache::forget('office_setting');
         return back()->with('success', 'Office Settings created successfully');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-
-
-    // Wait, the user might want a singleton pattern for office settings, but they used a resource-like table.
-    // I'll stick to resource methods for now as they created Index/Create files.
 }

@@ -1,8 +1,18 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube, ArrowRight, GraduationCap, Clock } from 'lucide-react';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
+import { SharedData } from '@/types';
 
 const Footer = () => {
+    const { officeSettings } = usePage<SharedData>().props;
+    const socials = [
+        { Icon: Facebook, url: officeSettings?.fb_url },
+        { Icon: Instagram, url: officeSettings?.insta_url },
+        { Icon: Twitter, url: officeSettings?.titok_url },
+        { Icon: Youtube, url: officeSettings?.yt_url },
+    ];
+
+
     const currentYear = new Date().getFullYear();
 
     return (
@@ -24,21 +34,21 @@ const Footer = () => {
                                 <img src="/assets/logo.png" alt="" />
                             </div>
                             <div>
-                                <h3 className="text-xl font-black tracking-tighter leading-none">JAYA</h3>
-                                <p className="text-[10px] font-bold text-blue-500 uppercase tracking-widest mt-1">Bageshwori School</p>
+                                <h3 className="text-xl font-black tracking-tighter leading-none">{officeSettings?.office_name || "no name"}</h3>
+
                             </div>
                         </div>
                         <p className="text-sm leading-relaxed max-w-xs italic">
-                            Empowering the next generation with integrity, innovation, and a global perspective since 1995.
+                            {officeSettings?.office_description || "no description"}
                         </p>
                         <div className="flex gap-3">
-                            {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
+                            {socials.map((item, i) => (
                                 <a
                                     key={i}
-                                    href="#"
+                                    href={item.url}
                                     className="w-10 h-10 rounded-full bg-blue-900/20 border border-blue-900/30 flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 hover:text-white hover:scale-110 active:scale-90 transition-all duration-300"
                                 >
-                                    <Icon className="w-4 h-4" />
+                                    <item.Icon className="w-4 h-4" />
                                 </a>
                             ))}
                         </div>
@@ -80,7 +90,7 @@ const Footer = () => {
                                 </div>
                                 <div className="text-sm leading-snug">
                                     <p className="font-bold text-white mb-1 uppercase text-[10px] tracking-widest opacity-40">Visit Us</p>
-                                    Main Avenue, Balaju, Kathmandu, Nepal
+                                    {officeSettings?.office_address || "no address"}
                                 </div>
                             </div>
                             <div className="flex gap-4 group">
@@ -89,7 +99,8 @@ const Footer = () => {
                                 </div>
                                 <div className="text-sm">
                                     <p className="font-bold text-white mb-1 uppercase text-[10px] tracking-widest opacity-40">Call Us</p>
-                                    +977-01-4444444, 4444445
+                                    {officeSettings?.office_phone || "no phone"}{','}
+                                    {officeSettings?.office_phone_2 || "no phone"}
                                 </div>
                             </div>
                             <div className="flex gap-4 group">
@@ -98,7 +109,7 @@ const Footer = () => {
                                 </div>
                                 <div className="text-sm">
                                     <p className="font-bold text-white mb-1 uppercase text-[10px] tracking-widest opacity-40">Email Us</p>
-                                    info@jayaschool.edu.np
+                                    {officeSettings?.office_email || "no email"}
                                 </div>
                             </div>
                         </div>
@@ -131,7 +142,7 @@ const Footer = () => {
 
                 {/* Bottom Bar */}
                 <div className="pt-10 border-t border-blue-900/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-widest">
-                    <p>© {currentYear} Jaya Bageshwori School. All Rights Reserved.</p>
+                    <p>© {currentYear} {officeSettings?.office_name || "no name"}. All Rights Reserved.</p>
                     <div className="flex gap-8">
                         <a href="#" className="hover:text-blue-500 transition-colors">Privacy Policy</a>
                         <a href="#" className="hover:text-blue-500 transition-colors">Terms of Service</a>
