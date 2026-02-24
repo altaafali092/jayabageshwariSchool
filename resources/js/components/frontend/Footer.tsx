@@ -142,7 +142,7 @@ const Footer = () => {
 
                 {/* Bottom Bar */}
                 <div className="pt-10 border-t border-blue-900/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-widest">
-                    <p>© {currentYear} {officeSettings?.office_name || "no name"}. All Rights Reserved.</p>
+                    <p>© 2016-{currentYear} {officeSettings?.office_name || "no name"}. All Rights Reserved.</p>
                     <div className="flex gap-8">
                         <a href="#" className="hover:text-blue-500 transition-colors">Privacy Policy</a>
                         <a href="#" className="hover:text-blue-500 transition-colors">Terms of Service</a>
