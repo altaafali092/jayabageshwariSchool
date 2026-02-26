@@ -1,8 +1,17 @@
 import React from 'react';
-import { Mail, Phone, MapPin, Clock, Send, MessageSquare, Globe, Headphones, ArrowRight } from 'lucide-react';
-import { Link } from '@inertiajs/react';
+import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
+import { SharedData } from '@/types';
+import { contact } from '@/routes';
+
+
+
+
+
+
 
 const GetInTouch = () => {
+    const { officeSettings } = usePage<SharedData>().props;
     return (
         <section className="relative py-20 lg:py-8 flex items-center justify-center overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
             {/* Professional Parallax Background */}
@@ -43,7 +52,7 @@ const GetInTouch = () => {
                             </div>
                             <div>
                                 <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Phone</p>
-                                <p className="text-base font-bold text-slate-900 dark:text-white">+977-081-533337</p>
+                                <p className="text-base font-bold text-slate-900 dark:text-white">{officeSettings?.office_phone || " no phone"}</p>
                             </div>
                         </div>
 
@@ -53,7 +62,7 @@ const GetInTouch = () => {
                             </div>
                             <div>
                                 <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Email</p>
-                                <p className="text-base font-bold text-slate-900 dark:text-white">info@jayaschool.edu.np</p>
+                                <p className="text-base font-bold text-slate-900 dark:text-white">{officeSettings.office_email || " no email"}</p>
                             </div>
                         </div>
 
@@ -63,7 +72,7 @@ const GetInTouch = () => {
                             </div>
                             <div>
                                 <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Location</p>
-                                <p className="text-base font-bold text-slate-900 dark:text-white">Kohalpur, Banke</p>
+                                <p className="text-base font-bold text-slate-900 dark:text-white">{officeSettings?.office_address || ""}</p>
                             </div>
                         </div>
                     </div>
@@ -71,7 +80,7 @@ const GetInTouch = () => {
                     {/* Simple Action Button */}
                     <div className="pt-2">
                         <Link
-                            href="/contact"
+                            href={contact()}
                             className="px-10 py-4 bg-blue-600 dark:bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 dark:hover:bg-blue-700 shadow-lg shadow-blue-600/20 dark:shadow-blue-900/40 transition-all active:scale-95 flex items-center gap-3 mx-auto w-fit"
                         >
                             Contact Us Today

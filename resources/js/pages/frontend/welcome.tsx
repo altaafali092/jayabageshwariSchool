@@ -24,7 +24,7 @@ const Welcome = () => {
 
     return (
 
-        <FrontLayout>
+        <FrontLayout >
             <Head title="JBS" />
             <main className="flex-1">
                 {/* Important Announcements Popup */}

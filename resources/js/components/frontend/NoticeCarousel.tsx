@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Megaphone, Calendar, ChevronLeft, ChevronRight, Pin, ArrowRight, ShieldAlert } from 'lucide-react';
+import { Link } from '@inertiajs/react';
 import { News } from '@/types/Frontend/Index';
 
 interface NoticeProps {
@@ -92,12 +93,12 @@ const NoticeCarousel = ({ notices }: NoticeProps) => {
                                                     </div>
                                                     <div className="flex flex-col">
                                                         <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none mb-1">Posted On</span>
-                                                        <span className="text-sm font-black text-slate-900 dark:text-white leading-none">{notice.created_at}</span>
+                                                        <span className="text-sm font-black text-slate-900 dark:text-white leading-none">{new Date(notice.created_at).toLocaleDateString()}</span>
                                                     </div>
                                                 </div>
                                                 <div className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${notice.category === 'High' ? 'bg-red-600 text-white shadow-lg shadow-red-200 dark:shadow-red-900/40' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
                                                     }`}>
-                                                    {notice.category} Notice
+                                                    {notice.category}
                                                 </div>
                                             </div>
 
@@ -113,12 +114,12 @@ const NoticeCarousel = ({ notices }: NoticeProps) => {
                                         <div className="relative z-10 pt-8 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
                                             <div className="flex items-center gap-2 text-slate-500 dark:text-slate-500 font-bold text-sm">
                                                 <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                                                Category: {notice.category} Notice
+                                                Category: {notice.category}
                                             </div>
-                                            <a href={`/notices/${notice.id}`} className="inline-flex items-center gap-2 text-red-600 dark:text-red-400 font-black text-sm group/btn">
+                                            <Link href={`/notices/${notice.slug}`} className="inline-flex items-center gap-2 text-red-600 dark:text-red-400 font-black text-sm group/btn">
                                                 Read Fully
-                                                <ArrowRight className="w-5 h-5 transition-transform group-hover/btn:translate-x-2" />
-                                            </a>
+                                                <ArrowRight className="w-5 h-5 transition-transform group/btn:translate-x-2" />
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

@@ -13,7 +13,11 @@ Route::get('/admissions', [FrontController::class, 'admissions'])->name('admissi
 Route::post('/admissions', [FrontController::class, 'admissionForm'])->name('admissions.form');
 
 Route::get('/news-events', [FrontController::class, 'news'])->name('news');
+Route::get('/news/{slug}', [FrontController::class, 'newsShow'])->name('news.show');
+
 Route::get('/notices', [FrontController::class, 'notices'])->name('notices');
+Route::get('/notices/{slug}', [FrontController::class, 'noticeShow'])->name('notices.show');
+
 Route::get('/academics', [FrontController::class, 'academics'])->name('academics');
 Route::get('/facilities', [FrontController::class, 'facilities'])->name('facilities');
 Route::get('/about/history', [FrontController::class, 'history'])->name('about.history');

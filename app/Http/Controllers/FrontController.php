@@ -58,12 +58,25 @@ class FrontController extends Controller
 
     public function news()
     {
-        return Inertia::render('frontend/NewsEvents');
+        $events = NewsEvent::where('status', true)->whereIn('category', ['news', 'event'])->latest()->get();
+        return Inertia::render('frontend/NewsEvents', [
+            'events' => $events,
+        ]);
     }
 
     public function notices()
     {
-        return Inertia::render('frontend/Notices');
+        $notices = NewsEvent::where('status', true)->where('category', 'notice')->latest()->get();
+        return Inertia::render('frontend/Notices', [
+            'notices' => $notices,
+        ]);
+    }
+
+    public function noticeShow(NewsEvent $notice)
+    {
+        return Inertia::render('frontend/NoticeDetail', [
+            'notice' => $notice
+        ]);
     }
 
     public function academics()
@@ -132,6 +145,14 @@ class FrontController extends Controller
     {
         return Inertia::render('frontend/StaffDetail', [
             'staff' => $staff
+        ]);
+    }
+
+    public function newsShow($slug)
+    {
+        $news = NewsEvent::where('slug', $slug)->firstOrFail();
+        return Inertia::render('frontend/NewsDetail', [
+            'news' => $news
         ]);
     }
 }

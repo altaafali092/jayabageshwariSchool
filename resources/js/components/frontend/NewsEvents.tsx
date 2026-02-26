@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Calendar, ArrowRight, Clock, MapPin, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
 import { News } from '@/types/Frontend/Index';
+import { Link } from '@inertiajs/react';
 
 interface EventProps {
     events: News[];
@@ -132,17 +133,17 @@ const NewsEvents = ({ events = [] }: EventProps) => {
                                                             <Calendar className="w-4 h-4" />
                                                             {formatDate(item.created_at)}
                                                         </div>
-                                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors line-clamp-2 min-h-[4rem]">
+                                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors line-clamp-2 min-h-16">
                                                             {item.title}
                                                         </h3>
                                                         <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6 line-clamp-4 overflow-hidden text-lg italic">
                                                             {item.description}
                                                         </p>
                                                         <div className="mt-auto">
-                                                            <a href={`/news/${item.id}`} className="inline-flex items-center gap-2 text-slate-900 dark:text-slate-100 font-bold group/link">
+                                                            <Link href={`/news/${item.slug}`} className="inline-flex items-center gap-2 text-slate-900 dark:text-slate-100 font-bold group/link">
                                                                 Read Full Story
                                                                 <div className="w-6 h-px bg-slate-900 dark:bg-slate-100 transition-all group-hover/link:w-10" />
-                                                            </a>
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -188,7 +189,11 @@ const NewsEvents = ({ events = [] }: EventProps) => {
                             <div className="space-y-6 flex-1">
                                 {filterEvents.length > 0 ? (
                                     filterEvents.map((event) => (
-                                        <div key={event.id} className="group flex gap-6 p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-300 border border-transparent hover:border-slate-100 dark:hover:border-slate-700">
+                                        <Link
+                                            key={event.id}
+                                            href={`/news/${event.slug}`}
+                                            className="group flex gap-6 p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-300 border border-transparent hover:border-slate-100 dark:hover:border-slate-700"
+                                        >
                                             <div className="shrink-0 w-16 h-20 bg-blue-700 dark:bg-blue-600 rounded-xl flex flex-col items-center justify-center text-white shadow-lg shadow-blue-200 dark:shadow-blue-900/40 transition-transform group-hover:scale-105">
                                                 <span className="text-xl font-black leading-none">{event.event_date?.split('-')[2] || '??'}</span>
                                                 <span className="text-[10px] font-bold uppercase tracking-widest mt-1 opacity-80">
@@ -210,7 +215,7 @@ const NewsEvents = ({ events = [] }: EventProps) => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </Link>
                                     ))
                                 ) : (
                                     <div className="py-12 text-center">

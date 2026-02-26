@@ -2,6 +2,7 @@ import React from 'react';
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube, ArrowRight, GraduationCap, Clock } from 'lucide-react';
 import { Link, usePage } from '@inertiajs/react';
 import { SharedData } from '@/types';
+import { home } from '@/routes';
 
 const Footer = () => {
     const { officeSettings } = usePage<SharedData>().props;
@@ -31,7 +32,7 @@ const Footer = () => {
                     <div className="space-y-6">
                         <div className="flex items-center gap-3 text-white">
                             <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
-                                <img src="/assets/logo.png" alt="" />
+                                <img src={officeSettings?.office_logo || "/assets/logo.png"} alt="" className='w-full h-full object-cover' />
                             </div>
                             <div>
                                 <h3 className="text-xl font-black tracking-tighter leading-none">{officeSettings?.office_name || "no name"}</h3>
@@ -144,9 +145,9 @@ const Footer = () => {
                 <div className="pt-10 border-t border-blue-900/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-widest">
                     <p>© 2016 - {currentYear} {officeSettings?.office_name || "no name"}. All Rights Reserved.</p>
                     <div className="flex gap-8">
-                        <a href="#" className="hover:text-blue-500 transition-colors">Privacy Policy</a>
-                        <a href="#" className="hover:text-blue-500 transition-colors">Terms of Service</a>
-                        <a href="#" className="hover:text-blue-500 transition-colors text-slate-600">Site by Altaaf</a>
+                        <Link href={home()} className="hover:text-blue-500 transition-colors">Privacy Policy</Link>
+                        <Link href={home()} className="hover:text-blue-500 transition-colors">Terms of Service</Link>
+                        <Link href={home()} className="hover:text-blue-500 transition-colors text-slate-600">Site by Altaaf</Link>
                     </div>
                 </div>
             </div>

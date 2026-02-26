@@ -17,10 +17,12 @@ import {
     Moon,
     Monitor
 } from 'lucide-react';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { cn } from '@/lib/utils';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useAppearance } from '@/hooks/use-appearance';
+import officeSetting from '@/routes/admin/office-setting';
+import { SharedData } from '@/types';
 
 type NavLink = {
     name: string;
@@ -29,6 +31,7 @@ type NavLink = {
 };
 
 export default function Navbar() {
+    const { officeSettings } = usePage<SharedData>().props;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -144,14 +147,14 @@ export default function Navbar() {
                         {/* Logo Hub */}
                         <Link href="/" className="flex items-center gap-4 group shrink-0">
                             <div className="relative w-12 h-12 lg:w-14 lg:h-14 overflow-hidden rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/20 group-hover:rotate-6 transition-transform duration-500">
-                                <img src="/assets/logo.png" alt="" />
+                                <img src={officeSettings?.office_logo || "/assets/logo.png"} alt="" />
                             </div>
-                            <div>
-                                <h1 className="text-xl lg:text-2xl font-black text-slate-900 dark:text-white leading-none tracking-tighter whitespace-nowrap">
-                                    JAYA <span className="text-blue-600">BAGESHWORI</span>
+                            {/* <div>
+                                <h1 className="text-xl lg:text-xl font-black text-slate-900 dark:text-white leading-none tracking-tighter whitespace-nowrap">
+                                    {officeSettings?.office_name}
                                 </h1>
-                                <p className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] mt-1 italic">Knowledge is Power</p>
-                            </div>
+
+                            </div> */}
                         </Link>
 
                         {/* Desktop Links */}
