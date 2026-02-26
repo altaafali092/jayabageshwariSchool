@@ -1,6 +1,6 @@
 import React from 'react';
 import FrontLayout from './Layouts/FrontLayout';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import {
     Mail,
     Phone,
@@ -18,8 +18,10 @@ import {
 import ContactForm from '@/components/frontend/Contact/ContactForm';
 import ContactMap from '@/components/frontend/Contact/ContactMap';
 import SocialContact from '@/components/frontend/Contact/SocialContact';
+import { SharedData } from '@/types';
 
 const Contact = () => {
+    const { officeSettings } = usePage<SharedData>().props;
     return (
         <FrontLayout>
             <Head title="Contact Us - Jaya Bageshwori" />
@@ -72,7 +74,7 @@ const Contact = () => {
                                         {
                                             icon: MapPin,
                                             label: "Visit Our Campus",
-                                            val: "Kohalpur-11, Banke, Nepal",
+                                            val: officeSettings.office_address || "",
                                             sub: "Monday - Friday, 10:00 - 16:00",
                                             color: "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400",
                                             borderColor: "dark:border-blue-800/50"
@@ -80,7 +82,7 @@ const Contact = () => {
                                         {
                                             icon: Phone,
                                             label: "Call Support",
-                                            val: "+977-081-533337",
+                                            val: officeSettings.office_phone || "",
                                             sub: "24/7 Admission Line",
                                             color: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400",
                                             borderColor: "dark:border-emerald-800/50"
@@ -88,7 +90,7 @@ const Contact = () => {
                                         {
                                             icon: Mail,
                                             label: "Email Hub",
-                                            val: "info@jayaschool.edu.np",
+                                            val: officeSettings.office_email || "",
                                             sub: "Admissions Inquiries",
                                             color: "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400",
                                             borderColor: "dark:border-indigo-800/50"
