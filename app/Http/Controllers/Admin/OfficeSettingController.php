@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\OfficeSetting\StoreOfficeSettingRequest;
 use App\Http\Requests\OfficeSetting\OfficeSettingRequest;
 use App\Models\OfficeSetting;
+use App\Models\Staff;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
@@ -22,8 +23,10 @@ class OfficeSettingController extends Controller
     public function create()
     {
         $officeSetting = OfficeSetting::first();
+        $staffs = Staff::with('is_active', 1)->latest()->get();
         return Inertia::render('Admin/OfficeSetting/Create', [
             'officeSetting' => $officeSetting,
+            'staffs' => $staffs,
         ]);
     }
 

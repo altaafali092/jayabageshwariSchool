@@ -226,6 +226,64 @@ export default function Create({ officeSetting }: officeSettingProps) {
                                 </CardContent>
                             </Card>
 
+                            {/* key contact */}
+                            <Card className="border-2 shadow-sm">
+                                <CardHeader className="bg-slate-50/50 border-b">
+                                    <CardTitle className="text-sm font-black uppercase tracking-[0.2em] flex items-center gap-3">
+                                        <Share2 className="w-4 h-4 text-emerald-600" />
+                                        Social Assets
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="p-8">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="fb_url" className="text-[10px] font-black uppercase tracking-widest text-slate-500">Facebook URL</Label>
+                                            <Input
+                                                id="fb_url"
+                                                name="fb_url"
+                                                placeholder="https://facebook.com/..."
+                                                defaultValue={officeSetting?.fb_url}
+                                                className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
+                                            />
+                                            <InputError message={errors.fb_url} />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="insta_url" className="text-[10px] font-black uppercase tracking-widest text-slate-500">Instagram URL</Label>
+                                            <Input
+                                                id="insta_url"
+                                                name="insta_url"
+                                                placeholder="https://instagram.com/..."
+                                                defaultValue={officeSetting?.insta_url}
+                                                className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
+                                            />
+                                            <InputError message={errors.insta_url} />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="yt_url" className="text-[10px] font-black uppercase tracking-widest text-slate-500">YouTube URL</Label>
+                                            <Input
+                                                id="yt_url"
+                                                name="yt_url"
+                                                placeholder="https://youtube.com/..."
+                                                defaultValue={officeSetting?.yt_url}
+                                                className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
+                                            />
+                                            <InputError message={errors.yt_url} />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="titok_url" className="text-[10px] font-black uppercase tracking-widest text-slate-500">TikTok URL</Label>
+                                            <Input
+                                                id="titok_url"
+                                                name="titok_url"
+                                                placeholder="https://tiktok.com/@..."
+                                                defaultValue={officeSetting?.titok_url}
+                                                className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
+                                            />
+                                            <InputError message={errors.titok_url} />
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+
                             {/* SUBMIT ACTIONS */}
                             <div className="flex items-center justify-end gap-4 pt-4 border-t">
                                 <Button
