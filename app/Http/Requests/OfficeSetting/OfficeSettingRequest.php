@@ -22,18 +22,22 @@ class OfficeSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'office_name' => 'required|string|max:255',
-            'office_description' => 'nullable|string',
-            'office_logo' => 'nullable|image|max:2048',
-            'office_address' => 'required|string|max:255',
-            'office_email' => 'nullable|email|max:255',
-            'office_phone' => 'nullable|string|max:20',
-            'office_phone_2' => 'nullable|string|max:20',
-            'gmap_url' => 'nullable|url',
-            'yt_url' => 'nullable|url',
-            'fb_url' => 'nullable|url',
-            'insta_url' => 'nullable|url',
-            'titok_url' => 'nullable|url',
+            'key_contact_person_id' => ['required', 'exists:staff,id'],
+            'key_contact_secperson_id' => ['nullable', 'exists:staff,id'],
+            'office_name' => ['required', 'string', 'max:255'],
+            'office_description' => ['nullable', 'string'],
+            'office_logo' => ['nullable', 'image', 'max:2048'],
+            'office_address' => ['required', 'string', 'max:255'],
+            'office_email' => ['nullable', 'email', 'max:255'],
+            'office_phone' => ['nullable', 'string', 'max:20'],
+            'office_phone_2' => ['nullable', 'string', 'max:20'],
+            'gmap_url' => ['nullable', 'url'],
+            'yt_url' => ['nullable', 'url'],
+            'fb_url' => ['nullable', 'url'],
+            'insta_url' => ['nullable', 'url'],
+            'titok_url' => ['nullable', 'url'],
+            'office_from' => ['nullable', 'string'],
+            'office_to' => ['nullable', 'string'],
         ];
     }
 }

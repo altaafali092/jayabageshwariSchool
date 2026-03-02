@@ -1,3 +1,5 @@
+import { Staff } from "./Staff";
+
 export type OfficeSetting = {
     id: number;
     office_name: string;
@@ -12,4 +14,12 @@ export type OfficeSetting = {
     fb_url: string;
     insta_url: string;
     titok_url: string;
+    is_admission: boolean;
+    is_open: boolean;
+    office_from: string;
+    office_to: string;
+    key_contact_person_id: number;
+    key_contact_secperson_id: number;
+    key_contact_person: Staff;
+    key_contact_secperson: Staff;
 }

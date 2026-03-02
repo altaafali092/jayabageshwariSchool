@@ -1,7 +1,11 @@
 import { Clock, Facebook, Instagram, Twitter, User2Icon, Youtube } from 'lucide-react'
 import React from 'react'
+import { usePage } from '@inertiajs/react'
+import { SharedData } from '@/types'
 
 const SocialContact = () => {
+    const { officeSettings } = usePage<SharedData>().props;
+    console.log(officeSettings);
     return (
         <div className="pt-8 border-t border-slate-100 dark:border-slate-800 space-y-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
@@ -12,11 +16,11 @@ const SocialContact = () => {
                     </div>
                     <div className="space-y-3">
                         <div>
-                            <p className="text-xs font-black text-slate-900 dark:text-white">Mrs. Presanna Raj Bhandari</p>
+                            <p className="text-xs font-black text-slate-900 dark:text-white">{officeSettings?.key_contact_person?.full_name}</p>
                             <p className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase">Founder</p>
                         </div>
                         <div>
-                            <p className="text-xs font-black text-slate-900 dark:text-white">Mrs. Bidya Man Raj Bhandari</p>
+                            <p className="text-xs font-black text-slate-900 dark:text-white">{officeSettings?.key_contact_sec_person?.full_name}</p>
                             <p className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase">Principal</p>
                         </div>
                     </div>

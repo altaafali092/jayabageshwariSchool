@@ -1,27 +1,38 @@
-import React from "react"
-import { Head, Form } from "@inertiajs/react"
+import React, { useState } from "react"
+import { Head, Form, router } from "@inertiajs/react"
 import AppLayout from "@/layouts/app-layout"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { ArrowLeft, Save, Building2, Globe, Phone, Share2 } from "lucide-react"
+import { ArrowLeft, Save, Building2, Globe, Phone, Share2, User, PlusCircle } from "lucide-react"
 import { type BreadcrumbItem } from "@/types"
 import InputError from "@/components/input-error"
 import FlashToast from "@/components/FlashToast"
 import { OfficeSetting } from "@/types/admin/OfficeSetting"
+import { Staff } from "@/types/admin/Staff"
+import { Switch } from "@/components/ui/switch"
+import { isAdmission, isOpen } from "@/routes/admin/office-setting"
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: "Office Settings", href: "#" },
 ]
 interface officeSettingProps {
     officeSetting: OfficeSetting
+    staffs: Staff[]
 }
 
-export default function Create({ officeSetting }: officeSettingProps) {
+export default function Create({ officeSetting, staffs }: officeSettingProps) {
     FlashToast()
     const handleCancel = () => window.history.back()
+    const [officeTime, setOfficeTime] = useState(0);
+    const handleAddOfficeTime = () => {
+        setOfficeTime(officeTime + 1);
+    }
+    const handleRemoveOfficeTime = () => {
+        setOfficeTime(officeTime - 1);
+    }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -153,14 +164,16 @@ export default function Create({ officeSetting }: officeSettingProps) {
                                             />
                                             <InputError message={errors.office_phone_2} />
                                         </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="gmap_url" className="text-[10px] font-black uppercase tracking-widest text-slate-500">Google Maps URL</Label>
-                                            <Input
+
+                                        <div className="lg:col-span-2 space-y-2">
+                                            <Label htmlFor="gmap_url" className="text-[10px] font-black uppercase tracking-widest text-slate-500">Google Maps Embed URL</Label>
+                                            <Textarea
                                                 id="gmap_url"
                                                 name="gmap_url"
-                                                placeholder="Paste shared maps link..."
+                                                placeholder="Enter google maps embed url "
+                                                rows={4}
                                                 defaultValue={officeSetting?.gmap_url}
-                                                className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
+                                                className="rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold resize-none"
                                             />
                                             <InputError message={errors.gmap_url} />
                                         </div>
@@ -230,56 +243,111 @@ export default function Create({ officeSetting }: officeSettingProps) {
                             <Card className="border-2 shadow-sm">
                                 <CardHeader className="bg-slate-50/50 border-b">
                                     <CardTitle className="text-sm font-black uppercase tracking-[0.2em] flex items-center gap-3">
-                                        <Share2 className="w-4 h-4 text-emerald-600" />
-                                        Social Assets
+                                        <User className="w-4 h-4 text-emerald-600" />
+                                        Key Contact Person
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent className="p-8">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                         <div className="space-y-2">
-                                            <Label htmlFor="fb_url" className="text-[10px] font-black uppercase tracking-widest text-slate-500">Facebook URL</Label>
-                                            <Input
-                                                id="fb_url"
-                                                name="fb_url"
-                                                placeholder="https://facebook.com/..."
-                                                defaultValue={officeSetting?.fb_url}
-                                                className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
-                                            />
-                                            <InputError message={errors.fb_url} />
+                                            <Label htmlFor="key_contact_person_id">
+                                                Founder
+                                            </Label>
+                                            <select
+                                                id="key_contact_person_id"
+                                                name="key_contact_person_id"
+                                                defaultValue={officeSetting?.key_contact_person_id}
+                                                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                                            >
+                                                <option value="">Select Key Contact Person</option>
+                                                {staffs.map((staff) => (
+                                                    <option key={staff.id} value={staff.id}>
+                                                        {staff.full_name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <InputError message={errors.key_contact_person_id} />
                                         </div>
                                         <div className="space-y-2">
-                                            <Label htmlFor="insta_url" className="text-[10px] font-black uppercase tracking-widest text-slate-500">Instagram URL</Label>
-                                            <Input
-                                                id="insta_url"
-                                                name="insta_url"
-                                                placeholder="https://instagram.com/..."
-                                                defaultValue={officeSetting?.insta_url}
-                                                className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
-                                            />
-                                            <InputError message={errors.insta_url} />
+                                            <Label htmlFor="key_contact_secperson_id">
+                                                Principal
+                                            </Label>
+                                            <select
+                                                id="key_contact_secperson_id"
+                                                name="key_contact_secperson_id"
+                                                defaultValue={officeSetting?.key_contact_secperson_id}
+                                                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                                            >
+                                                <option value="">Select Key Contact Person</option>
+                                                {staffs.map((staff) => (
+                                                    <option key={staff.id} value={staff.id}>
+                                                        {staff.full_name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <InputError message={errors.key_contact_secperson_id} />
                                         </div>
                                         <div className="space-y-2">
-                                            <Label htmlFor="yt_url" className="text-[10px] font-black uppercase tracking-widest text-slate-500">YouTube URL</Label>
-                                            <Input
-                                                id="yt_url"
-                                                name="yt_url"
-                                                placeholder="https://youtube.com/..."
-                                                defaultValue={officeSetting?.yt_url}
-                                                className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
+                                            <Label htmlFor="is_admission">
+                                                Admission Open
+                                            </Label>
+
+                                            <Switch
+                                                checked={officeSetting?.is_admission}
+                                                onCheckedChange={() =>
+                                                    router.get(
+                                                        isAdmission(officeSetting.id),
+                                                        {},
+                                                        {
+                                                            preserveScroll: true,
+                                                            preserveState: true,
+                                                        }
+                                                    )
+                                                }
                                             />
-                                            <InputError message={errors.yt_url} />
                                         </div>
                                         <div className="space-y-2">
-                                            <Label htmlFor="titok_url" className="text-[10px] font-black uppercase tracking-widest text-slate-500">TikTok URL</Label>
+                                            <Label htmlFor="is_admission">
+                                                Is office Open on Saturday
+                                            </Label>
+
+                                            <Switch
+                                                checked={officeSetting?.is_open}
+                                                onCheckedChange={() =>
+                                                    router.get(
+                                                        isOpen(officeSetting.id),
+                                                        {},
+                                                        {
+                                                            preserveScroll: true,
+                                                            preserveState: true,
+                                                        }
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="office_from" className="text-[10px] font-black uppercase tracking-widest text-slate-500">From</Label>
                                             <Input
-                                                id="titok_url"
-                                                name="titok_url"
-                                                placeholder="https://tiktok.com/@..."
-                                                defaultValue={officeSetting?.titok_url}
+                                                id="office_from"
+                                                name="office_from"
+                                                type="time"
+                                                defaultValue={officeSetting?.office_from}
                                                 className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
                                             />
-                                            <InputError message={errors.titok_url} />
+                                            <InputError message={errors.office_from} />
                                         </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="office_to" className="text-[10px] font-black uppercase tracking-widest text-slate-500">TO</Label>
+                                            <Input
+                                                id="office_to"
+                                                name="office_to"
+                                                type="time"
+                                                defaultValue={officeSetting?.office_to}
+                                                className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
+                                            />
+                                            <InputError message={errors.office_to} />
+                                        </div>
+
                                     </div>
                                 </CardContent>
                             </Card>

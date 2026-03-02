@@ -37,7 +37,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('academic-item', AcademicItemsController::class);
     Route::get('academic-item/{academicItem}/status', [AcademicItemsController::class, 'status'])->name('academicItem.status');
-
     Route::resource('contact', ContactController::class)->only(['index', 'show', 'destroy']);
 
     Route::resource('admission-process', AdmissionProcessController::class);
@@ -45,6 +44,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('admission-query', AdmissionQueryController::class)->only(['index', 'show', 'destroy']);
     Route::get('office-setting', [OfficeSettingController::class, 'create'])->name('office-setting.create');
     Route::post('office-setting', [OfficeSettingController::class, 'store'])->name('office-setting.store');
+    Route::get('office-setting/{officeSetting}/is-admission', [OfficeSettingController::class, 'isAdmission'])->name('office-setting.is-admission');
+    Route::get('office-setting/{officeSetting}/is-open', [OfficeSettingController::class, 'isOpen'])->name('office-setting.is-open');
     Route::resource('staff', StaffController::class);
     Route::get('staff/{staff}/status', [StaffController::class, 'status'])->name('staff.status');
     Route::post('upload', [UploadController::class, 'upload'])->name('upload');

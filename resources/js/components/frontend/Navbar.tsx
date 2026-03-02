@@ -23,6 +23,8 @@ import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useAppearance } from '@/hooks/use-appearance';
 import officeSetting from '@/routes/admin/office-setting';
 import { SharedData } from '@/types';
+import { admissions } from '@/routes';
+
 
 type NavLink = {
     name: string;
@@ -208,13 +210,15 @@ export default function Navbar() {
                         {/* Right Actions */}
                         <div className="flex items-center gap-4">
 
-                            <Link
-                                href="/admissions"
-                                className="h-12 lg:h-12 px-6 lg:px-8 bg-slate-900 dark:bg-blue-600 text-white font-black text-xs lg:text-sm uppercase tracking-widest rounded-2xl flex items-center gap-3 hover:bg-blue-600 dark:hover:bg-blue-700 transition-all active:scale-95 shadow-xl shadow-slate-900/10 dark:shadow-blue-900/20 animate-cta-pulse"
-                            >
-                                <span className="hidden sm:inline">Apply Now</span>
-                                <ArrowRight className="h-4 w-4" />
-                            </Link>
+                            {officeSettings?.is_open && (
+                                <Link
+                                    href={admissions()}
+                                    className="h-12 lg:h-12 px-6 lg:px-8 bg-slate-900 dark:bg-blue-600 text-white font-black text-xs lg:text-sm uppercase tracking-widest rounded-2xl flex items-center gap-3 hover:bg-blue-600 dark:hover:bg-blue-700 transition-all active:scale-95 shadow-xl shadow-slate-900/10 dark:shadow-blue-900/20 animate-cta-pulse"
+                                >
+                                    <span className="hidden sm:inline">Apply Now</span>
+                                    <ArrowRight className="h-4 w-4" />
+                                </Link>
+                            )}
 
                             {/* Theme Toggle Button */}
                             <button

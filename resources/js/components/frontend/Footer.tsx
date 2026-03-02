@@ -126,14 +126,27 @@ const Footer = () => {
                                 <Clock className="w-5 h-5 text-blue-600" />
                                 <div className="text-sm">
                                     <p className="text-white font-bold tracking-tight">Sunday - Friday</p>
-                                    <p className="text-xs text-slate-500">10:00 AM - 4:15 PM</p>
+                                    <p className="text-xs text-slate-500">{officeSettings?.office_from} - {officeSettings?.office_to}</p>
                                 </div>
                             </div>
                             <div className="pt-4 border-t border-blue-900/30">
                                 <p className="text-[10px] font-black uppercase text-blue-500 tracking-widest mb-2">School Status</p>
                                 <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                                    <span className="text-white font-bold text-sm tracking-tight">Open Today</span>
+                                    {officeSettings?.computed_is_open ? (
+                                        <>
+                                            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                            <span className="text-white font-bold text-sm tracking-tight">
+                                                Open Today
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="w-2 h-2 rounded-full bg-red-500" />
+                                            <span className="text-white font-bold text-sm tracking-tight">
+                                                Closed Today
+                                            </span>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>

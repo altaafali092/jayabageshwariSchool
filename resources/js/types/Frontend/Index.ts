@@ -1,3 +1,5 @@
+import { Staff } from "../admin/Staff";
+
 export type Slider = {
     id: number;
     title: string;
@@ -23,6 +25,15 @@ export type News = {
     event_time: string;
     event_location: string;
 }
+export type Staffs = {
+    id: number;
+    full_name: string;
+    position: string;
+    image: string;
+    designation: string;
+    created_at: string;
+    updated_at: string;
+}
 export type OfficeSetting = {
     id: number;
     office_name: string;
@@ -39,4 +50,11 @@ export type OfficeSetting = {
     titok_url: string;
     created_at: string;
     updated_at: string;
+    is_open: boolean;
+    computed_is_open: boolean;
+    is_admission: boolean;
+    office_from: string;
+    office_to: string;
+    key_contact_person: Staff;
+    key_contact_sec_person: Staff;
 }

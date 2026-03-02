@@ -18,7 +18,8 @@ class HandleFrontendRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
-            'officeSettings' => fn() => OfficeSetting::first(),
+         
+            'officeSettings' => fn() => OfficeSetting::with('keyContactPerson', 'keyContactSecPerson')->first(),
         ]);
     }
 }

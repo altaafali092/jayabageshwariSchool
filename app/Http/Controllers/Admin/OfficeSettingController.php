@@ -22,8 +22,8 @@ class OfficeSettingController extends Controller
      */
     public function create()
     {
-        $officeSetting = OfficeSetting::first();
-        $staffs = Staff::with('is_active', 1)->latest()->get();
+        $officeSetting = OfficeSetting::with('keyContactPerson', 'keyContactSecPerson')->first();
+        $staffs = Staff::where('is_active', 1)->latest()->get();
         return Inertia::render('Admin/OfficeSetting/Create', [
             'officeSetting' => $officeSetting,
             'staffs' => $staffs,
@@ -43,5 +43,20 @@ class OfficeSettingController extends Controller
         }
         Cache::forget('office_setting');
         return back()->with('success', 'Office Settings created successfully');
+    }
+    public function isAdmission(OfficeSetting $officeSetting)
+    {
+        $officeSetting->update([
+            'is_admission' => !$officeSetting->is_admission
+        ]);
+
+        return back()->with('success', 'Admission Status updated successfully');
+    }
+    public function isOpen(OfficeSetting $officeSetting)
+    {
+        $officeSetting->update([
+            'is_open' => !$officeSetting->is_open
+        ]);
+        return back()->with('success', 'Office Open Status updated successfully');
     }
 }
