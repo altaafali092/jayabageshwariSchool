@@ -183,7 +183,7 @@ export default function NewsDetail({ news, related }: Props) {
 
                             </div>
 
-                            {/* Cards — same design as NewsEvents.tsx list */}
+
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
                                 {related.map((item) => (
                                     <Link
