@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\GalleryEnum;
 use App\Http\Requests\AdmissionQuery\StoreAdmissionQueryRequest;
 use App\Http\Requests\Frontend\StoreContactFormRequest;
 use App\Models\AdmissionQuery;
 use App\Models\Contact;
+use App\Models\Gallery;
 use App\Models\NewsEvent;
 use App\Models\slider;
 use App\Models\Staff;
@@ -124,7 +126,26 @@ class FrontController extends Controller
 
     public function gallery()
     {
-        return Inertia::render('frontend/Gallery');
+        $galleries = Gallery::where('status', true)->latest()->get();
+        return Inertia::render('frontend/Gallery', [
+            'galleryTypes' => GalleryEnum::getValuesWithLabels(),
+            'galleries'    => $galleries,
+        ]);
+    }
+
+    public function galleryShow(Gallery $gallery)
+    {
+        $related = Gallery::where('status', true)
+            ->where('gallery_type', $gallery->gallery_type)
+            ->where('id', '!=', $gallery->id)
+            ->latest()
+            ->limit(6)
+            ->get();
+
+        return Inertia::render('frontend/GalleryDetail', [
+            'gallery' => $gallery,
+            'related' => $related,
+        ]);
     }
 
     public function staff()
@@ -148,11 +169,26 @@ class FrontController extends Controller
         ]);
     }
 
-    public function newsShow($slug)
+    public function newsShow(NewsEvent $news)
     {
-        $news = NewsEvent::where('slug', $slug)->firstOrFail();
-        return Inertia::render('frontend/NewsDetail', [
-            'news' => $news
+        $related = NewsEvent::where('status', true)
+            ->where('category', $news->category)
+            ->where('id', '!=', $news->id)
+            ->latest()
+            ->limit(4)
+            ->get();
+
+        return Inertia::render('frontend/NewsEventPage/NewsDetail', [
+            'news'    => $news,
+            'related' => $related,
+        ]);
+    }
+
+    public function NewsEventPage()
+    {
+        $newsEvents = NewsEvent::where('status', true)->whereIn('category', ['news', 'event'])->latest()->get();
+        return Inertia::render('frontend/NewsEventPage/NewsEvents', [
+            'newsEvents' => $newsEvents
         ]);
     }
 }

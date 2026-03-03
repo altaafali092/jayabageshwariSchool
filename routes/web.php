@@ -12,8 +12,9 @@ Route::post('/contact', [FrontController::class, 'contactForm'])->name('contact.
 Route::get('/admissions', [FrontController::class, 'admissions'])->name('admissions');
 Route::post('/admissions', [FrontController::class, 'admissionForm'])->name('admissions.form');
 
-Route::get('/news-events', [FrontController::class, 'news'])->name('news');
-Route::get('/news/{slug}', [FrontController::class, 'newsShow'])->name('news.show');
+// newseventPAge
+Route::get('/news-events', [FrontController::class, 'NewsEventPage'])->name('newsEvents');
+Route::get('/news/{news:slug}', [FrontController::class, 'newsShow'])->name('news.show');
 
 Route::get('/notices', [FrontController::class, 'notices'])->name('notices');
 Route::get('/notices/{slug}', [FrontController::class, 'noticeShow'])->name('notices.show');
@@ -27,5 +28,6 @@ Route::get('/about/why-choose-us', [FrontController::class, 'whyChooseUs'])->nam
 Route::get('/staff', [FrontController::class, 'staff'])->name('staff');
 Route::get('/staff/{staff}', [FrontController::class, 'staffShow'])->name('staff.show');
 Route::get('/gallery', [FrontController::class, 'gallery'])->name('gallery');
+Route::get('/gallery/{gallery:slug}', [FrontController::class, 'galleryShow'])->name('gallery.show');
 
 require __DIR__ . '/settings.php';

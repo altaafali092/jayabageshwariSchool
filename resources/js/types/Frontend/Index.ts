@@ -1,5 +1,20 @@
 import { Staff } from "../admin/Staff";
 
+export type FacilityItem = {
+    id: number;
+    title: string;
+    slug: string;
+    category: string;
+    description: string | null;
+    image: string | null;
+    icon: string | null;
+    meta_data: Record<string, string> | null;
+    position: number | null;
+    status: boolean;
+    created_at: string;
+    updated_at: string;
+};
+
 export type Slider = {
     id: number;
     title: string;

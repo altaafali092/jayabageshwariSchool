@@ -230,3 +230,15 @@
         @apply absolute right-[-2px] top-0 bottom-[-2px] w-[4px] bg-primary cursor-col-resize;
     }
 }
+
+/* Hide scrollbar but keep scrolling */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE + Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
