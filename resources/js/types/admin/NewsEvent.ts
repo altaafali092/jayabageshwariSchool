@@ -11,6 +11,7 @@ export type NewsEvent = {
     event_time: string;
     event_location: string;
     status: boolean;
+    is_popup: boolean;
     deleted_at: string;
     created_at: string;
     updated_at: string;

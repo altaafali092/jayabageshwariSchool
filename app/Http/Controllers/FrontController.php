@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\GalleryEnum;
 use App\Http\Requests\AdmissionQuery\StoreAdmissionQueryRequest;
 use App\Http\Requests\Frontend\StoreContactFormRequest;
+use App\Models\AcademicLevel;
 use App\Models\AdmissionQuery;
 use App\Models\Contact;
 use App\Models\Gallery;
@@ -18,6 +19,7 @@ class FrontController extends Controller
 {
     public function index()
     {
+        $popupNotice = NewsEvent::where('is_popup', true)->first();
         $sliders = slider::where('status', true)->latest()->limit(5)->get();
         $notices = NewsEvent::where(['status' => true, 'category' => 'notice'])->latest()->limit(5)->get();
         $events = NewsEvent::where('status', true)->whereIn('category', ['event', 'news'])->latest()->limit(5)->get();
@@ -25,6 +27,7 @@ class FrontController extends Controller
             'sliders' => $sliders,
             'notices' => $notices,
             'events' => $events,
+            'popupNotice' => $popupNotice,
         ]);
     }
 
@@ -81,10 +84,18 @@ class FrontController extends Controller
         ]);
     }
 
-    public function academics()
+    public function academics(AcademicLevel $academicLevel)
     {
-        return Inertia::render('frontend/Academics');
+        $levels = $academicLevel->sections()->where('status', true)
+            ->orderBy('sort_order')
+            ->get();
+
+        return Inertia::render('frontend/Academics', [
+            'levels' => $levels,
+            'academicLevel' => $academicLevel
+        ]);
     }
+
 
     public function facilities()
     {

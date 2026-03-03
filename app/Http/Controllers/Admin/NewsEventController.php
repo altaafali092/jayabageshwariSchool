@@ -118,6 +118,13 @@ class NewsEventController extends Controller
         $newsEvent->update([
             'status' => !$newsEvent->status,
         ]);
-        return to_route('admin.news-event.index')->with('success', 'News Event status updated successfully');
+        return back()->with('success', 'News Event status updated successfully');
+    }
+    public function isPopup(NewsEvent $newsEvent)
+    {
+        $newsEvent->update([
+            'is_popup' => !$newsEvent->is_popup,
+        ]);
+        return back()->with('success', 'News Event is updated as popUp successfully');
     }
 }

@@ -24,10 +24,12 @@ class NewsEvent extends Model
         'event_time',
         'event_location',
         'status',
+        'is_popup',
     ];
     protected $casts = [
         'status' => 'boolean',
         'image' => 'array',
+        'is_popup' => 'boolean',
     ];
 
 

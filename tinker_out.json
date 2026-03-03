@@ -1,0 +1,158 @@
+[
+    {
+        "id": 1,
+        "title": "Primary",
+        "slug": "primary",
+        "badge": "primary",
+        "subtitle": "primary",
+        "description": "primary",
+        "status": true,
+        "sort_order": 1,
+        "created_at": "2026-03-03T05:47:34.000000Z",
+        "updated_at": "2026-03-03T05:47:34.000000Z",
+        "deleted_at": null,
+        "image": [],
+        "sections": [
+            {
+                "id": 1,
+                "academic_level_id": 1,
+                "key": "EVERY CHILD HAS A UNIQUE SPARK",
+                "title": "EVERY CHILD HAS A UNIQUE SPARK",
+                "subtitle": "EVERY CHILD HAS A UNIQUE SPARK",
+                "description": "EVERY CHILD HAS A\r\nUNIQUE SPARK",
+                "sort_order": 1,
+                "status": 1,
+                "created_at": "2026-03-03T05:50:21.000000Z",
+                "updated_at": "2026-03-03T05:50:21.000000Z",
+                "deleted_at": null,
+                "image": [
+                    "http:\/\/localhost:8000\/storage\/AcademicSection\/nJQGPjLujz8kEeiBo1EoD3ti55BEz7W7S7NnQZ63.jpg"
+                ],
+                "academic_item": []
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Secondary",
+        "slug": "secondary",
+        "badge": "secondary",
+        "subtitle": "secondary",
+        "description": null,
+        "status": true,
+        "sort_order": 2,
+        "created_at": "2026-03-03T05:48:23.000000Z",
+        "updated_at": "2026-03-03T05:48:23.000000Z",
+        "deleted_at": null,
+        "image": [
+            "http:\/\/localhost:8000\/storage\/AcademicLevel\/jfJwq9Eztd5t0rcUV2DFAuoEo28qvTnP4Owv0Bal.jpg"
+        ],
+        "sections": [
+            {
+                "id": 2,
+                "academic_level_id": 2,
+                "key": "Advanced Learning Hub",
+                "title": "Advanced Learning Hub",
+                "subtitle": "Our secondary program provides comprehensive education that prepares students for national board examinations (SEE) and future academic challenges.",
+                "description": "Our secondary program provides comprehensive education that prepares students for national board examinations (SEE) and future academic challenges.",
+                "sort_order": 2,
+                "status": 1,
+                "created_at": "2026-03-03T05:51:03.000000Z",
+                "updated_at": "2026-03-03T05:51:03.000000Z",
+                "deleted_at": null,
+                "image": [
+                    "http:\/\/localhost:8000\/storage\/AcademicSection\/HPyn811DpsB4OSNNhnft1VIysoTpKBw4hY17qvlF.jpg"
+                ],
+                "academic_item": [
+                    {
+                        "id": 2,
+                        "academic_section_id": 2,
+                        "title": "Career Readiness",
+                        "description": null,
+                        "icon": "Heart",
+                        "meta_key": "asefse",
+                        "meta_value": "sdfgd",
+                        "sort_order": 2,
+                        "status": 1,
+                        "deleted_at": null,
+                        "created_at": "2026-03-03T05:53:03.000000Z",
+                        "updated_at": "2026-03-03T05:53:03.000000Z",
+                        "image": [
+                            "http:\/\/localhost:8000\/storage\/AcademicItems\/h40SgB0am0Rwu5JTNXzmS7Izv1Gl8Zspo7hZd4Rd.jpg"
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "academic_section_id": 2,
+                        "title": "Career R",
+                        "description": "EVERY CHILD HAS A\r\nUNIQUE SPARK",
+                        "icon": "Heart",
+                        "meta_key": "drsfcfe",
+                        "meta_value": "srgsrg",
+                        "sort_order": 3,
+                        "status": 1,
+                        "deleted_at": null,
+                        "created_at": "2026-03-03T05:53:37.000000Z",
+                        "updated_at": "2026-03-03T05:53:37.000000Z",
+                        "image": [
+                            "http:\/\/localhost:8000\/storage\/AcademicItems\/s1gwgkUXLpKtpAPNwX3Gx5aZ9JXpw28tPtVgdaOP.jpg"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Higher Secondary",
+        "slug": "higher_secondary",
+        "badge": "Higher Secondary",
+        "subtitle": "Higher Secondary",
+        "description": null,
+        "status": true,
+        "sort_order": 3,
+        "created_at": "2026-03-03T05:49:38.000000Z",
+        "updated_at": "2026-03-03T05:49:38.000000Z",
+        "deleted_at": null,
+        "image": [
+            "http:\/\/localhost:8000\/storage\/AcademicLevel\/Bm3Fq32kLksBErGwDJoc14awcdrKqle06Y0dD05h.jpg"
+        ],
+        "sections": [
+            {
+                "id": 3,
+                "academic_level_id": 3,
+                "key": "Career-Focused Growth",
+                "title": "Career-Focused Growth",
+                "subtitle": "Career-Focused Growth",
+                "description": "Career-Focused Growth",
+                "sort_order": 3,
+                "status": 1,
+                "created_at": "2026-03-03T05:51:42.000000Z",
+                "updated_at": "2026-03-03T05:51:42.000000Z",
+                "deleted_at": null,
+                "image": [
+                    "http:\/\/localhost:8000\/storage\/AcademicSection\/E6qrb3fktTnWcgXj0MvE699jQc0qrdAyhdG55Gz7.jpg"
+                ],
+                "academic_item": [
+                    {
+                        "id": 1,
+                        "academic_section_id": 3,
+                        "title": "EVERY CHILD HAS A UNIQUE SPARK",
+                        "description": "Our secondary program provides comprehensive education that prepares students for national board examinations (SEE) and future academic challenges.",
+                        "icon": "Heart",
+                        "meta_key": "Subject",
+                        "meta_value": "Moring assembly",
+                        "sort_order": 1,
+                        "status": 1,
+                        "deleted_at": null,
+                        "created_at": "2026-03-03T05:52:32.000000Z",
+                        "updated_at": "2026-03-03T05:52:32.000000Z",
+                        "image": [
+                            "http:\/\/localhost:8000\/storage\/AcademicItems\/H6JNf4KwzwQHaaUsnms9a7LcuKpnxineaSRcPDD2.jpg"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

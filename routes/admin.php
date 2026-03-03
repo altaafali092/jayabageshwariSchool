@@ -23,8 +23,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('sliders/{slider}/status', [sliderController::class, 'status'])->name('sliders.status');
     Route::resource('news-category', NewsCategoryController::class);
     Route::get('news-category/{newsCategory}/status', [NewsCategoryController::class, 'status'])->name('newsCategory.status');
+
     Route::resource('news-event', NewsEventController::class);
     Route::get('news-event/{newsEvent}/status', [NewsEventController::class, 'status'])->name('newsEvent.status');
+    Route::get('news-event/{newsEvent}/is-popup', [NewsEventController::class, 'isPopup'])->name('newsEvent.isPopup');
+
     Route::resource('gallery', GalleryController::class);
     Route::get('gallery/{gallery}/status', [GalleryController::class, 'status'])->name('gallery.status');
     Route::resource('facility', App\Http\Controllers\Admin\FacilityController::class);

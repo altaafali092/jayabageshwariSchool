@@ -14,12 +14,13 @@ import { News, Slider } from '@/types/Frontend/Index';
 
 
 const Welcome = () => {
-    const { sliders, events, notices } =
+    const { sliders, events, notices,popupNotice } =
 
         usePage<{
             sliders: Slider[];
             events: News[];
             notices: News[];
+            popupNotice: News;
         }>().props;
 
     return (
@@ -28,7 +29,7 @@ const Welcome = () => {
             <Head title="JBS" />
             <main className="flex-1">
                 {/* Important Announcements Popup */}
-                <PopupNotice />
+                <PopupNotice popupNotice={popupNotice} />
 
                 {/* High-Visibility Alert Bar */}
                 <ImportantNotice notices={notices} />

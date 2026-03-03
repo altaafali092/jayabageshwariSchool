@@ -4,7 +4,7 @@ import { Link, router } from "@inertiajs/react";
 import { Pencil, ScanEye, Trash } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { NewsEvent } from "@/types/admin/NewsEvent";
-import { status } from "@/routes/admin/newsEvent";
+import { isPopup, status } from "@/routes/admin/newsEvent";
 import { destroy, edit, show } from "@/routes/admin/news-event";
 
 
@@ -62,6 +62,31 @@ export const columns: ColumnDef<NewsEvent>[] = [
                             }`}
                     >
                         {newsEvent.status ? "Active" : "Inactive"}
+                    </span>
+                </div>
+            );
+        },
+    },
+    {
+        accessorKey: "is_popup",
+        header: "Is Popup",
+        cell: ({ row }) => {
+            const newsEvent = row.original;
+            const updateToggle = () => {
+                router.get(isPopup(newsEvent.id), {}, { preserveScroll: true });
+            };
+
+            return (
+                <div className="flex items-center gap-2">
+                    <Switch
+                        checked={newsEvent.is_popup}
+                        onCheckedChange={updateToggle}
+                    />
+                    <span
+                        className={`text-sm font-medium ${newsEvent.is_popup ? "text-green-600" : "text-red-600"
+                            }`}
+                    >
+                        {newsEvent.is_popup ? "Active" : "Inactive"}
                     </span>
                 </div>
             );
