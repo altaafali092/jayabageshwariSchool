@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('menu_settings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('menu_id')->nullable()->constrained('menu_settings')->nullOnDelete()->onUpdate('cascade');
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->string('menu_type');
+            $table->nullableMorphs('menuable');
+            $table->string('menuable_key')->nullable();
+            $table->string('menu_url')->nullable();
+            $table->integer('position')->nullable(); // For ordering
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

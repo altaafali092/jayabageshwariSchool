@@ -6,6 +6,7 @@ use App\Traits\FileTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AcademicLevel extends Model
@@ -31,8 +32,8 @@ class AcademicLevel extends Model
         return $this->castingFile(defaultPath: 'AcademicLevel');
     }
 
-    public function sections()
+    public function academicItems(): HasMany
     {
-        return $this->hasMany(AcademicSection::class);
+        return $this->hasMany(AcademicItems::class);
     }
 }

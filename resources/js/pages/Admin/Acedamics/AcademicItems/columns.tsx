@@ -4,14 +4,9 @@ import { Link, router } from "@inertiajs/react";
 import { Pencil, ScanEye, Trash } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 
-import { AcademicSection } from "@/types/admin/AcademicSection";
 import { AcademicItem } from "@/types/admin/AcademicItems";
 import { status } from "@/routes/admin/academicItem";
 import { destroy, edit, show } from "@/routes/admin/academic-item";
-
-
-
-
 
 
 export const columns: ColumnDef<AcademicItem>[] = [
@@ -26,8 +21,8 @@ export const columns: ColumnDef<AcademicItem>[] = [
         header: "Title",
     },
     {
-        accessorKey: "academic_section.title",
-        header: "Section",
+        accessorKey: "academic_level.title",
+        header: "Level",
     },
 
     {

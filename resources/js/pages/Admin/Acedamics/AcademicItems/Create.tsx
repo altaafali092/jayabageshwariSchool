@@ -9,21 +9,28 @@ import { ArrowLeft, Save } from "lucide-react"
 import InputError from "@/components/input-error"
 import type { BreadcrumbItem } from "@/types"
 import { index, store } from "@/routes/admin/academic-item"
-import { AcademicSection } from "@/types/admin/AcademicSection"
+import RichTextEditor from "@/components/RichTextEditor"
+import { AcademicsLevel } from "@/types/admin/AcademicsLevel"
 
 
 
-interface Props {
-    academicSections: AcademicSection[];
+interface CardTypeProps {
+    label: string;
+    value: string;
 }
 
-export default function Create({ academicSections }: Props) {
+interface Props {
+    academicLevels: AcademicsLevel[];
+    cardTypes: CardTypeProps[];
+}
+
+export default function Create({ academicLevels, cardTypes }: Props) {
     const breadcrumbs: BreadcrumbItem[] = [
-        { title: "Academic Sections", href: index().url },
+        { title: "Academic Items", href: index().url },
         { title: "Create Item", href: "#" },
     ]
     const handleBack = () => window.history.back()
-
+    console.log(cardTypes)
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Create Academic Item" />
@@ -66,16 +73,16 @@ export default function Create({ academicSections }: Props) {
 
                                     {/* Title */}
                                     <div className="space-y-2">
-                                        <Label htmlFor="academic_section_id">
+                                        <Label htmlFor="academic_level_id">
                                             Category <span className="text-red-500">*</span>
                                         </Label>
                                         <select
-                                            id="academic_section_id"
-                                            name="academic_section_id"
+                                            id="academic_level_id"
+                                            name="academic_level_id"
                                             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
                                         >
                                             <option value="">Select Category</option>
-                                            {academicSections.map((category) => (
+                                            {academicLevels.map((category) => (
                                                 <option key={category.id} value={category.id}>
                                                     {category.title}
                                                 </option>
@@ -138,6 +145,24 @@ export default function Create({ academicSections }: Props) {
                                         />
                                         <InputError message={errors.meta_value} />
                                     </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="content_type">
+                                            Card Type <span className="text-red-500">*</span>
+                                        </Label>
+                                        <select
+                                            id="content_type"
+                                            name="content_type"
+                                            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                                        >
+                                            <option value="">Select Card Type</option>
+                                            {cardTypes.map((cardType) => (
+                                                <option key={cardType.value} value={cardType.value}>
+                                                    {cardType.label}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <InputError message={errors.content_type} />
+                                    </div>
 
 
                                     {/* Sort Order */}
@@ -151,12 +176,13 @@ export default function Create({ academicSections }: Props) {
                                         <InputError message={errors.sort_order} />
                                     </div>
                                 </div>
+
                                 <div className="space-y-2">
-                                    <Label>Description</Label>
-                                    <Textarea
+                                    <Label htmlFor="description"> Professional descriptiongraphy</Label>
+                                    <RichTextEditor
+                                        id="description"
                                         name="description"
-                                        rows={4}
-                                        placeholder="Short descriptive text"
+                                        placeholder="Optional description"
                                     />
                                     <InputError message={errors.description} />
                                 </div>

@@ -22,7 +22,7 @@ class UpdateAcademicItemsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'academic_section_id' => ['required', 'exists:academic_sections,id'],
+            'academic_level_id' => ['required', 'exists:academic_levels,id'],
             'title' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'icon' => ['nullable', 'string', 'max:255'],
@@ -30,6 +30,7 @@ class UpdateAcademicItemsRequest extends FormRequest
             'meta_key' => ['nullable', 'string', 'max:255'],
             'meta_value' => ['nullable', 'string', 'max:255'],
             'sort_order' => ['nullable', 'integer'],
+            'content_type' => ['required', 'string'],
             'status' => ['nullable', 'boolean'],
         ];
     }

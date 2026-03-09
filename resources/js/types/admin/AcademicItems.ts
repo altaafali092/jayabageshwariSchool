@@ -1,7 +1,6 @@
 export interface AcademicItem {
     id: number
-    academic_section_id: number
-
+    academic_level_id: number
     key: string
     title: string | null
     subtitle: string | null
@@ -13,7 +12,7 @@ export interface AcademicItem {
     meta_value: string | null
     image: string | null
 
-    academic_section?: {
+    academic_level?: {
         id: number
         title: string
         key: string

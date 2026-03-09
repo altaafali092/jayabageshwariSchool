@@ -13,7 +13,7 @@ import FlashToast from "@/components/FlashToast"
 import { OfficeSetting } from "@/types/admin/OfficeSetting"
 import { Staff } from "@/types/admin/Staff"
 import { Switch } from "@/components/ui/switch"
-import { isAdmission, isOpen } from "@/routes/admin/office-setting"
+import { isAdmission, isOpen, store } from "@/routes/admin/office-setting"
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: "Office Settings", href: "#" },
@@ -26,13 +26,6 @@ interface officeSettingProps {
 export default function Create({ officeSetting, staffs }: officeSettingProps) {
     FlashToast()
     const handleCancel = () => window.history.back()
-    const [officeTime, setOfficeTime] = useState(0);
-    const handleAddOfficeTime = () => {
-        setOfficeTime(officeTime + 1);
-    }
-    const handleRemoveOfficeTime = () => {
-        setOfficeTime(officeTime - 1);
-    }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -55,7 +48,7 @@ export default function Create({ officeSetting, staffs }: officeSettingProps) {
 
                 {/* Form */}
                 <Form
-                    action="#"
+                    action={store()}
                     method="post"
                     encType="multipart/form-data"
                     className="space-y-8"
@@ -197,7 +190,7 @@ export default function Create({ officeSetting, staffs }: officeSettingProps) {
                                                 id="fb_url"
                                                 name="fb_url"
                                                 placeholder="https://facebook.com/..."
-                                                defaultValue={officeSetting?.fb_url}
+                                                defaultValue={officeSetting?.fb_url || ''}
                                                 className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
                                             />
                                             <InputError message={errors.fb_url} />

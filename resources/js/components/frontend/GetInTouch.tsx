@@ -62,7 +62,7 @@ const GetInTouch = () => {
                             </div>
                             <div>
                                 <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Email</p>
-                                <p className="text-base font-bold text-slate-900 dark:text-white">{officeSettings.office_email || " no email"}</p>
+                                <p className="text-base font-bold text-slate-900 dark:text-white">{officeSettings?.office_email || " no email"}</p>
                             </div>
                         </div>
 

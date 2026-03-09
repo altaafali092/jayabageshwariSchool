@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, GalleryVerticalEndIcon, GraduationCap, Images, LayoutGrid, MessageCircle, Newspaper, NotepadTextDashed, School, School2, StretchHorizontal, Users } from 'lucide-react';
+import { BookOpen, Folder, GalleryVerticalEndIcon, GraduationCap, Images, LayoutGrid, Menu, MessageCircle, Newspaper, NotepadTextDashed, School, School2, StretchHorizontal, Users } from 'lucide-react';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -20,8 +20,6 @@ import { index as NewsEventIndex } from '@/routes/admin/news-event';
 import { index as galleryIndex } from '@/routes/admin/gallery';
 import { index as facilityIndex } from '@/routes/admin/facility';
 import { index as AcademicLevelIndex } from '@/routes/admin/academic-level';
-import { index as AcademicSectionIndex } from '@/routes/admin/academic-section';
-
 import { index as AcademicItemIndex } from '@/routes/admin/academic-item';
 import { index as sliderIndex } from '@/routes/admin/slider';
 import { index as ContactIndex } from '@/routes/admin/contact';
@@ -29,6 +27,7 @@ import { index as AdmisssionProcessIndex } from '@/routes/admin/admission-proces
 import { index as AdmisssionQueryIndex } from '@/routes/admin/admission-query';
 import { index as StaffIndex } from '@/routes/admin/staff';
 import { create } from '@/routes/admin/office-setting';
+import { index as MenuSettingIndex } from '@/routes/admin/menu-setting';
 
 const mainNavItems: NavItem[] = [
     {
@@ -67,11 +66,7 @@ const mainNavItems: NavItem[] = [
                 href: AcademicLevelIndex(),
                 icon: GraduationCap,
             },
-            {
-                title: 'Academic Section',
-                href: AcademicSectionIndex(),
-                icon: School2,
-            },
+            
             {
                 title: 'Academic Items',
                 href: AcademicItemIndex(),
@@ -110,6 +105,11 @@ const mainNavItems: NavItem[] = [
         title: "Staff Members",
         href: StaffIndex(),
         icon: Users
+    },
+    {
+        title: "Menu Setting",
+        href: MenuSettingIndex(),
+        icon: Menu
     }
 
 ];

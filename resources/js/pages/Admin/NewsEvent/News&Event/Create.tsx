@@ -29,10 +29,6 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: "Create", href: "#" },
 ]
 
-interface newsCategoryProps {
-    newsCategories: NewsCategory[]
-}
-
 export default function Create({ categories }: props) {
     const handleCancel = () => window.history.back()
 

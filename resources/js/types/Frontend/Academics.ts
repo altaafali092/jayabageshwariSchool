@@ -1,4 +1,5 @@
 export type AcademicLevel = {
+    id: number;
     title: string;
     slug: string;
     badge: string;
@@ -7,6 +8,7 @@ export type AcademicLevel = {
     status: boolean;
     sort_order: number;
     sections?: {
+        id: number;                // Add the section id
         academic_level_id: number;
         key: string;
         title: string;
@@ -14,10 +16,11 @@ export type AcademicLevel = {
         description: string;
         status: boolean;
         sort_order: number;
-        academicItem?: {
+        academic_item?: {
+            id: number;
             title: string;
-            description: string;
-            icon: React.ComponentType<{ className?: string }>;
+            description: string | null;
+            icon: string;           // icon name as string
         }[]
     }[]
 }

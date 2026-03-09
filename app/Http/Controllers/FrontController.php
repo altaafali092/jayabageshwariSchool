@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\GalleryEnum;
 use App\Http\Requests\AdmissionQuery\StoreAdmissionQueryRequest;
 use App\Http\Requests\Frontend\StoreContactFormRequest;
+use App\Models\AcademicItems;
 use App\Models\AcademicLevel;
 use App\Models\AdmissionQuery;
 use App\Models\Contact;
@@ -86,13 +87,20 @@ class FrontController extends Controller
 
     public function academics(AcademicLevel $academicLevel)
     {
-        $levels = $academicLevel->sections()->where('status', true)
+        $levels = AcademicLevel::where('status', true)
             ->orderBy('sort_order')
             ->get();
 
+        $academicLevel->load([
+            'academicItems' => function ($query) {
+                $query->where('status', true)
+                    ->orderBy('sort_order');
+            }
+        ]);
+
         return Inertia::render('frontend/Academics', [
             'levels' => $levels,
-            'academicLevel' => $academicLevel
+            'academicLevel' => $academicLevel,
         ]);
     }
 

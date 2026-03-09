@@ -9,16 +9,22 @@ import { ArrowLeft, Save } from "lucide-react"
 import InputError from "@/components/input-error"
 import type { BreadcrumbItem } from "@/types"
 import academicItem, { index, update } from "@/routes/admin/academic-item"
-import { AcademicSection } from "@/types/admin/AcademicSection"
+
 import { AcademicItem } from "@/types/admin/AcademicItems"
+import { AcademicsLevel } from "@/types/admin/AcademicsLevel"
+import RichTextEditor from "@/components/RichTextEditor"
 
-
+interface CardTypeProps {
+    label: string
+    value: string
+}
 interface Props {
     academicItem: AcademicItem
-    academicSections: AcademicSection[]
+    academicLevels: AcademicsLevel[]
+    cardTypes: CardTypeProps[]
 }
 
-export default function Edit({ academicItem, academicSections }: Props) {
+export default function Edit({ academicItem, academicLevels, cardTypes }: Props) {
     const breadcrumbs: BreadcrumbItem[] = [
         { title: "Academic Items", href: index().url },
         { title: "Edit Item", href: "#" },
@@ -68,23 +74,23 @@ export default function Edit({ academicItem, academicSections }: Props) {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {/* Academic Section */}
                                     <div className="space-y-2">
-                                        <Label htmlFor="academic_section_id">
+                                        <Label htmlFor="academic_level_id">
                                             Category <span className="text-red-500">*</span>
                                         </Label>
                                         <select
-                                            id="academic_section_id"
-                                            name="academic_section_id"
-                                            defaultValue={academicItem.academic_section_id}
+                                            id="academic_level_id"
+                                            name="academic_level_id"
+                                            defaultValue={academicItem.academic_level_id}
                                             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
                                         >
                                             <option value="">Select Category</option>
-                                            {academicSections.map((section) => (
-                                                <option key={section.id} value={section.id}>
-                                                    {section.title}
+                                            {academicLevels.map((level) => (
+                                                <option key={level.id} value={level.id}>
+                                                    {level.title}
                                                 </option>
                                             ))}
                                         </select>
-                                        <InputError message={errors.academic_section_id} />
+                                        <InputError message={errors.academic_level_id} />
                                     </div>
 
                                     {/* Title */}
@@ -142,6 +148,26 @@ export default function Edit({ academicItem, academicSections }: Props) {
                                         <InputError message={errors.meta_value} />
                                     </div>
 
+                                    <div className="space-y-2">
+                                        <Label htmlFor="content_type">
+                                            Card Type <span className="text-red-500">*</span>
+                                        </Label>
+                                        <select
+                                            id="content_type"
+                                            name="content_type"
+                                            defaultValue={academicItem.content_type}
+                                            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                                        >
+                                            <option value="">Select Card Type</option>
+                                            {cardTypes.map((cardType) => (
+                                                <option key={cardType.value} value={cardType.value}>
+                                                    {cardType.label}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <InputError message={errors.content_type} />
+                                    </div>
+
                                     {/* Sort Order */}
                                     <div className="space-y-2">
                                         <Label>Sort Order</Label>
@@ -156,12 +182,11 @@ export default function Edit({ academicItem, academicSections }: Props) {
 
                                 {/* Description */}
                                 <div className="space-y-2">
-                                    <Label>Description</Label>
-                                    <Textarea
+                                    <Label htmlFor="description"> Professional descriptiongraphy</Label>
+                                    <RichTextEditor
+                                        id="description"
                                         name="description"
-                                        rows={4}
                                         defaultValue={academicItem.description}
-                                        placeholder="Short descriptive text"
                                     />
                                     <InputError message={errors.description} />
                                 </div>

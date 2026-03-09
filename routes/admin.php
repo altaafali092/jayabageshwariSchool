@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdmissionQueryController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\MenusettingController;
 use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\NewsEventController;
 use App\Http\Controllers\Admin\OfficeSettingController;
@@ -35,9 +36,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('academic-level', AcademicLevelController::class);
     Route::get('academic-level/{academicLevel}/status', [AcademicLevelController::class, 'status'])->name('academicLevel.status');
 
-    Route::resource('academic-section', AcademicSectionController::class);
-    Route::get('academic-section/{academicSection}/status', [AcademicSectionController::class, 'status'])->name('academicSection.status');
-
     Route::resource('academic-item', AcademicItemsController::class);
     Route::get('academic-item/{academicItem}/status', [AcademicItemsController::class, 'status'])->name('academicItem.status');
     Route::resource('contact', ContactController::class)->only(['index', 'show', 'destroy']);
@@ -52,4 +50,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('staff', StaffController::class);
     Route::get('staff/{staff}/status', [StaffController::class, 'status'])->name('staff.status');
     Route::post('upload', [UploadController::class, 'upload'])->name('upload');
+
+
+    Route::resource('menu-setting', MenusettingController::class);
+    Route::get('menu-setting/{menuSetting}/status', [MenusettingController::class, 'status'])->name('menuSetting.status');
 });

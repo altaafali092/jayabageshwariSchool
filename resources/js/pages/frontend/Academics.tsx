@@ -1,149 +1,159 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import FrontLayout from './Layouts/FrontLayout';
 import { Head, Link } from '@inertiajs/react';
-import {
-    BookOpen,
-    GraduationCap,
-    Trophy,
-    Users,
-    ChevronRight,
-    ArrowRight,
-    Library,
-    Microscope,
-    Calculator,
-    Languages,
-    Music,
-    Palette,
-    Heart,
-    Star,
-    Zap,
-    Target,
-    Award,
-    Sparkles,
-    CheckCircle2,
-    ChevronDown,
-    Building2,
-    Stethoscope,
-    Hammer,
-    Briefcase,
-    Gavel,
-    Plane
-} from 'lucide-react';
+import { ArrowRight, GraduationCap, } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AcademicLevel } from '@/types/Frontend/Academics';
-interface AcademicProps {
-    levels: AcademicLevel[]
-    academicLevel: AcademicLevel;
+import { academicsShow, home } from '@/routes';
+import parse from 'html-react-parser';
+
+interface AcademicItem {
+    id: number;
+    title: string;
+    description?: string;
+    icon?: string;
+    meta_value?: string;
+    sort_order?: number;
 }
+
+
+interface AcademicProps {
+    levels: AcademicLevel[];
+    academicLevel: AcademicLevel;
+
+}
+
+type IconName = keyof typeof LucideIcons;
+
+const ResolvedIcon = ({ name, ...props }: { name: IconName; className?: string }) => {
+    const Icon = LucideIcons[name] || LucideIcons.BookOpen;
+    return <Icon {...props} />;
+};
 
 
 const Academics = ({ levels, academicLevel }: AcademicProps) => {
 
-
-    const academicContent = {
-        'Primary': {
-            badge: "Building Foundations",
-            title: "Nurturing Young Minds",
-            subtitle: "Grades 1 - 5",
-            description: "Our primary education program focuses on building strong foundations for lifelong learning through innovative teaching methods and holistic development approaches.",
-            highlights: [
-                { title: "Nurturing Minds", desc: "Balanced academic program with modern teaching methodologies.", icon: Heart },
-                { title: "Small Class Sizes", desc: "Student-teacher ratio of 20:1 for personalized learning.", icon: Users },
-                { title: "Creative Arts", desc: "Regular art, music, and drama activities to foster self-expression.", icon: Palette },
-                { title: "Physical Education", desc: "Daily sports activities for healthy development and teamwork.", icon: Trophy }
-            ],
-            curriculum: [
-                { subject: "Languages", desc: "Reading, writing, grammar, and communication skills in English & Nepali.", icon: Languages },
-                { subject: "Mathematics", desc: "Problem-solving, logical thinking, and numerical skills.", icon: Calculator },
-                { subject: "Science", desc: "Environmental studies and basic scientific concepts through observation.", icon: Microscope },
-                { subject: "Digital Literacy", desc: "Basic computer skills and introduction to the digital world.", icon: Library }
-            ],
-            dayInLife: [
-                { time: "Morning Assembly", activity: "Daily prayers, exercises, and positive start with announcements." },
-                { time: "Academic Sessions", activity: "Interactive learning in core subjects including Math and Science." },
-                { time: "Break & Lunch", activity: "Nutritious meals and recreational time for social interaction." },
-                { time: "Creative Studio", activity: "Art, music, and drama sessions for holistic development." },
-                { time: "Guided Study", activity: "Teacher-assisted homework and reinforcement sessions." }
-            ]
-        },
-        'Secondary': {
-            badge: "Excellence Driven",
-            title: "Advanced Learning Hub",
-            subtitle: "Grades 6 - 10",
-            description: "Our secondary program provides comprehensive education that prepares students for national board examinations (SEE) and future academic challenges.",
-            highlights: [
-                { title: "Academic Rigor", desc: "Rigorous curriculum aligned with national board standards.", icon: Award },
-                { title: "Career Guidance", desc: "Workshops and counseling to help students find their true calling.", icon: Target },
-                { title: "STEM Focus", desc: "Advanced science and mathematics preparation for technical fields.", icon: Sparkles },
-                { title: "Research Hub", desc: "Independent and group projects to foster critical inquiry.", icon: Microscope }
-            ],
-            streams: [
-                { name: "Science Stream", desc: "Physics, Chemistry, and Biology focus for medical and research aspiratns.", icon: Microscope },
-                { name: "Mathematics Stream", desc: "Advanced calculus and physics for future engineers and innovators.", icon: Calculator },
-                { name: "Management Stream", desc: "Economics and accountancy base for entrepreneurs and leaders.", icon: Briefcase }
-            ],
-            features: [
-                "Modernized Science & IT Labs",
-                "Smart Classrooms with Digital Tools",
-                "Advanced Public Speaking Training",
-                "Mock SEE Board Examinations",
-                "Inter-school Academic Competitions"
-            ]
-        },
-        'Higher Secondary': {
-            badge: "Professional Gateway",
-            title: "Career-Focused Growth",
-            subtitle: "Grades 11 - 12",
-            description: "Offering specialized streams that prepare students for university education and global professional careers through advanced skill development.",
-            highlights: [
-                { title: "Entrance Prep", desc: "Intensive coaching for medical, engineering, and C.A. entrance exams.", icon: Zap },
-                { title: "Career Readiness", desc: "Focus on practical skills, industry exposure, and professional ethics.", icon: Briefcase },
-                { title: "Leadership", desc: "Student councils and community projects to build real-world leaders.", icon: Users },
-                { title: "Global Vision", desc: "International best practices in pedagogy and research methodology.", icon: BookOpen }
-            ],
-            pathways: [
-                { field: "Medical Field", career: "MBBS, BDS, Nursing, Pharmacy & Allied Sciences", icon: Stethoscope },
-                { field: "Engineering", career: "Civil, Mechanical, Electrical & IT Disciplines", icon: Hammer },
-                { field: "Business & Finance", career: "BBA, MBA, Chartered Accountancy & Finance", icon: Briefcase },
-                { field: "Legal Services", career: "LLB, Civil Services & Legal Consultancy", icon: Gavel },
-                { field: "Tech & Aero", career: "Software Engineering, AI & Aviation Industries", icon: Plane }
-            ],
-            specializedStreams: [
-                { name: "Science", details: "Physics, Chem, Biology/Math with advanced lab research." },
-                { name: "Management", details: "Business Studies, Economics, Accountancy & Math." },
-                { name: "Law", details: "Legal Studies, Political Science & Sociology focus." }
-            ]
-        }
+    const limitText = (html, limit) => {
+        if (html.length <= limit) return html;
+        return html.substring(0, limit) + "...";
     };
-
 
     return (
         <FrontLayout>
-            <Head title=" Academics | Jaya Bageshwori" />
+            <Head title={`${academicLevel.title} Academics | Jaya Bageshwori`} />
 
-            <main className="flex-1 bg-white dark:bg-slate-950 transition-colors duration-300">
-                {/* ================= HERO SECTION ================= */}
-                <section className="relative pt-24 pb-20 bg-blue-950 overflow-hidden">
-                    <div className="container relative z-10 mx-auto px-6 lg:px-20 text-center">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest mb-8">
-                            <Sparkles className="w-3 h-3" />
-                            <span>{academicLevel.title}</span> {/* ✅ Shows current academic level */}
+            <main className="flex-1 bg-white dark:bg-slate-950 transition-colors duration-500 overflow-hidden text-slate-900 dark:text-slate-100">
+                {/* ── PREMIUM HERO ── */}
+                <section className="relative pt-24 pb-12 bg-blue-950 overflow-hidden text-center">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--tw-gradient-stops))] from-blue-900/40 via-transparent to-transparent" />
+                    <div className="container relative z-10 mx-auto px-6 lg:px-20">
+                        <div className="space-y-4">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest">
+                                <GraduationCap className="w-3 h-3" />
+                                <span>{academicLevel.title} Level</span>
+                            </div>
+                            <h1 className="text-4xl lg:text-7xl font-black text-white tracking-tighter uppercase italic leading-none">
+                                {academicLevel.title} <span className="text-blue-500">PROGRAM</span>
+                            </h1>
+                            <p className="text-slate-400 font-bold max-w-2xl mx-auto text-xs lg:text-sm uppercase tracking-[0.2em] leading-relaxed">
+                                {academicLevel.description || 'Shaping the future through comprehensive education.'}
+                            </p>
                         </div>
-                        <h1 className="text-4xl lg:text-7xl font-black text-white tracking-tighter uppercase italic leading-none mb-8">
-                            {academicLevel.title}
-                        </h1>
-                        <p className="text-slate-400 font-bold max-w-2xl mx-auto text-xs lg:text-sm uppercase tracking-[0.2em] leading-relaxed">
-                            {academicLevel.description}
-                        </p>
                     </div>
                 </section>
 
+                {/* ── LEVEL NAVIGATION ── */}
+                <nav className="sticky top-[70px] lg:top-[80px] z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 shadow-sm transition-colors duration-300">
+                    <div className="container mx-auto px-6 lg:px-20">
+                        <div className="flex items-center gap-1 overflow-x-auto scrollbar-none justify-center lg:justify-start">
+                            {levels.map((level) => {
+                                const active = academicLevel.slug === level.slug;
+                                return (
+                                    <Link
+                                        key={level.slug}
+                                        href={academicsShow(level.slug)}
+                                        className={cn(
+                                            'relative shrink-0 px-8 py-5 text-[11px] font-black uppercase tracking-widest transition-colors whitespace-nowrap',
+                                            active
+                                                ? 'text-blue-600 dark:text-blue-400'
+                                                : 'text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                                        )}
+                                    >
+                                        {level.title}
+                                        {active && (
+                                            <span className="absolute bottom-0 left-0 right-0 h-[3px] bg-blue-600 dark:bg-blue-400 rounded-t-full" />
+                                        )}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </nav>
 
-                {/* ================= DYNAMIC CONTENT ================= */}
+
+                {/* ACADEMIC ITEMS */}
+                <div className="container mx-auto px-6 lg:px-20 py-16 space-y-20">
+
+                    {/* CARD ITEMS */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {academicLevel?.academic_items
+                            ?.filter(item => item.content_type === 'Card')
+                            .map((item) => (
+                                <div
+                                    key={item.id}
+                                    className="p-8 rounded-4xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-800 hover:shadow-2xl hover:shadow-blue-950/5 dark:hover:shadow-black/50 transition-all duration-500"
+                                >
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-sm border border-slate-100 dark:border-slate-700">
+                                            <ResolvedIcon name={item.icon || 'BookOpen'} className="w-5 h-5" />
+                                        </div>
+
+                                        <h3 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-tight">
+                                            {limitText(item.title, 17)}
+                                        </h3>
+                                    </div>
+
+                                    {item.meta_value && (
+                                        <div className="mb-3 inline-flex items-center px-2.5 py-1 rounded-lg bg-blue-100 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[9px] font-black uppercase tracking-widest border border-blue-200 dark:border-blue-500/20">
+                                            {item.meta_value}
+                                        </div>
+                                    )}
+
+                                    {item.description && (
+                                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                                            {parse(limitText(item.description, 70))}
+                                        </p>
+                                    )}
+                                </div>
+                            ))}
+                    </div>
 
 
-                {/* ================= FINAL CTA ================= */}
-                <section className="py-24 bg-slate-900 dark:bg-black text-center relative overflow-hidden transition-colors duration-300">
+                    {/* DESCRIPTION ITEMS */}
+                    <div className="space-y-8">
+                        {academicLevel?.academic_items
+                            ?.filter(item => item.content_type !== 'Card')
+                            .map((item) => (
+                                <div key={item.id} className="space-y-4">
+                                    <h3 className="text-2xl font-black ml-4 text-slate-900 dark:text-white uppercase tracking-tight">
+                                        {item?.title}
+                                    </h3>
+
+                                    {item.description && (
+                                        <p className="text-sm text-slate-500 ml-10 dark:text-slate-400 leading-relaxed">
+                                            {parse(item?.description)}
+                                        </p>
+                                    )}
+                                </div>
+                            ))}
+                    </div>
+
+                </div>
+
+
+
+                <section className="py-24 bg-slate-950 dark:bg-black text-center relative overflow-hidden transition-colors duration-300 mt-20">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.1),transparent)]" />
                     <div className="container relative z-10 mx-auto px-6 lg:px-20 space-y-12">
                         <div className="space-y-4 text-center">
@@ -153,18 +163,18 @@ const Academics = ({ levels, academicLevel }: AcademicProps) => {
                             <p className="text-slate-500 dark:text-slate-400 font-bold text-xs lg:text-sm uppercase tracking-widest max-w-2xl mx-auto">Take the first step towards excellence by enrolling in our 2026-27 session. Limited seats available for specialized streams.</p>
                         </div>
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                            <Link href="/admissions" className="w-full sm:w-auto h-20 px-12 bg-blue-600 dark:bg-blue-600 text-white rounded-4xl font-black text-sm uppercase tracking-widest hover:bg-white hover:text-blue-600 dark:hover:text-white transition-all flex items-center justify-center gap-4 italic shadow-2xl shadow-blue-600/20 dark:shadow-blue-900/40 group">
+                            <Link href="#" className="w-full sm:w-auto h-15 px-12 bg-blue-600 dark:bg-blue-600 text-white rounded-4xl font-black text-sm uppercase tracking-widest hover:bg-white hover:text-blue-600 dark:hover:text-white transition-all flex items-center justify-center gap-4 italic shadow-2xl shadow-blue-600/20 dark:shadow-blue-900/40 group">
                                 Apply for Admission
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                             </Link>
-                            <Link href="/contact" className="w-full sm:w-auto h-20 px-12 bg-white/5 dark:bg-slate-900/50 border border-white/10 dark:border-slate-800 text-white rounded-4xl font-black text-sm uppercase tracking-widest hover:bg-white hover:text-slate-950 transition-all flex items-center justify-center gap-4 italic shadow-2xl">
+                            <Link href="#" className="w-full sm:w-auto h-15 px-12 bg-white/5 dark:bg-slate-900/50 border border-white/10 dark:border-slate-800 text-white rounded-4xl font-black text-sm uppercase tracking-widest hover:bg-white hover:text-slate-950 transition-all flex items-center justify-center gap-4 italic shadow-2xl">
                                 Request Prospectus
                             </Link>
                         </div>
                     </div>
                 </section>
             </main>
-        </FrontLayout>
+        </FrontLayout >
     );
 };
 

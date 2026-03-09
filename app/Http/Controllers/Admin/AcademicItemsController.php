@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\CardTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AcademicItems\StoreAcademicItemsRequest;
 use App\Http\Requests\AcademicItems\UpdateAcademicItemsRequest;
 use App\Models\AcademicItems;
+use App\Models\AcademicLevel;
 use App\Models\AcademicSection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +21,7 @@ class AcademicItemsController extends Controller
     public function index()
     {
 
-        $acedamicItems = AcademicItems::with('academicSection')->latest()->paginate(7);
+        $acedamicItems = AcademicItems::with('academicLevel')->latest()->paginate(7);
         return Inertia::render('Admin/Acedamics/AcademicItems/Index', [
             'academicItems' => $acedamicItems,
         ]);
@@ -30,9 +32,11 @@ class AcademicItemsController extends Controller
      */
     public function create()
     {
-        $academicSections = AcademicSection::where('status', 1)->get();
+        $academicLevels = AcademicLevel::where('status', 1)->get();
+        $cardTypes = CardTypeEnum::getValuesWithLabels();
         return Inertia::render('Admin/Acedamics/AcademicItems/Create', [
-            'academicSections' => $academicSections,
+            'academicLevels' => $academicLevels,
+            'cardTypes' => $cardTypes,
         ]);
     }
 
@@ -41,7 +45,7 @@ class AcademicItemsController extends Controller
      */
     public function store(StoreAcademicItemsRequest $request)
     {
-
+        // dd($request->all());
         AcademicItems::create($request->validated());
         return to_route('admin.academic-item.index')
             ->with('success', 'Academic Item created successfully');
@@ -52,7 +56,7 @@ class AcademicItemsController extends Controller
      */
     public function show(AcademicItems $academicItem)
     {
-        $academicItem->load('academicSection');
+        $academicItem->load('academicLevel');
         return Inertia::render('Admin/Acedamics/AcademicItems/Show', [
             'academicItem' => $academicItem,
         ]);
@@ -63,10 +67,12 @@ class AcademicItemsController extends Controller
      */
     public function edit(AcademicItems $academicItem)
     {
-        $academicSections = AcademicSection::where('status', 1)->get();
+        $academicLevels = AcademicLevel::where('status', 1)->get();
+        $cardTypes = CardTypeEnum::getValuesWithLabels();
         return Inertia::render('Admin/Acedamics/AcademicItems/Edit', [
             'academicItem' => $academicItem,
-            'academicSections' => $academicSections,
+            'academicLevels' => $academicLevels,
+            'cardTypes' => $cardTypes,
         ]);
     }
 

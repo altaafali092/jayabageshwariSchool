@@ -22,13 +22,14 @@ class StoreAcademicItemsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'academic_section_id' => ['required', 'exists:academic_sections,id'],
+            'academic_level_id' => ['required', 'exists:academic_levels,id'],
             'title' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'icon' => ['nullable', 'string', 'max:100'],
             'image' => ['nullable', 'image', 'max:2048'],
             'meta_key' => ['nullable', 'string', 'max:50'],
             'meta_value' => ['nullable', 'string', 'max:255'],
+            'content_type' => ['required', 'string'],
             'sort_order' => ['nullable', 'integer'],
         ];
     }
