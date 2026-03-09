@@ -17,3 +17,13 @@ export interface CategoryOption {
     value: string;
     label: string;
 }
+
+export type FacilityCategory = {
+    id: number;
+    title: string;
+    slug: string;
+    description: string | null;
+    status: boolean;
+    created_at: string;
+    updated_at: string;
+}
