@@ -34,7 +34,7 @@ const ResolvedIcon = ({ name, ...props }: { name: IconName; className?: string }
 
 const Academics = ({ levels, academicLevel }: AcademicProps) => {
 
-    const limitText = (html, limit) => {
+    const limitText = (html: any, limit: number) => {
         if (html.length <= limit) return html;
         return html.substring(0, limit) + "...";
     };

@@ -6,21 +6,15 @@ export type AcademicLevel = {
     subtitle: string;
     description: string;
     status: boolean;
+
     sort_order: number;
-    sections?: {
-        id: number;                // Add the section id
-        academic_level_id: number;
-        key: string;
+    academic_items?: {
+        id: number;
         title: string;
-        subtitle: string;
-        description: string;
-        status: boolean;
-        sort_order: number;
-        academic_item?: {
-            id: number;
-            title: string;
-            description: string | null;
-            icon: string;           // icon name as string
-        }[]
+        description: string | null;
+        icon: string;
+        meta_key: string;
+        meta_value: string;
+        content_type: string;
     }[]
 }
