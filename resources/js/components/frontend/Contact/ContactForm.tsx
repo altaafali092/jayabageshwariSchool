@@ -1,6 +1,6 @@
 
 
-import { contactForm } from "@/actions/App/Http/Controllers/FrontController";
+import { contactForm, storeContact } from "@/actions/App/Http/Controllers/FrontController";
 import InputError from "@/components/input-error";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
@@ -20,7 +20,7 @@ const ContactForm = () => {
                     <p className="text-slate-500 dark:text-slate-400 font-medium">Please fill in the form below and we'll get back to you within 24 hours.</p>
                 </div>
 
-                <Form action={contactForm()} method="POST" encType="multipart/form-data"
+                <Form action={storeContact()} method="POST" encType="multipart/form-data"
                     options={{
                         preserveScroll: true,
                         onSuccess: () => {

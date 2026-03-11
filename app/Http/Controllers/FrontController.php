@@ -38,7 +38,7 @@ class FrontController extends Controller
         return Inertia::render('frontend/Contact');
     }
 
-    public function contactForm(StoreContactFormRequest $request)
+    public function storeContact(StoreContactFormRequest $request)
     {
         Contact::create($request->validated());
         return back()->with([

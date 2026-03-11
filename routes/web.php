@@ -8,7 +8,7 @@ use Laravel\Fortify\Features;
 Route::get('/', [FrontController::class, 'index'])->name('home');
 
 Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
-Route::post('/contact', [FrontController::class, 'contactForm'])->name('contact.store');
+Route::post('/contact', [FrontController::class, 'storeContact'])->name('contact.store');
 
 Route::get('/admissions', [FrontController::class, 'admissions'])->name('admissions');
 Route::post('/admissions', [FrontController::class, 'admissionForm'])->name('admissions.form');
