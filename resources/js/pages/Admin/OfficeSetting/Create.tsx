@@ -19,7 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: "Office Settings", href: "#" },
 ]
 interface officeSettingProps {
-    officeSetting: OfficeSetting
+    officeSetting: OfficeSetting | null
     staffs: Staff[]
 }
 
@@ -189,8 +189,7 @@ export default function Create({ officeSetting, staffs }: officeSettingProps) {
                                             <Input
                                                 id="fb_url"
                                                 name="fb_url"
-                                                placeholder="https://facebook.com/..."
-                                                defaultValue={officeSetting?.fb_url || ''}
+                                                defaultValue={officeSetting?.fb_url ?? ""}
                                                 className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
                                             />
                                             <InputError message={errors.fb_url} />
@@ -200,8 +199,7 @@ export default function Create({ officeSetting, staffs }: officeSettingProps) {
                                             <Input
                                                 id="insta_url"
                                                 name="insta_url"
-                                                placeholder="https://instagram.com/..."
-                                                defaultValue={officeSetting?.insta_url}
+                                                defaultValue={officeSetting?.insta_url ?? ""}
                                                 className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
                                             />
                                             <InputError message={errors.insta_url} />
@@ -212,7 +210,7 @@ export default function Create({ officeSetting, staffs }: officeSettingProps) {
                                                 id="yt_url"
                                                 name="yt_url"
                                                 placeholder="https://youtube.com/..."
-                                                defaultValue={officeSetting?.yt_url}
+                                                defaultValue={officeSetting?.yt_url ?? ""}
                                                 className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
                                             />
                                             <InputError message={errors.yt_url} />
@@ -223,7 +221,7 @@ export default function Create({ officeSetting, staffs }: officeSettingProps) {
                                                 id="titok_url"
                                                 name="titok_url"
                                                 placeholder="https://tiktok.com/@..."
-                                                defaultValue={officeSetting?.titok_url}
+                                                defaultValue={officeSetting?.titok_url ?? ""}
                                                 className="h-12 rounded-xl border-2 focus-visible:ring-blue-600/10 transition-all font-semibold"
                                             />
                                             <InputError message={errors.titok_url} />

@@ -12,17 +12,33 @@ use Inertia\Inertia;
 
 class OfficeSettingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $officeSetting = OfficeSetting::with('keyContactPerson', 'keyContactSecPerson')->first();
+
+        // Provide a default empty object if no record exists
+        if (!$officeSetting) {
+            $officeSetting = new OfficeSetting([
+                'id' => 0, // placeholder id
+                'office_name' => '',
+                'office_address' => '',
+                'office_email' => '',
+                'office_phone' => '',
+                'office_phone_2' => '',
+                'fb_url' => '',
+                'insta_url' => '',
+                'yt_url' => '',
+                'titok_url' => '',
+                'gmap_url' => '',
+                'office_from' => '',
+                'office_to' => '',
+                'is_admission' => false,
+                'is_open' => false,
+                'key_contact_person_id' => null,
+                'key_contact_secperson_id' => null,
+            ]);
+        }
         $staffs = Staff::where('is_active', 1)->latest()->get();
         return Inertia::render('Admin/OfficeSetting/Create', [
             'officeSetting' => $officeSetting,
