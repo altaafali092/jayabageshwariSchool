@@ -4,6 +4,8 @@ import { Pencil, Trash, Eye } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { FacilityCategory } from "@/types/admin/Facility";
 import { Button } from "@/components/ui/button";
+import { status } from "@/routes/admin/facilityCategory";
+import { destroy, edit } from "@/routes/admin/facility-category";
 
 export const columns: ColumnDef<FacilityCategory>[] = [
     {
@@ -11,7 +13,7 @@ export const columns: ColumnDef<FacilityCategory>[] = [
         header: "Id",
         cell: ({ row }) => row.index + 1,
     },
-   
+
     {
         accessorKey: "title",
         header: "Title",
@@ -20,30 +22,27 @@ export const columns: ColumnDef<FacilityCategory>[] = [
         accessorKey: "slug",
         header: "Slug",
     },
-    {
-        accessorKey: "category",
-        header: "Category",
-    },
+
     {
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => {
-            const facility = row.original;
+            const facilityCategory = row.original;
             const updateToggle = () => {
-                router.get(status(facility.id), {}, { preserveScroll: true });
+                router.get(status(facilityCategory.id), {}, { preserveScroll: true });
             };
 
             return (
                 <div className="flex items-center gap-2">
                     <Switch
-                        checked={facility.status}
+                        checked={facilityCategory.status}
                         onCheckedChange={updateToggle}
                     />
                     <span
-                        className={`text-sm font-medium ${facility.status ? "text-green-600" : "text-red-600"
+                        className={`text-sm font-medium ${facilityCategory.status ? "text-green-600" : "text-red-600"
                             }`}
                     >
-                        {facility.status ? "Active" : "Inactive"}
+                        {facilityCategory.status ? "Active" : "Inactive"}
                     </span>
                 </div>
             );
@@ -53,23 +52,19 @@ export const columns: ColumnDef<FacilityCategory>[] = [
         id: "actions",
         header: "Actions",
         cell: ({ row }) => {
-            const facility = row.original;
+            const facilityCategory = row.original;
 
             const handleDelete = () => {
                 if (confirm("Are you sure you want to delete this facility?")) {
-                    router.delete(destroy(facility.id));
+                    router.delete(destroy(facilityCategory.id));
                 }
             };
 
             return (
                 <div className="flex items-center gap-2">
+
                     <Button variant="ghost" size="icon" asChild>
-                        <Link href={show(facility.id).url}>
-                            <Eye className="h-4 w-4 text-blue-500" />
-                        </Link>
-                    </Button>
-                    <Button variant="ghost" size="icon" asChild>
-                        <Link href={edit(facility.id).url}>
+                        <Link href={edit(facilityCategory.id).url}>
                             <Pencil className="h-4 w-4 text-yellow-500" />
                         </Link>
                     </Button>
@@ -78,7 +73,7 @@ export const columns: ColumnDef<FacilityCategory>[] = [
                         size="sm"
                         onClick={() => {
                             if (confirm("Are you sure you want to delete this facility ?")) {
-                                router.delete(destroy(facility.id), {
+                                router.delete(destroy(facilityCategory.id), {
                                     preserveScroll: true,
                                 });
                             }

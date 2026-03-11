@@ -85,10 +85,10 @@ export default function Navbar() {
             name: 'Life at JBS',
             href: '/facilities',
             dropdown: [
-                { name: 'Hostel & Residency', href: '/facilities?type=hostel', description: 'Safe and comfortable home away from home' },
-                { name: 'Transportation', href: '/facilities?type=transportation', description: 'Extensive fleet covering the entire city' },
-                { name: 'Sports Academy', href: '/facilities?type=sports', description: 'Training future athletes in various disciplines' },
-                { name: 'Digital Library', href: '/facilities?type=library', description: 'Vast resource center for curious minds' },
+                { name: 'Hostel & Residency', href: '/facilities/hostels', description: 'Safe and comfortable home away from home' },
+                { name: 'Transportation', href: '/facilities/overview', description: 'Extensive fleet covering the entire city' },
+                { name: 'Sports Academy', href: '/facilities/sports', description: 'Training future athletes in various disciplines' },
+                { name: 'Digital Library', href: '/facilities/library', description: 'Vast resource center for curious minds' },
             ],
         },
         {

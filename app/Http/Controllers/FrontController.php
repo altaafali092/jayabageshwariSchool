@@ -9,6 +9,7 @@ use App\Models\AcademicItems;
 use App\Models\AcademicLevel;
 use App\Models\AdmissionQuery;
 use App\Models\Contact;
+use App\Models\FacilityCategory;
 use App\Models\Gallery;
 use App\Models\NewsEvent;
 use App\Models\slider;
@@ -105,21 +106,22 @@ class FrontController extends Controller
     }
 
 
-    public function facilities()
+    public function facilities(FacilityCategory $facilityCategory)
     {
-        $facilities = \App\Models\Facility::where('status', true)
-            ->orderBy('position')
+        $categories = FacilityCategory::where('status', true)
+            ->orderBy('sort_order')
             ->get();
 
+        $facilityCategory->load([
+            'facilities' => function ($query) {
+                $query->where('status', true)
+                    ->orderBy('sort_order');
+            }
+        ]);
+
         return Inertia::render('frontend/Facilities', [
-            'overview_main' => $facilities->where('category', \App\Enums\FacilityEnum::OVERVIEW_MAIN->value)->values(),
-            'overview_lifestyle' => $facilities->where('category', \App\Enums\FacilityEnum::OVERVIEW_LIFESTYLE->value)->values(),
-            'hostel_features' => $facilities->where('category', \App\Enums\FacilityEnum::HOSTEL_FEATURE->value)->values(),
-            'transport_features' => $facilities->where('category', \App\Enums\FacilityEnum::TRANSPORT_FEATURE->value)->values(),
-            'transport_stats' => $facilities->where('category', \App\Enums\FacilityEnum::TRANSPORT_STATS->value)->values(),
-            'sports_items' => $facilities->where('category', \App\Enums\FacilityEnum::SPORTS_ITEM->value)->values(),
-            'library_stats' => $facilities->where('category', \App\Enums\FacilityEnum::LIBRARY_STATS->value)->values(),
-            'library_images' => $facilities->where('category', \App\Enums\FacilityEnum::LIBRARY_IMAGES->value)->values(),
+            'categories' => $categories,
+            'facilityCategory' => $facilityCategory,
         ]);
     }
 

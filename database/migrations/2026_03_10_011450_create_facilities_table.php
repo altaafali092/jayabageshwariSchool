@@ -13,19 +13,25 @@ return new class extends Migration
     {
         Schema::create('facilities', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->foreignId('facility_category_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->string('title')->nullable();
             $table->string('slug')->unique();
-            $table->string('category');
             $table->text('description')->nullable();
-            $table->string('image')->nullable();
             $table->string('icon')->nullable();
-            $table->json('meta_data')->nullable(); // For additional fields like 'size' in sports
-            $table->integer('position')->nullable();
-           $table->boolean('status')->default(true);
-            $table->timestamps();
+            $table->string('image')->nullable();
+            $table->string('content_type');
+            $table->string('meta_key')->nullable(); // time, subject, field
+            $table->string('meta_value')->nullable(); // "Morning Assembly"
+            $table->integer('sort_order')->default(0);
+            $table->boolean('status')->default(true);
             $table->softDeletes();
+            $table->timestamps();
         });
     }
+
+
+
+
 
     /**
      * Reverse the migrations.

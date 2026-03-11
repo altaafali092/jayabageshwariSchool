@@ -23,7 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function FacilityIndex({ facilities }: Props) {
     FlashToast();
-
+    console.log(facilities)
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Facilities" />

@@ -12,24 +12,7 @@ export const columns: ColumnDef<Facility>[] = [
         header: "Id",
         cell: ({ row }) => row.index + 1,
     },
-    {
-        accessorKey: "image",
-        header: "Image",
-        cell: ({ row }) => {
-            const facility = row.original;
-            return facility.image ? (
-                <img
-                    src={facility.image}
-                    alt={facility.title}
-                    className="h-10 w-10 object-cover rounded"
-                />
-            ) : (
-                <div className="h-10 w-10 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">
-                    N/A
-                </div>
-            )
-        }
-    },
+
     {
         accessorKey: "title",
         header: "Title",
@@ -39,7 +22,7 @@ export const columns: ColumnDef<Facility>[] = [
         header: "Slug",
     },
     {
-        accessorKey: "category",
+        accessorKey: "facility_category.title",
         header: "Category",
     },
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Facility\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCategoryRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,10 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:255'],
+            'slug' => ['required', 'alpha_dash', Rule::unique('facility_categories', 'slug')->withoutTrashed()],
+            'description' => ['nullable', 'string'],
+            'sort_order' => ['required', 'integer'],
         ];
     }
 }

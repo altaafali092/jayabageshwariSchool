@@ -28,6 +28,7 @@ import { index as AdmisssionQueryIndex } from '@/routes/admin/admission-query';
 import { index as StaffIndex } from '@/routes/admin/staff';
 import { create } from '@/routes/admin/office-setting';
 import { index as MenuSettingIndex } from '@/routes/admin/menu-setting';
+import { index as CategoryIndex } from '@/routes/admin/facility-category';
 
 const mainNavItems: NavItem[] = [
     {
@@ -47,8 +48,21 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Facility',
-        href: facilityIndex(),
-        icon: Images,
+        href: '#',
+        icon: School,
+        items: [
+            {
+                title: 'Facility Category',
+                href: CategoryIndex(),
+                icon: GraduationCap,
+            },
+
+            {
+                title: 'Facility Items',
+                href: facilityIndex(),
+                icon: StretchHorizontal,
+            }
+        ]
     },
 
     {
@@ -66,7 +80,7 @@ const mainNavItems: NavItem[] = [
                 href: AcademicLevelIndex(),
                 icon: GraduationCap,
             },
-            
+
             {
                 title: 'Academic Items',
                 href: AcademicItemIndex(),

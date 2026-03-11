@@ -17,9 +17,9 @@ class FacilityCategoryController extends Controller
      */
     public function index()
     {
-        $facilityCategoires = FacilityCategory::latest()->paginate(7);
+        $facilityCategories = FacilityCategory::latest()->paginate(7);
         return Inertia::render('Admin/Facility/Category/Index', [
-            'facilityCategoires' => $facilityCategoires
+            'facilityCategories' => $facilityCategories
         ]);
     }
 

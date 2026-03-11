@@ -6,7 +6,6 @@ export type AcademicLevel = {
     subtitle: string;
     description: string;
     status: boolean;
-
     sort_order: number;
     academic_items?: {
         id: number;

@@ -8,12 +8,20 @@ import { Textarea } from "@/components/ui/textarea"
 import { ArrowLeft, Save } from "lucide-react"
 import type { BreadcrumbItem } from "@/types"
 import InputError from "@/components/input-error"
-import { CategoryOption } from "@/types/admin/Facility"
+import { FacilityCategory } from "@/types/admin/Facility"
 import { index, store } from "@/routes/admin/facility"
 import { useState } from "react"
+import RichTextEditor from "@/components/RichTextEditor"
 
+
+
+interface CardTypeProps {
+    label: string;
+    value: string;
+}
 interface CreateProps {
-    categories: CategoryOption[]
+    categories: FacilityCategory[]
+    cardTypes: CardTypeProps[]
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -21,17 +29,10 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: "Create", href: "#" },
 ]
 
-export default function Create({ categories }: CreateProps) {
 
-    // ✅ Find default category by LABEL
-    const defaultCategory = categories.find(
-        (item) => item.label === "Overview Main"
-    )
 
-    // ✅ Store selected category VALUE
-    const [categoryType, setCategoryType] = useState<string>(
-        defaultCategory?.value ?? ""
-    )
+export default function Create({ categories, cardTypes }: CreateProps) {
+
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -64,8 +65,31 @@ export default function Create({ categories }: CreateProps) {
                         >
                             {({ errors }) => (
                                 <>
+
+
+
                                     {/* Title & Slug */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                                        <div className="space-y-2">
+                                            <Label htmlFor="facility_category_id">
+                                                Facility Category <span className="text-red-500">*</span>
+                                            </Label>
+                                            <select
+                                                id="facility_category_id"
+                                                name="facility_category_id"
+                                                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                                            >
+                                                <option value="">Select Facility Category</option>
+                                                {categories.map((category) => (
+                                                    <option key={category.id} value={category.id}>
+                                                        {category.title}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <InputError message={errors.facility_category_id} />
+                                        </div>
+
                                         <div className="space-y-2">
                                             <Label>Title *</Label>
                                             <Input name="title" />
@@ -77,43 +101,49 @@ export default function Create({ categories }: CreateProps) {
                                             <Input name="slug" />
                                             <InputError message={errors.slug} />
                                         </div>
-                                    </div>
-
-                                    {/* Category & Order */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div className="space-y-2">
-                                            <Label>Category *</Label>
+                                            <Label>Meta Key </Label>
+                                            <Input name="meta_key" type="text" />
+                                            <InputError message={errors.meta_key} />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label>Meta Value *</Label>
+                                            <Input name="meta_value" />
+                                            <InputError message={errors.meta_value} />
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <Label>Position</Label>
+                                            <Input name="sort_order" type="number" defaultValue="0" />
+                                            <InputError message={errors.sort_order} />
+                                        </div>
+
+
+                                        <div className="space-y-2">
+                                            <Label htmlFor="content_type">
+                                                Card Type <span className="text-red-500">*</span>
+                                            </Label>
                                             <select
-                                                name="category"
-                                                value={categoryType}
-                                                onChange={(e) =>
-                                                    setCategoryType(e.target.value)
-                                                }
-                                                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-ring"
+                                                id="content_type"
+                                                name="content_type"
+                                                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
                                             >
-                                                {categories.map((cat) => (
-                                                    <option
-                                                        key={cat.value}
-                                                        value={cat.value}
-                                                    >
-                                                        {cat.label}
+                                                <option value="">Select Card Type</option>
+                                                {cardTypes.map((cardType) => (
+                                                    <option key={cardType.value} value={cardType.value}>
+                                                        {cardType.label}
                                                     </option>
                                                 ))}
                                             </select>
-                                            <InputError message={errors.category} />
-                                        </div>
-
-                                        <div className="space-y-2">
-                                            <Label>Display Order</Label>
-                                            <Input type="number" name="position" />
+                                            <InputError message={errors.content_type} />
                                         </div>
                                     </div>
 
-                                    {/* Description */}
-                                    <div className="space-y-2">
-                                        <Label>Description</Label>
-                                        <Textarea name="description" rows={4} />
-                                    </div>
+
+
+
+
+
 
                                     {/* Images */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -137,25 +167,15 @@ export default function Create({ categories }: CreateProps) {
                                             />
                                         </div>
                                     </div>
-
-                                    {/* ✅ Conditional Meta Fields */}
-                                    {(categoryType === "Overview Lifestyle" || categoryType === "Sports Item") && (
-                                        <>
-                                            {categoryType === "Overview Lifestyle" && (
-                                                <div className="p-4 bg-muted/50 rounded-lg border border-dashed">
-                                                    <Label>Size / Specification</Label>
-                                                    <Input name="meta_data[size]" />
-                                                </div>
-                                            )}
-
-                                            {categoryType === "Sports Item" && (
-                                                <div className="p-4 bg-muted/50 rounded-lg border border-dashed">
-                                                    <Label>Sub-Category</Label>
-                                                    <Input name="meta_data[sub_category]" />
-                                                </div>
-                                            )}
-                                        </>
-                                    )}
+                                    <div className="space-y-2">
+                                        <Label htmlFor="description">Description</Label>
+                                        <RichTextEditor
+                                            id="description"
+                                            name="description"
+                                            placeholder="Optional description"
+                                        />
+                                        <InputError message={errors.description} />
+                                    </div>
 
 
                                     <div className="flex justify-end pt-4">

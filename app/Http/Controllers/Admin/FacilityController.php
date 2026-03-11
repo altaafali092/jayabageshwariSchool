@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\CardTypeEnum;
 use App\Enums\FacilityEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Facility\StoreFacilityRequest;
 use App\Http\Requests\Facility\UpdateFacilityRequest;
 use App\Models\Facility;
+use App\Models\FacilityCategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -17,8 +19,8 @@ class FacilityController extends Controller
      */
     public function index()
     {
-        $facilities = Facility::latest()->paginate(10);
-        return Inertia::render('Admin/Facility/Index', [
+        $facilities = Facility::with('facilityCategory')->latest()->paginate(10);
+        return Inertia::render('Admin/Facility/Item/Index', [
             'facilities' => $facilities
         ]);
     }
@@ -28,8 +30,10 @@ class FacilityController extends Controller
      */
     public function create()
     {
-        $categories = FacilityEnum::getValuesWithLabels();
-        return Inertia::render('Admin/Facility/Create', [
+        $categories = FacilityCategory::where('status', 1)->latest()->get();
+        $cardTypes = CardTypeEnum::getValuesWithLabels();
+        return Inertia::render('Admin/Facility/Item/Create', [
+            'cardTypes' => $cardTypes,
             'categories' => $categories
         ]);
     }
@@ -49,7 +53,7 @@ class FacilityController extends Controller
      */
     public function show(Facility $facility)
     {
-        return Inertia::render('Admin/Facility/Show', [
+        return Inertia::render('Admin/Facility/Item/Show', [
             'facility' => $facility
         ]);
     }
@@ -59,10 +63,12 @@ class FacilityController extends Controller
      */
     public function edit(Facility $facility)
     {
-        $categories = FacilityEnum::getValuesWithLabels();
-        return Inertia::render('Admin/Facility/Edit', [
+        $categories = FacilityCategory::where('status', 1)->latest()->get();
+        $cardTypes = FacilityEnum::getValuesWithLabels();
+        return Inertia::render('Admin/Facility/Item/Edit', [
             'facility' => $facility,
-            'categories' => $categories
+            'categories' => $categories,
+            'cardTypes' => $cardTypes
         ]);
     }
 
@@ -78,24 +84,14 @@ class FacilityController extends Controller
             $data['image'] = asset('storage/' . $request->file('image')->store('Facility', 'public'));
         }
 
-        if ($request->hasFile('icon')) {
-            deleteFiles($facility->getRawOriginal('icon'));
-            $data['icon'] = asset('storage/' . $request->file('icon')->store('Facility/Icons', 'public'));
-        }
-
         $facility->update($data);
 
         return to_route('admin.facility.index')->with('success', 'Facility updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-
     public function destroy(Facility $facility)
     {
         deleteFiles($facility->getRawOriginal('image'));
-        deleteFiles($facility->getRawOriginal('icon'));
         $facility->delete();
         return back()->with('success', 'Facility deleted successfully.');
     }

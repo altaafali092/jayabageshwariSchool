@@ -7,20 +7,21 @@ import { columns } from './columns';
 import { DataTable } from '@/components/DataTable';
 import Pagination from '@/components/Pagination';
 import FlashToast from '@/components/FlashToast';
-import { Facility } from '@/types/admin/Facility';
+import { FacilityCategory } from '@/types/admin/Facility';
+import { create, index } from '@/routes/admin/facility-category';
 
 interface Props {
-    facilities: PaginatedData<Facility>;
+    facilityCategories: PaginatedData<FacilityCategory>;
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Facilities',
+        title: 'Facility Category',
         href: index().url, // Make sure route is generated
     },
 ];
 
-export default function FacilityIndex({ facilities }: Props) {
+export default function FacilityIndex({ facilityCategories }: Props) {
     FlashToast();
 
     return (
@@ -29,7 +30,7 @@ export default function FacilityIndex({ facilities }: Props) {
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight">Facilities</h1>
+                        <h1 className="text-2xl font-bold tracking-tight">Facility Category</h1>
                         <p className="text-muted-foreground">
                             Manage school facilities content.
                         </p>
@@ -44,8 +45,8 @@ export default function FacilityIndex({ facilities }: Props) {
 
                 <div className="flex-1">
                     <div className="container mx-auto py-4">
-                        <DataTable columns={columns} data={facilities.data} />
-                        <Pagination links={facilities.links} />
+                        <DataTable columns={columns} data={facilityCategories.data} />
+                        <Pagination links={facilityCategories.links} />
                     </div>
                 </div>
             </div>

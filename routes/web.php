@@ -22,7 +22,8 @@ Route::get('/notices/{slug}', [FrontController::class, 'noticeShow'])->name('not
 // Route::get('/academics', [FrontController::class, 'academics'])->name('academics');
 Route::get('/academics/{academicLevel:slug}', [FrontController::class, 'academics'])
     ->name('academicsShow');
-Route::get('/facilities', [FrontController::class, 'facilities'])->name('facilities');
+
+Route::get('/facilities/{facilityCategory:slug}', [FrontController::class, 'facilities'])->name('Facility');
 Route::get('/about/history', [FrontController::class, 'history'])->name('about.history');
 Route::get('/about/mission-vision', [FrontController::class, 'missionVision'])->name('about.mission');
 Route::get('/about/management', [FrontController::class, 'management'])->name('about.management');

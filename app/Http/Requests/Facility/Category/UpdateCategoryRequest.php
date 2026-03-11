@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Facility\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCategoryRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +22,17 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        $facilityCategory = $this->facilityCategory;
         return [
-            //
+            'title' => ['required', 'string', 'max:255'],
+            'slug' => [
+                'required',
+                'alpha_dash',
+                Rule::unique('facility_categories', 'slug')
+                    ->ignore($this->route('facilityCategory'), 'id')
+            ],
+            'description' => ['nullable', 'string'],
+            'sort_order' => ['required', 'integer'],
         ];
     }
 }

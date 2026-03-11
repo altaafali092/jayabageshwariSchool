@@ -24,15 +24,18 @@ class StoreFacilityRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'facility_category_id' => ['required', 'exists:facility_categories,id'],
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', 'unique:facilities,slug'],
-            'category' => ['required', Rule::enum(FacilityEnum::class)],
+            'content_type' => ['required', 'string'],
+            'meta_key' => ['nullable', 'string', 'max:255'],
+            'meta_value' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'array'],
             'image.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'icon' => ['nullable', 'image', 'mimes:jpeg,png,jpg,svg,webp', 'max:2048'], // Allowing SVG or Image uploads for Icons
+            'icon' => ['nullable', 'image', 'mimes:jpeg,png,jpg,svg,webp', 'max:2048'],
             'status' => ['boolean'],
-            'position' => ['integer'],
+            'sort_order' => ['nullable', 'integer'],
             'meta_data' => ['nullable', 'array'],
         ];
     }
