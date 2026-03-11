@@ -15,10 +15,12 @@ import {
     Clock,
     ChevronRight
 } from 'lucide-react';
-import ContactForm from '@/components/frontend/Contact/ContactForm';
-import ContactMap from '@/components/frontend/Contact/ContactMap';
+
 import SocialContact from '@/components/frontend/Contact/SocialContact';
 import { SharedData } from '@/types';
+import ContactForm from '@/components/frontend/Contact/ContactForm';
+import ContactMap from '@/components/frontend/Contact/ContactMap';
+
 
 const Contact = () => {
     const { officeSettings } = usePage<SharedData>().props;
