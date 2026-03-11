@@ -1,11 +1,10 @@
 
 
-import { academics } from '@/actions/App/Http/Controllers/FrontController'
 import { login } from '@/routes'
 
 import { Link } from '@inertiajs/react'
 import { Facebook, Globe, Instagram, Mail, Phone, User, Youtube } from 'lucide-react'
-import React from 'react'
+
 
 const TopNav = () => {
     return (
@@ -35,9 +34,7 @@ const TopNav = () => {
                         <Link href={login()} className="flex items-center gap-2 bg-blue-600/10 hover:bg-blue-600 px-4 py-1.5 rounded-full text-white transition-all border border-blue-600/30">
                             <User className="h-3 w-3" /> Login
                         </Link>
-                        <Link href={academics('primary')} className="flex items-center gap-2 bg-blue-600/10 hover:bg-blue-600 px-4 py-1.5 rounded-full text-white transition-all border border-blue-600/30">
-                            <User className="h-3 w-3" /> Academics
-                        </Link>
+                      
 
                     </div>
                 </div>
