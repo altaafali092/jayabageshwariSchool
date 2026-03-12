@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\StaticPageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -32,5 +33,9 @@ Route::get('/staff', [FrontController::class, 'staff'])->name('staff');
 Route::get('/staff/{staff}', [FrontController::class, 'staffShow'])->name('staff.show');
 Route::get('/gallery', [FrontController::class, 'gallery'])->name('gallery');
 Route::get('/gallery/{gallery:slug}', [FrontController::class, 'galleryShow'])->name('gallery.show');
+
+
+
+Route::get('/{slug}', [StaticPageController::class, 'show'])->name('staticPage');
 
 require __DIR__ . '/settings.php';

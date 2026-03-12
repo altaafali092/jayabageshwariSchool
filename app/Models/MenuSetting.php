@@ -38,10 +38,20 @@ class MenuSetting extends Model
     public function url(): Attribute
     {
         return Attribute::get(function ($value, array $attributes) {
-            $this->loadMissing('menuable');
+
             return match ($attributes['menu_type']) {
-                MenuTypeEnum::CATEGORY->value => route('categorywiseProduct', ['category' => $attributes['slug']]),
-                MenuTypeEnum::STATIC->value => route('staticPage', $attributes['slug']),
+
+                MenuTypeEnum::PARENT->value => '#',
+
+                MenuTypeEnum::ACADEMIC->value =>
+                route('academicsShow', ['academicLevel' => $attributes['slug']]),
+
+                MenuTypeEnum::STATIC->value =>
+                route('staticPage', $attributes['slug']),
+
+                MenuTypeEnum::FACILITY->value =>
+                route('facilities', ['facilityCategory' => $attributes['slug']]),
+
                 default => '#',
             };
         });
@@ -54,9 +64,14 @@ class MenuSetting extends Model
             if ($menuSetting->menu_type === 'static') {
                 $menuSetting->menu_url = route('staticPage', ['slug' => $menuSetting->slug]);
             }
-            if ($menuSetting->menu_type === MenuTypeEnum::CATEGORY->value && $menuSetting->menuable) {
-                $menuSetting->menu_url = route('categorywiseProduct', [
-                    'category' => $menuSetting->menuable->name // or use slug if your route uses slug
+            if ($menuSetting->menu_type === MenuTypeEnum::ACADEMIC->value && $menuSetting->menuable) {
+                $menuSetting->menu_url = route('academicsShow', [
+                    'academicLevel' => $menuSetting->menuable->name // or use slug if your route uses slug
+                ]);
+            }
+            if ($menuSetting->menu_type === MenuTypeEnum::FACILITY->value && $menuSetting->menuable) {
+                $menuSetting->menu_url = route('facilities', [
+                    'facilityCategory' => $menuSetting->menuable->name // or use slug if your route uses slug
                 ]);
             }
         });

@@ -25,16 +25,25 @@ import officeSetting from '@/routes/admin/office-setting';
 import { SharedData } from '@/types';
 import { admissions } from '@/routes';
 import TopNav from './Navbar/TopNav';
-
+import { MenuItem } from '@/types/Frontend/MenuItem';
 
 type NavLink = {
     name: string;
     href: string;
-    dropdown?: { name: string; href: string; description?: string }[];
+    dropdown?: {
+        name: string;
+        href: string;
+        description?: string;
+    }[];
 };
 
 export default function Navbar() {
-    const { officeSettings } = usePage<SharedData>().props;
+    const { officeSettings, menuSettings } = usePage<{
+        officeSettings: any
+        menuSettings: MenuItem[]
+    }>().props;
+
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -57,50 +66,17 @@ export default function Navbar() {
         }));
     };
 
-    const navLinks: NavLink[] = [
-        { name: 'Home', href: '/' },
-        {
-            name: 'About',
-            href: '#',
-            dropdown: [
-                { name: 'Our History', href: '/about/history', description: 'Transforming lives since 1995' },
-                { name: 'Mission & Vision', href: '/about/mission-vision', description: 'Our goals and aspirations' },
-                { name: 'Management Team', href: '/about/management', description: 'Experienced leadership' },
-                { name: 'Staff Directory', href: '/staff', description: 'Meet our dedicated faculty' },
-                { name: 'Why Choose Us', href: '/about/why-choose-us', description: 'Academic excellence and innovation' },
-                { name: 'Our Campus', href: '/gallery', description: 'Take a look at our world-class facilities' },
-            ],
-        },
-        {
-            name: 'Academics',
-            href: 'academics/primary',
-            dropdown: [
-                { name: 'Primary Level', href: '/academics/primary', description: 'Strong foundations for young minds' },
-                { name: 'Secondary Level', href: '/academics/secondary', description: 'Advanced learning and board preparation' },
-                { name: 'Higher Secondary', href: '/academics/higher_secondary', description: 'Gateway to professional careers' },
-            ],
-        },
-        { name: 'Admissions', href: '/admissions' },
-        {
-            name: 'Life at JBS',
-            href: '/facilities',
-            dropdown: [
-                { name: 'Hostel & Residency', href: '/facilities/hostels', description: 'Safe and comfortable home away from home' },
-                { name: 'Transportation', href: '/facilities/overview', description: 'Extensive fleet covering the entire city' },
-                { name: 'Sports Academy', href: '/facilities/sports', description: 'Training future athletes in various disciplines' },
-                { name: 'Digital Library', href: '/facilities/library', description: 'Vast resource center for curious minds' },
-            ],
-        },
-        {
-            name: 'Updates', href: '/updates',
-            dropdown: [
-                { name: 'News & Events', href: '/news-events', description: 'Stay updated with school activities' },
-                { name: 'Notices', href: '/notices', description: 'Important academic announcements' },
-
-            ]
-        },
-        { name: 'Contact', href: '/contact' },
-    ];
+    const navLinks: NavLink[] = (menuSettings ?? []).map((menu) => ({
+        name: menu.title,
+        href: menu.url ?? '#',
+        dropdown: menu.children && menu.children.length
+            ? menu.children.map((child) => ({
+                name: child.title,
+                href: child.url ?? '#',
+                description: child.description ?? '',
+            }))
+            : undefined,
+    }));
 
     return (
         <>
@@ -123,12 +99,6 @@ export default function Navbar() {
                             <div className="relative w-12 h-12 lg:w-14 lg:h-14 overflow-hidden rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/20 group-hover:rotate-6 transition-transform duration-500">
                                 <img src={officeSettings?.office_logo || "/assets/logo.png"} alt="" />
                             </div>
-                            {/* <div>
-                                <h1 className="text-xl lg:text-xl font-black text-slate-900 dark:text-white leading-none tracking-tighter whitespace-nowrap">
-                                    {officeSettings?.office_name}
-                                </h1>
-
-                            </div> */}
                         </Link>
 
                         {/* Desktop Links */}

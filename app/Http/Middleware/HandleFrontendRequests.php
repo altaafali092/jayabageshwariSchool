@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\MenuSetting;
 use App\Models\OfficeSetting;
 use Closure;
 use Illuminate\Http\Request;
@@ -18,8 +19,13 @@ class HandleFrontendRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
-         
+
             'officeSettings' => fn() => OfficeSetting::with('keyContactPerson', 'keyContactSecPerson')->first(),
+            'menuSettings' => MenuSetting::where('is_active', 1)
+                ->whereNull('menu_id')
+                ->with(['children' => fn($query) => $query->where('is_active', 1)])
+                ->orderBy('position')
+                ->get(),
         ]);
     }
 }

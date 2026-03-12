@@ -10,10 +10,39 @@ import FlashToast from '@/components/FlashToast'
 import { columns } from './columns'
 
 import { MenuSetting } from '@/types/admin/MenuSetting'
-import { index } from '@/routes/admin/menu-setting'
+import { create, index } from '@/routes/admin/menu-setting'
 
 interface Props {
     menuSettings: PaginatedData<MenuSetting>
+}
+
+// Build nested structure
+function buildNestedMenus(
+    menus: MenuSetting[],
+    parentId: number | null = null,
+    level = 0
+): (MenuSetting & { level: number; children?: any[] })[] {
+    return menus
+        .filter((m) => m.menu_id === parentId)
+        .map((m) => ({
+            ...m,
+            level,
+            children: buildNestedMenus(menus, m.id, level + 1),
+        }))
+}
+
+// Flatten nested menus for table
+function flattenNestedMenus(
+    nestedMenus: (MenuSetting & { level: number; children?: any[] })[]
+): (MenuSetting & { level: number })[] {
+    let result: (MenuSetting & { level: number })[] = []
+    nestedMenus.forEach((m) => {
+        result.push({ ...m, children: undefined })
+        if (m.children && m.children.length > 0) {
+            result.push(...flattenNestedMenus(m.children))
+        }
+    })
+    return result
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -25,6 +54,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Index({ menuSettings }: Props) {
     FlashToast()
+
+    // Build nested -> flatten
+    const nestedMenus = buildNestedMenus(menuSettings.data)
+    const tableData = flattenNestedMenus(nestedMenus)
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -41,14 +74,19 @@ export default function Index({ menuSettings }: Props) {
                         </p>
                     </div>
 
-
+                    <Button asChild>
+                        <Link href={create().url}>
+                            <Plus className="mr-2 h-4 w-4" />
+                            Create Menu Setting
+                        </Link>
+                    </Button>
                 </div>
 
                 <div className="flex-1">
                     <div className="container mx-auto py-6">
                         <DataTable
                             columns={columns}
-                            data={menuSettings.data}
+                            data={tableData} // Use flattened nested table
                         />
                         <Pagination links={menuSettings.links} />
                     </div>
