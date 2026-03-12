@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\MenusettingController;
 use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\NewsEventController;
 use App\Http\Controllers\Admin\OfficeSettingController;
+use App\Http\Controllers\Admin\PageCategoryController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StaffController;
 use Illuminate\Support\Facades\Route;
@@ -59,4 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('menu-setting', MenusettingController::class);
     Route::get('menu-setting/{menuSetting}/status', [MenusettingController::class, 'status'])->name('menuSetting.status');
+
+    Route::resource('page-category', PageCategoryController::class);
+    Route::get('page-category/{PageCategory}/status', [PageCategoryController::class, 'status'])->name('pageCategory.status');
 });

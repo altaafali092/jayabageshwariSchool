@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, GalleryVerticalEndIcon, GraduationCap, Images, LayoutGrid, Menu, MessageCircle, Newspaper, NotepadTextDashed, School, School2, StretchHorizontal, Users } from 'lucide-react';
+import { BookCopyIcon, BookOpen, Folder, GalleryVerticalEndIcon, GraduationCap, Images, LayoutGrid, Menu, MessageCircle, Newspaper, NotepadTextDashed, School, School2, StretchHorizontal, Users } from 'lucide-react';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -29,6 +29,7 @@ import { index as StaffIndex } from '@/routes/admin/staff';
 import { create } from '@/routes/admin/office-setting';
 import { index as MenuSettingIndex } from '@/routes/admin/menu-setting';
 import { index as CategoryIndex } from '@/routes/admin/facility-category';
+import { index as pageCategoryIndex } from '@/routes/admin/page-category';
 
 const mainNavItems: NavItem[] = [
     {
@@ -59,6 +60,24 @@ const mainNavItems: NavItem[] = [
 
             {
                 title: 'Facility Items',
+                href: facilityIndex(),
+                icon: StretchHorizontal,
+            }
+        ]
+    },
+    {
+        title: 'Page',
+        href: '#',
+        icon: BookCopyIcon,
+        items: [
+            {
+                title: 'Page Category',
+                href: pageCategoryIndex(),
+                icon: BookOpen,
+            },
+
+            {
+                title: 'Page',
                 href: facilityIndex(),
                 icon: StretchHorizontal,
             }
