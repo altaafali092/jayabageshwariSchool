@@ -9,23 +9,28 @@ import { Textarea } from "@/components/ui/textarea"
 import { ArrowLeft } from "lucide-react"
 import { type BreadcrumbItem } from "@/types"
 import InputError from "@/components/input-error"
-import { index, store } from "@/routes/admin/page-category"
+
 import RichTextEditor from "@/components/RichTextEditor"
+import { index, store } from "@/routes/admin/page"
+import { PageCategory } from "@/types/admin/Page"
 
 
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: "Categories", href: index().url },
+    { title: "pages", href: index().url },
     { title: "Create", href: "#" },
 ]
 
+interface Props {
+    pageCategories: PageCategory[]
+}
 
-export default function PageCategoryCreate() {
+export default function PageCategoryCreate({ pageCategories }: Props) {
     const handleCancel = () => window.history.back()
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Create PageCategory | JBS" />
+            <Head title="Create Page" />
             <div className="flex h-full flex-1 flex-col gap-6 p-4">
                 {/* Header */}
                 <div className="flex items-center justify-between">
@@ -40,9 +45,9 @@ export default function PageCategoryCreate() {
                             Back
                         </Button>
                         <div>
-                            <h1 className="text-2xl font-bold tracking-tight">Create Category</h1>
+                            <h1 className="text-2xl font-bold tracking-tight">Create Page</h1>
                             <p className="text-muted-foreground">
-                                Add a new category with image and description.
+                                Add a new page with image and description.
                             </p>
                         </div>
                     </div>
@@ -52,7 +57,7 @@ export default function PageCategoryCreate() {
                 <div className="w-full">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Category Details</CardTitle>
+                            <CardTitle>Page Details</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <Form
@@ -66,8 +71,28 @@ export default function PageCategoryCreate() {
 
                                         {/* Name and Image in one row */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+
                                             <div className="space-y-2">
-                                                <Label htmlFor="title">Category Name</Label>
+                                                <Label htmlFor="facility_category_id">
+                                                    Page Category <span className="text-red-500">*</span>
+                                                </Label>
+                                                <select
+                                                    id="category_id"
+                                                    name="category_id"
+                                                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                                                >
+                                                    <option value="">Select Page Category</option>
+                                                    {pageCategories.map((category) => (
+                                                        <option key={category.id} value={category.id}>
+                                                            {category.title}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                                <InputError message={errors.category_id} />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="title">Page Name</Label>
                                                 <Input
                                                     id="title"
                                                     name="title"
@@ -89,9 +114,13 @@ export default function PageCategoryCreate() {
 
 
                                             <div className="space-y-2">
-                                                <Label htmlFor="image">Image</Label>
-                                                <Input id="image" type="file" name="image" />
-                                                <InputError message={errors.image} />
+                                                <Label htmlFor="images">Image</Label>
+                                                <Input id="images"
+                                                    type="file"
+                                                    name="images[]"
+                                                    multiple
+                                                    accept="image/*" />
+                                                <InputError message={errors.images} />
                                             </div>
 
                                         </div>

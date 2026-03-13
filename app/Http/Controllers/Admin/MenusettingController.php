@@ -9,6 +9,7 @@ use App\Http\Requests\MenuSetting\UpdateMenuSettingRequest;
 use App\Models\AcademicLevel;
 use App\Models\FacilityCategory;
 use App\Models\MenuSetting;
+use App\Models\PageCategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -33,10 +34,12 @@ class MenusettingController extends Controller
 
         $academics = AcademicLevel::where('status', 1)->latest()->get();
         $facilities = FacilityCategory::where('status', 1)->latest()->get();
+        $pages = PageCategory::where('status', 1)->latest()->get();
         $menuSettings = MenuSetting::latest()->get();
         return Inertia::render('Admin/MenuSetting/Create', [
             'academics' => $academics,
             'facilities' => $facilities,
+            'pages' => $pages,
             'menuSettings' => $menuSettings,
             'menuTypes' => MenuTypeEnum::labels(),
             'staticPages' => config('MenuFile.static_pages'),
@@ -71,11 +74,12 @@ class MenusettingController extends Controller
         $academics = AcademicLevel::where('status', 1)->latest()->get();
         $facilities = FacilityCategory::where('status', 1)->latest()->get();
         $menuSettings = MenuSetting::latest()->get();
-
+        $pages = PageCategory::where('status', 1)->latest()->get();
         return Inertia::render('Admin/MenuSetting/Edit', [
             'menuSetting' => $menuSetting,
             'academics' => $academics,
             'facilities' => $facilities,
+            'pages' => $pages,
             'menuSettings' => $menuSettings,
             'menuTypes' => MenuTypeEnum::labels(),
             'staticPages' => config('MenuFile.static_pages'),

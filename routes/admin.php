@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\NewsEventController;
 use App\Http\Controllers\Admin\OfficeSettingController;
 use App\Http\Controllers\Admin\PageCategoryController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StaffController;
 use Illuminate\Support\Facades\Route;
@@ -63,4 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('page-category', PageCategoryController::class);
     Route::get('page-category/{PageCategory}/status', [PageCategoryController::class, 'status'])->name('pageCategory.status');
+
+    Route::resource('page', PageController::class);
+    Route::get('page/{page}/status', [PageController::class, 'status'])->name('page.status');
 });

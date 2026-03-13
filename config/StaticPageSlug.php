@@ -5,7 +5,6 @@ return [
         'index' => '/',
         'contact' => 'contact',
         'admissions' => 'admissions',
-        'facilities' => 'facilities',
         'gallery' => 'gallery',
         'news-events' => 'news-events',
         'notices' => 'notices',

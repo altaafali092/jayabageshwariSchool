@@ -14,7 +14,7 @@ import { News, Slider } from '@/types/Frontend/Index';
 
 
 const Welcome = () => {
-    const { sliders, events, notices,popupNotice } =
+    const { sliders, events, notices, popupNotice } =
 
         usePage<{
             sliders: Slider[];
@@ -26,7 +26,7 @@ const Welcome = () => {
     return (
 
         <FrontLayout >
-            <Head title="JBS" />
+            <Head title="Welcome to " />
             <main className="flex-1">
                 {/* Important Announcements Popup */}
                 <PopupNotice popupNotice={popupNotice} />

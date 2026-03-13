@@ -12,6 +12,7 @@ use App\Models\Contact;
 use App\Models\FacilityCategory;
 use App\Models\Gallery;
 use App\Models\NewsEvent;
+use App\Models\PageCategory;
 use App\Models\slider;
 use App\Models\Staff;
 use Illuminate\Http\Request;
@@ -125,14 +126,26 @@ class FrontController extends Controller
         ]);
     }
 
+    public function PageShow(PageCategory $pageCategory)
+    {
+        $categories = PageCategory::where('status', true)
+            ->get();
+
+        $pageCategory->load([
+            'pages' => function ($query) {
+                $query->where('status', true);
+            }
+        ]);
+
+        return Inertia::render('frontend/About/MissionVision', [
+            'categories' => $categories,
+            'pageCategory' => $pageCategory,
+        ]);
+    }
+
     public function history()
     {
         return Inertia::render('frontend/About/History');
-    }
-
-    public function missionVision()
-    {
-        return Inertia::render('frontend/About/MissionVision');
     }
 
     public function management()

@@ -10,8 +10,6 @@ import {
     CheckCircle2,
     ArrowRight
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
-
 const MissionVision = () => {
     const values = [
         {

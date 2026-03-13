@@ -5,7 +5,7 @@ namespace App\Enums;
 enum MenuTypeEnum: string
 {
     case PARENT = 'parent';
-    case CATEGORY = 'category';
+    case PAGE = 'page';
     case STATIC = 'static';
     case ACADEMIC = 'academic';
     case FACILITY = 'facility';
@@ -15,13 +15,11 @@ enum MenuTypeEnum: string
     {
         return [
 
-            self::CATEGORY->value => __('Category'),
+            self::PARENT->value => __('Parent'),
+            self::PAGE->value => __('Page'),
             self::STATIC->value => __('Static'),
             self::ACADEMIC->value => __('Academic'),
             self::FACILITY->value => __('Facility'),
-            self::PARENT->value => __('Parent'),
-
-
         ];
     }
 }

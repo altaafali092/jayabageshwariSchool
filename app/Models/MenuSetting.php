@@ -52,6 +52,9 @@ class MenuSetting extends Model
                 MenuTypeEnum::FACILITY->value =>
                 route('facilities', ['facilityCategory' => $attributes['slug']]),
 
+                MenuTypeEnum::PAGE->value =>
+                route('pages', ['pageCategory' => $attributes['slug']]),
+
                 default => '#',
             };
         });
@@ -72,6 +75,11 @@ class MenuSetting extends Model
             if ($menuSetting->menu_type === MenuTypeEnum::FACILITY->value && $menuSetting->menuable) {
                 $menuSetting->menu_url = route('facilities', [
                     'facilityCategory' => $menuSetting->menuable->name // or use slug if your route uses slug
+                ]);
+            }
+            if ($menuSetting->menu_type === MenuTypeEnum::PAGE->value && $menuSetting->menuable) {
+                $menuSetting->menu_url = route('pages', [
+                    'pageCategory' => $menuSetting->menuable->name // or use slug if your route uses slug
                 ]);
             }
         });

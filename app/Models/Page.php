@@ -6,29 +6,32 @@ use App\Traits\FileTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PageCategory extends Model
+class Page extends Model
 {
-    use HasFactory, FileTrait;
+    use HasFactory, FileTrait, SoftDeletes;
+
     protected $fillable = [
+        'category_id',
         'title',
         'slug',
-        'image',
+        'images',
         'description',
         'status',
     ];
+
     protected $casts = [
         'status' => 'boolean',
+        'images' => 'array',
     ];
 
-    public function image(): Attribute
+    public function category()
     {
-        return $this->castingFile(defaultPath: 'PageCategory');
+        return $this->belongsTo(PageCategory::class);
     }
-
-    public function pages(): HasMany
+    public function images(): Attribute
     {
-        return $this->hasMany(Page::class, 'category_id');
+        return $this->castingFile(defaultPath: 'Page');
     }
 }

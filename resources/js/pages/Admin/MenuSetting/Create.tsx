@@ -14,11 +14,13 @@ import { AcademicsLevel } from "@/types/admin/AcademicsLevel"
 import { MenuSetting } from "@/types/admin/MenuSetting"
 import { index, store } from "@/routes/admin/menu-setting"
 import { FacilityCategory } from "@/types/admin/Facility"
+import { PageCategory } from "@/types/admin/Page"
 
 interface Props {
     academics: AcademicsLevel[]
     facilities: FacilityCategory[]
     menuSettings: MenuSetting[]
+    pages: PageCategory[]
     menuTypes: Record<string, string>
     staticPages: Record<string, string>        // { about: "About Us", contact: "Contact" }
     staticPageSlugs: Record<string, string>    // { about: "/about-us", contact: "/contact" }
@@ -33,6 +35,7 @@ export default function MenuSettingCreate({
     academics,
     facilities,
     menuSettings,
+    pages,
     menuTypes,
     staticPages,
     staticPageSlugs,
@@ -177,8 +180,6 @@ export default function MenuSettingCreate({
                                                 onChange={(e) => handleMenuTypeChange(e.target.value)}
                                             >
                                                 <option value="">Select Menu Type</option>
-
-
                                                 {Object.entries(menuTypes).map(([value, label]) => (
                                                     <option key={value} value={value}>
                                                         {label}
@@ -214,6 +215,30 @@ export default function MenuSettingCreate({
                                                 )}
                                             </div>
                                         )}
+
+                                        {menuType === "page" && (
+                                            <div className="space-y-2">
+                                                <Label>Select Page</Label>
+                                                <select
+                                                    name="menuable_id"
+                                                    className="w-full rounded border px-3 py-2"
+                                                    value={menuableId}
+                                                    onChange={(e) => setMenuableId(e.target.value)}
+                                                >
+                                                    <option value="">Select Page</option>
+                                                    {pages.map((p) => (
+                                                        <option key={p.id} value={p.id}>
+                                                            {p.title}
+                                                        </option>
+                                                    ))}
+                                                </select>
+
+                                                {errors?.menuable_id && (
+                                                    <p className="text-sm text-red-500">{errors.menuable_id}</p>
+                                                )}
+                                            </div>
+                                        )}
+
                                         {menuType === "facility" && (
                                             <div className="space-y-2">
                                                 <Label>Select Category</Label>

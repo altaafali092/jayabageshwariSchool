@@ -25,6 +25,9 @@ Route::get('/academics/{academicLevel:slug}', [FrontController::class, 'academic
     ->name('academicsShow');
 
 Route::get('/facilities/{facilityCategory:slug}', [FrontController::class, 'facilities'])->name('Facility');
+
+Route::get('/pages/{pageCategory:slug}', [FrontController::class, 'PageShow'])->name('pages');
+
 Route::get('/about/history', [FrontController::class, 'history'])->name('about.history');
 Route::get('/about/mission-vision', [FrontController::class, 'missionVision'])->name('about.mission');
 Route::get('/about/management', [FrontController::class, 'management'])->name('about.management');

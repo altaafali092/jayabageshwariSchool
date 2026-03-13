@@ -30,6 +30,7 @@ import { create } from '@/routes/admin/office-setting';
 import { index as MenuSettingIndex } from '@/routes/admin/menu-setting';
 import { index as CategoryIndex } from '@/routes/admin/facility-category';
 import { index as pageCategoryIndex } from '@/routes/admin/page-category';
+import { index as PageIndex } from '@/routes/admin/page';
 
 const mainNavItems: NavItem[] = [
     {
@@ -78,7 +79,7 @@ const mainNavItems: NavItem[] = [
 
             {
                 title: 'Page',
-                href: facilityIndex(),
+                href: PageIndex(),
                 icon: StretchHorizontal,
             }
         ]

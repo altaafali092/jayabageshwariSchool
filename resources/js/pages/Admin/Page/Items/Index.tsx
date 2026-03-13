@@ -5,32 +5,32 @@ import { Head, Link } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { columns } from './columns';
 import { DataTable } from '@/components/DataTable';
-import { create, index } from '@/routes/admin/page-category';
 import Pagination from '@/components/Pagination';
 import FlashToast from '@/components/FlashToast';
-import { PageCategory } from '@/types/admin/Page';
+import { Page } from '@/types/admin/Page';
+import { create, index } from '@/routes/admin/page';
 
 
 interface Props {
-    pageCategories: PaginatedData<PageCategory>;
+    pages: PaginatedData<Page>;
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'categories',
+        title: 'pages',
         href: index().url,
     },
 ];
 
-export default function PageCategoryIndex({ pageCategories }: Props) {
+export default function PageCategoryIndex({ pages }: Props) {
     FlashToast()
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Page Categories" />
+            <Head title="Pages" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight">Categories</h1>
+                        <h1 className="text-2xl font-bold tracking-tight">Pages</h1>
                         <p className="text-muted-foreground">
                             Manage application Categories and access controls.
                         </p>
@@ -46,8 +46,8 @@ export default function PageCategoryIndex({ pageCategories }: Props) {
                 {/* Data Table */}
                 <div className="flex-1">
                     <div className="container mx-auto py-10">
-                        <DataTable columns={columns} data={pageCategories.data} />
-                        <Pagination links={pageCategories.links} />
+                        <DataTable columns={columns} data={pages.data} />
+                        <Pagination links={pages.links} />
                     </div>
                 </div>
             </div>
