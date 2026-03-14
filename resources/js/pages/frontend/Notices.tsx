@@ -12,12 +12,20 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { News } from '@/types/Frontend/Index';
+import parse from 'html-react-parser';
+import { noticeShow } from '@/actions/App/Http/Controllers/FrontController';
 
 interface NoticeProps {
     notices: News[];
 }
 
 const Notices = ({ notices = [] }: NoticeProps) => {
+
+    const limitText = (html: any, limit: number) => {
+        if (html.length <= limit) return html;
+        return html.substring(0, limit) + "...";
+    };
+
     const [searchQuery, setSearchQuery] = useState('');
 
     /* ================= FILTER ================= */
@@ -139,18 +147,26 @@ const Notices = ({ notices = [] }: NoticeProps) => {
                                         </h3>
 
                                         <p className="text-sm font-bold text-slate-400 max-w-2xl">
-                                            {notice.description}
+                                            {parse(limitText(notice.description, 50))}
+
                                         </p>
                                     </div>
 
                                     {/* ACTION */}
                                     <div className=' flex gap-1 justify-between items-center'>
-                                        <button className="h-12 px-8  bg-slate-900 dark:bg-blue-600 text-white rounded-2xl flex items-center gap-3 text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 transition-all">
-                                            <Download className="w-4 h-4" />
+                                        {notice.image && (
+                                            <a
+                                                href={notice.image}
+                                                download
+                                                target="_blank"
+                                                className="h-12 px-8 bg-slate-900 dark:bg-blue-600 text-white rounded-2xl flex items-center gap-3 text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 transition-all"
+                                            >
+                                                <Download className="w-4 h-4" />
 
-                                        </button>
+                                            </a>
+                                        )}
                                         <Link
-                                            href={`/notices/${notice.slug}`}
+                                            href={noticeShow(notice.slug)}
                                             className="h-12 px-8 bg-blue-600 dark:bg-slate-600 text-white rounded-2xl flex items-center gap-3 text-[10px] font-black uppercase tracking-widest hover:bg-slate-900 transition-all"
                                         >
                                             <Eye className="w-4 h-4" />

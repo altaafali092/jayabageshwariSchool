@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Megaphone, X, ChevronRight, AlertCircle } from 'lucide-react';
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import { News } from '@/types/Frontend/Index';
+
+
+
 
 interface NewsProps {
     notices: News[];
@@ -10,6 +13,12 @@ interface NewsProps {
 const ImportantNotice = ({ notices }: NewsProps) => {
     const [isVisible, setIsVisible] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
+
+    const limitText = (html: any, limit: number) => {
+        if (html.length <= limit) return html;
+        return html.substring(0, limit) + "...";
+    };
+
 
     useEffect(() => {
         if (!notices.length) return;
@@ -75,11 +84,9 @@ const ImportantNotice = ({ notices }: NewsProps) => {
 
                                                 <p className="text-slate-700 dark:text-slate-200 font-bold text-xs sm:text-sm lg:text-base truncate pr-4">
                                                     <span className="text-red-600 uppercase italic tracking-tighter mr-2">
-                                                        {notice.title}
+                                                        {limitText(notice.title, 100)}
                                                     </span>
-                                                    <span className="font-medium text-slate-500 hidden sm:inline">
-                                                        — {notice.description}
-                                                    </span>
+
                                                 </p>
                                             </Link>
                                         </div>

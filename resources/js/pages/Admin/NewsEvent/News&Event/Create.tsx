@@ -1,28 +1,24 @@
-import React from "react"
+import React, { useState } from "react"
 import { Head, Form } from "@inertiajs/react"
 import AppLayout from "@/layouts/app-layout"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 import { ArrowLeft } from "lucide-react"
 import { type BreadcrumbItem } from "@/types"
 
 import InputError from "@/components/input-error"
-import { NewsCategory } from "@/types/admin/NewsCategory"
 import { index, store } from "@/routes/admin/news-event"
 import RichTextEditor from "@/components/RichTextEditor"
 
-
-
-
-interface category {
-    label: string;
-    value: string;
+interface Category {
+    label: string
+    value: string
 }
-interface props {
-    categories: category[];
+
+interface Props {
+    categories: Category[]
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -30,13 +26,15 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: "Create", href: "#" },
 ]
 
-export default function Create({ categories }: props) {
+export default function Create({ categories }: Props) {
+    const [selectedCategory, setSelectedCategory] = useState("")
+
     const handleCancel = () => window.history.back()
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Create News & Event" />
-            <div className="flex h-full flex-1 flex-col gap-6 p-4 ">
+            <div className="flex h-full flex-1 flex-col gap-6 p-4">
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
@@ -51,9 +49,7 @@ export default function Create({ categories }: props) {
                         </Button>
                         <div>
                             <h1 className="text-2xl font-bold tracking-tight">Create News & Event</h1>
-                            <p className="text-muted-foreground">
-                                Add a new News & Event.
-                            </p>
+                            <p className="text-muted-foreground">Add a new News & Event.</p>
                         </div>
                     </div>
                 </div>
@@ -65,23 +61,20 @@ export default function Create({ categories }: props) {
                             <CardTitle>News & Event Details</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <Form
-                                action={store().url}
-                                method="post"
-                                className="space-y-6"
-                            >
+                            <Form action={store().url} method="post" className="space-y-6">
                                 {({ errors }) => (
                                     <>
-                                        {/* Name and Image in one row */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
+                                            {/* Category */}
                                             <div className="space-y-2">
-                                                <Label htmlFor="news_category_id">
+                                                <Label htmlFor="category">
                                                     Category <span className="text-red-500">*</span>
                                                 </Label>
                                                 <select
                                                     id="category"
                                                     name="category"
+                                                    value={selectedCategory}
+                                                    onChange={(e) => setSelectedCategory(e.target.value)}
                                                     className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
                                                 >
                                                     <option value="">Select Category</option>
@@ -94,8 +87,11 @@ export default function Create({ categories }: props) {
                                                 <InputError message={errors.category} />
                                             </div>
 
+                                            {/* Title */}
                                             <div className="space-y-2">
-                                                <Label htmlFor="title">Title <span className="text-red-500">*</span></Label>
+                                                <Label htmlFor="title">
+                                                    Title <span className="text-red-500">*</span>
+                                                </Label>
                                                 <Input
                                                     id="title"
                                                     name="title"
@@ -105,22 +101,26 @@ export default function Create({ categories }: props) {
                                                 <InputError message={errors.title} />
                                             </div>
 
+                                            {/* Slug */}
                                             <div className="space-y-2">
-                                                <Label htmlFor="slug">Slug <span className="text-red-500">*</span></Label>
+                                                <Label htmlFor="slug">
+                                                    Slug <span className="text-red-500">*</span>
+                                                </Label>
                                                 <Input
                                                     id="slug"
                                                     name="slug"
                                                     type="text"
-                                                    placeholder="e.g., news_categoey"
+                                                    placeholder="e.g., news_category"
                                                 />
                                                 <InputError message={errors.slug} />
                                                 <p className="text-sm text-muted-foreground">
-                                                    slug should be unique and in lowercase use _ instead of space.
+                                                    Slug should be unique, lowercase, use "_" instead of spaces.
                                                 </p>
                                             </div>
 
+                                            {/* Event Date */}
                                             <div className="space-y-2">
-                                                <Label htmlFor="event_date">Event Date </Label>
+                                                <Label htmlFor="event_date"> {selectedCategory !== "Notice" ? "Event Date" : "Notice Date"}</Label>
                                                 <Input
                                                     id="event_date"
                                                     name="event_date"
@@ -130,28 +130,35 @@ export default function Create({ categories }: props) {
                                                 <InputError message={errors.event_date} />
                                             </div>
 
-                                            <div className="space-y-2">
-                                                <Label htmlFor="event_time">Event Time  </Label>
-                                                <Input
-                                                    id="event_time"
-                                                    name="event_time"
-                                                    type="time"
-                                                    placeholder="e.g., news_categoey"
-                                                />
-                                                <InputError message={errors.event_time} />
+                                            {/* Event Time – only for notice */}
+                                            {selectedCategory !== "Notice" && (
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="event_time">Event Time</Label>
+                                                    <Input
+                                                        id="event_time"
+                                                        name="event_time"
+                                                        type="time"
+                                                        placeholder="e.g., 10:00 AM"
+                                                    />
+                                                    <InputError message={errors.event_time} />
+                                                </div>
+                                            )}
 
-                                            </div>
-                                            <div className="space-y-2">
-                                                <Label htmlFor="event_location">Event Location  </Label>
-                                                <Input
-                                                    id="event_location"
-                                                    name="event_location"
-                                                    type="text"
-                                                    placeholder="e.g., news_categoey"
-                                                />
-                                                <InputError message={errors.event_location} />
+                                            {/* Event Location */}
+                                            {selectedCategory !== "Notice" && (
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="event_location">Event Location</Label>
+                                                    <Input
+                                                        id="event_location"
+                                                        name="event_location"
+                                                        type="text"
+                                                        placeholder="e.g., Conference Hall"
+                                                    />
+                                                    <InputError message={errors.event_location} />
+                                                </div>
+                                            )}
 
-                                            </div>
+                                            {/* Images */}
                                             <div className="space-y-2">
                                                 <Label htmlFor="image">Images</Label>
                                                 <Input
@@ -166,13 +173,14 @@ export default function Create({ categories }: props) {
                                                 </p>
                                             </div>
                                         </div>
+
+                                        {/* Description */}
                                         <div className="space-y-2">
                                             <Label htmlFor="description">Description</Label>
                                             <RichTextEditor
                                                 id="description"
                                                 name="description"
                                                 placeholder="Optional description"
-
                                             />
                                             <InputError message={errors.description} />
                                         </div>
@@ -180,7 +188,11 @@ export default function Create({ categories }: props) {
                                         {/* Buttons */}
                                         <div className="flex gap-2 pt-4">
                                             <Button type="submit">Save</Button>
-                                            <Button type="button" variant="outline" onClick={handleCancel}>
+                                            <Button
+                                                type="button"
+                                                variant="outline"
+                                                onClick={handleCancel}
+                                            >
                                                 Cancel
                                             </Button>
                                         </div>

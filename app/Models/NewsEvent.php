@@ -38,20 +38,4 @@ class NewsEvent extends Model
     {
         return $this->castingFile(defaultPath: 'NewsEvent');
     }
-
-    protected static function booted()
-
-    {
-        // When updating & new images uploaded → delete OLD images
-        static::updating(function ($model) {
-            if (request()->hasFile('image')) {
-                deleteFiles($model->getRawOriginal('image'));
-            }
-        });
-
-        // When deleting → delete images
-        static::deleting(function ($model) {
-            deleteFiles($model->getRawOriginal('image'));
-        });
-    }
 }

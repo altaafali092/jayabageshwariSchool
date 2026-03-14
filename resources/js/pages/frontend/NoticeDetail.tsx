@@ -12,6 +12,7 @@ import {
     CheckCircle2
 } from 'lucide-react';
 import { News } from '@/types/Frontend/Index';
+import parse from 'html-react-parser';
 
 interface NoticeDetailProps {
     notice: News;
@@ -114,7 +115,7 @@ const NoticeDetail = ({ notice }: NoticeDetailProps) => {
 
 
                                         <p className="text-lg text-slate-600 dark:text-slate-400 mb-12">
-                                            {notice.description}
+                                            {parse(notice.description)}
                                         </p>
 
 
