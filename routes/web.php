@@ -19,7 +19,7 @@ Route::get('/news-events', [FrontController::class, 'NewsEventPage'])->name('new
 Route::get('/news/{news:slug}', [FrontController::class, 'newsShow'])->name('news.show');
 
 Route::get('/notices', [FrontController::class, 'notices'])->name('notices');
-Route::get('/notices/{slug}', [FrontController::class, 'noticeShow'])->name('notices.show');
+Route::get('/notices/{notice:slug}', [FrontController::class, 'noticeShow'])->name('notices.show');
 
 Route::get('/academics/{academicLevel:slug}', [FrontController::class, 'academics'])
     ->name('academicsShow');

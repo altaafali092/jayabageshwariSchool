@@ -12,6 +12,7 @@ import InputError from "@/components/input-error"
 import { NewsCategory } from "@/types/admin/NewsCategory"
 import { NewsEvent } from "@/types/admin/NewsEvent"
 import { index, update } from "@/routes/admin/news-event"
+import RichTextEditor from "@/components/RichTextEditor"
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: "News & Event", href: index().url },
@@ -208,9 +209,9 @@ export default function Edit({ categories, newsEvent }: EditProps) {
                                     {/* Description */}
                                     <div className="space-y-2">
                                         <Label>Description</Label>
-                                        <Textarea
+                                        <RichTextEditor
                                             name="description"
-                                            rows={4}
+
                                             defaultValue={newsEvent.description ?? ""}
                                         />
                                         <InputError message={errors.description} />

@@ -27,7 +27,7 @@ class StoreNewsEventRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'alpha_dash', Rule::unique('news_events', 'slug')->withoutTrashed()],
             'image' => ['nullable', 'array', 'min:1'],
-            'image.*' => ['image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+            'image.*' => ['file', 'mimes:jpeg,png,jpg,gif,webp,pdf', 'max:5120'],
             'description' => ['required', 'string'],
             'event_date' => ['nullable', 'date'],
             'event_time' => ['nullable', 'string'],

@@ -26,6 +26,7 @@ const NoticeDetail = ({ notice }: NoticeDetailProps) => {
         });
     };
 
+    console.log(notice);
     return (
         <FrontLayout>
             <Head title={`${notice.title} - Notices`} />
@@ -47,7 +48,7 @@ const NoticeDetail = ({ notice }: NoticeDetailProps) => {
                             <div className="flex flex-wrap items-center gap-4">
                                 <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-[10px] font-black uppercase tracking-widest">
                                     <Tag className="w-3 h-3" />
-                                    {notice.category} Notice
+                                    {notice.category}
                                 </span>
                                 <span className="inline-flex items-center gap-2 text-slate-400 text-[10px] font-black uppercase tracking-widest">
                                     <Calendar className="w-3 h-3" />
@@ -71,11 +72,52 @@ const NoticeDetail = ({ notice }: NoticeDetailProps) => {
                                 <article className="prose prose-slate dark:prose-invert max-w-none">
                                     <div className="bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] p-8 lg:p-12 border border-slate-100 dark:border-slate-800 shadow-sm">
                                         <p className="text-xl font-bold text-slate-600 dark:text-slate-400 leading-relaxed italic border-l-4 border-blue-600 pl-6 mb-12">
+                                            {notice.title}
+                                        </p>
+                                        {notice.image && notice.image.length > 0 && (
+                                            <div className="space-y-8 mb-12">
+                                                {notice.image.map((file: string, index: number) => {
+                                                    const isPdf = file.toLowerCase().endsWith(".pdf");
+
+                                                    return (
+                                                        <div key={index}>
+                                                            {isPdf ? (
+                                                                <div className="space-y-4">
+                                                                    {/* PDF Preview */}
+                                                                    <iframe
+                                                                        src={file}
+                                                                        className="w-full h-[600px] rounded-2xl border"
+                                                                    />
+
+                                                                    {/* Download Button */}
+                                                                    <a
+                                                                        href={file}
+                                                                        target="_blank"
+                                                                        className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-xl text-sm font-bold hover:bg-blue-700 transition"
+                                                                    >
+                                                                        <Download className="w-4 h-4" />
+                                                                        Download PDF
+                                                                    </a>
+                                                                </div>
+                                                            ) : (
+                                                                <img
+                                                                    src={file}
+                                                                    alt={notice.title}
+                                                                    className="w-full h-auto rounded-2xl"
+                                                                />
+                                                            )}
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        )}
+
+
+                                        <p className="text-lg text-slate-600 dark:text-slate-400 mb-12">
                                             {notice.description}
                                         </p>
 
-                                        {/* Notice Body could go here if it had more fields, 
-                                            but since we're using description as main content */}
+
                                         <div className="text-slate-700 dark:text-slate-300 leading-relaxed space-y-6">
                                             {/* Dummy content for demonstration if description is short */}
                                             {!notice.description && (
@@ -85,17 +127,7 @@ const NoticeDetail = ({ notice }: NoticeDetailProps) => {
                                     </div>
                                 </article>
 
-                                {/* Action Bar */}
-                                <div className="flex flex-wrap items-center gap-6 p-8 bg-blue-50 dark:bg-blue-900/10 rounded-3xl border border-blue-100 dark:border-blue-800/50">
-                                    <div className="flex-1">
-                                        <h3 className="text-lg font-black text-slate-900 dark:text-white uppercase italic tracking-tight mb-1">Official Document</h3>
-                                        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Download the verified PDF version of this announcement.</p>
-                                    </div>
-                                    <button className="h-14 bg-blue-600 text-white px-8 rounded-2xl flex items-center justify-center gap-3 text-xs font-black uppercase tracking-widest hover:bg-slate-950 transition-all shadow-xl shadow-blue-600/20 italic">
-                                        <Download className="w-5 h-5" />
-                                        <span>Download PDF</span>
-                                    </button>
-                                </div>
+
                             </div>
 
                             {/* Sidebar Infos */}

@@ -12,6 +12,7 @@ import { type BreadcrumbItem } from "@/types"
 import InputError from "@/components/input-error"
 import { NewsCategory } from "@/types/admin/NewsCategory"
 import { index, store } from "@/routes/admin/news-event"
+import RichTextEditor from "@/components/RichTextEditor"
 
 
 
@@ -158,7 +159,7 @@ export default function Create({ categories }: props) {
                                                     type="file"
                                                     name="image[]"
                                                     multiple
-                                                    accept="image/*"
+                                                    accept="image/*,.pdf"
                                                 />
                                                 <p className="text-xs text-muted-foreground">
                                                     Select multiple images (optional)
@@ -167,11 +168,11 @@ export default function Create({ categories }: props) {
                                         </div>
                                         <div className="space-y-2">
                                             <Label htmlFor="description">Description</Label>
-                                            <Textarea
+                                            <RichTextEditor
                                                 id="description"
                                                 name="description"
                                                 placeholder="Optional description"
-                                                rows={4}
+
                                             />
                                             <InputError message={errors.description} />
                                         </div>

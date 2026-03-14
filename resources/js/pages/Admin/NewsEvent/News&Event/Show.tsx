@@ -51,7 +51,7 @@ export default function Show({ newsEvent }: Props) {
                                     {newsEvent.status ? 'Active' : 'Inactive'}
                                 </Badge>
                                 <span>•</span>
-                                <span>{newsEvent.news_category?.title || 'Uncategorized'}</span>
+                                <span>{newsEvent.category || 'Uncategorized'}</span>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@ export default function Show({ newsEvent }: Props) {
                             <CardContent>
                                 <div className="prose dark:prose-invert max-w-none whitespace-pre-wrap">
                                     {newsEvent.description ? (
-                                        newsEvent.description
+                                        <p dangerouslySetInnerHTML={{ __html: newsEvent.description }} />
                                     ) : (
                                         <span className="text-muted-foreground italic">No description available.</span>
                                     )}
@@ -80,27 +80,30 @@ export default function Show({ newsEvent }: Props) {
                             </CardContent>
                         </Card>
 
-                        {/* Images Gallery */}
-                        {images.length > 0 && (
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Gallery</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                                        {images.map((img, index) => (
-                                            <div key={index} className="relative group aspect-square rounded-lg overflow-hidden border bg-muted">
-                                                <img
-                                                    src={img}
-                                                    alt={`Gallery image ${index + 1}`}
-                                                    className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
-                                                />
-                                            </div>
-                                        ))}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        )}
+                        {images.map((file, index) => {
+                            const isPdf = file.toLowerCase().endsWith(".pdf");
+
+                            return (
+                                <div
+                                    key={index}
+                                    className="relative group rounded-lg overflow-hidden border bg-muted"
+                                >
+                                    {isPdf ? (
+                                        <iframe
+                                            src={file}
+                                            title={`PDF ${index + 1}`}
+                                            className="w-full h-[400px]"
+                                        />
+                                    ) : (
+                                        <img
+                                            src={file}
+                                            alt={`Gallery image ${index + 1}`}
+                                            className="object-cover w-full h-[400px] transition-transform duration-300 hover:scale-105"
+                                        />
+                                    )}
+                                </div>
+                            );
+                        })}
                     </div>
 
                     {/* Sidebar Details */}
