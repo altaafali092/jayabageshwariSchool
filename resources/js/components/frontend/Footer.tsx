@@ -2,7 +2,12 @@ import React from 'react';
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube, ArrowRight, GraduationCap, Clock } from 'lucide-react';
 import { Link, usePage } from '@inertiajs/react';
 import { SharedData } from '@/types';
-import { home } from '@/routes';
+import { admissions, contact, home, notices } from '@/routes';
+
+import { index, NewsEventPage } from '@/actions/App/Http/Controllers/FrontController';
+
+
+
 
 const Footer = () => {
     const { officeSettings } = usePage<SharedData>().props;
@@ -62,12 +67,11 @@ const Footer = () => {
                         </h4>
                         <ul className="space-y-3">
                             {[
-                                { name: 'About History', href: '/about/history' },
-                                { name: 'Admissions', href: '/admissions' },
-                                { name: 'Academic Levels', href: '/academics' },
-                                { name: 'Why Choose Us', href: '/about/why-choose-us' },
-                                { name: 'Latest News', href: '/news-events' },
-                                { name: 'Official Notices', href: '/notices' }
+                                { name: 'Home', href: index() },
+                                { name: 'Admissions', href: admissions() },
+                                { name: 'Latest News', href: NewsEventPage() },
+                                { name: 'Official Notices', href: notices() },
+                                {name : 'Contact Us', href: contact()}
                             ].map((item) => (
                                 <li key={item.name}>
                                     <Link href={item.href} className="text-sm hover:text-blue-500 transition-colors flex items-center gap-2 group">

@@ -2,11 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Megaphone, Calendar, ChevronLeft, ChevronRight, Pin, ArrowRight, ShieldAlert } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 import { News } from '@/types/Frontend/Index';
+import parse from 'html-react-parser';
 
 interface NoticeProps {
     notices: News[];
 }
 const NoticeCarousel = ({ notices }: NoticeProps) => {
+      const limitText = (html: any, limit: number) => {
+        if (html.length <= limit) return html;
+        return html.substring(0, limit) + "...";
+    };
 
     const [activeIndex, setActiveIndex] = useState(0);
     const [isAutoplay, setIsAutoplay] = useState(true);
@@ -107,7 +112,7 @@ const NoticeCarousel = ({ notices }: NoticeProps) => {
                                             </h3>
 
                                             <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
-                                                {notice.description}
+                                                {parse(limitText(notice.description, 100))}
                                             </p>
                                         </div>
 
