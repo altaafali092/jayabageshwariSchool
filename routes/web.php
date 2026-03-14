@@ -34,8 +34,6 @@ Route::get('/staff/{staff}', [FrontController::class, 'staffShow'])->name('staff
 Route::get('/gallery', [FrontController::class, 'gallery'])->name('gallery');
 Route::get('/gallery/{gallery:slug}', [FrontController::class, 'galleryShow'])->name('gallery.show');
 
-
-
 Route::get('/{slug}', [StaticPageController::class, 'show'])->name('staticPage');
 
 require __DIR__ . '/settings.php';

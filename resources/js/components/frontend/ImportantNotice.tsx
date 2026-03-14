@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Megaphone, X, ChevronRight, AlertCircle } from 'lucide-react';
 import { Link, router } from '@inertiajs/react';
 import { News } from '@/types/Frontend/Index';
+import { noticeShow } from '@/actions/App/Http/Controllers/FrontController';
 
 
 
@@ -74,7 +75,7 @@ const ImportantNotice = ({ notices }: NewsProps) => {
                                             className="h-10 flex items-center"
                                         >
                                             <Link
-                                                href={`/notices/${notice.slug}`}
+                                                href={noticeShow(notice.slug)}
                                                 className="flex items-center gap-3 hover:bg-white/10 dark:hover:bg-slate-800/10 rounded-lg w-full"
                                             >
                                                 <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 text-[9px] font-black rounded-md uppercase whitespace-nowrap">
@@ -110,13 +111,6 @@ const ImportantNotice = ({ notices }: NewsProps) => {
                                     ))}
                                 </div>
 
-                                <Link
-                                    href="/notices"
-                                    className="flex items-center gap-1.5 text-[10px] font-black text-blue-600 hover:text-blue-700 transition-colors group px-2 py-1 bg-white dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700 shadow-sm"
-                                >
-                                    VIEW
-                                    <ChevronRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
-                                </Link>
 
                                 <button
                                     onClick={() => setIsVisible(false)}

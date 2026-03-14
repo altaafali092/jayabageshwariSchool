@@ -50,10 +50,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('admission-process', AdmissionProcessController::class);
     Route::get('admission-process/{admissionProcess}/status', [AdmissionProcessController::class, 'status'])->name('admissionProcess.status');
     Route::resource('admission-query', AdmissionQueryController::class)->only(['index', 'show', 'destroy']);
-    Route::get('office-setting', [OfficeSettingController::class, 'create'])->name('office-setting.create');
-    Route::post('office-setting', [OfficeSettingController::class, 'store'])->name('office-setting.store');
-    Route::get('office-setting/{officeSetting}/is-admission', [OfficeSettingController::class, 'isAdmission'])->name('office-setting.is-admission');
-    Route::get('office-setting/{officeSetting}/is-open', [OfficeSettingController::class, 'isOpen'])->name('office-setting.is-open');
+
+
+    Route::get('office-setting', [OfficeSettingController::class, 'create'])
+        ->name('office-setting.create');
+    Route::post('office-setting', [OfficeSettingController::class, 'store'])
+        ->name('office-setting.store');
+    Route::get('office-setting/{officeSetting}/is-admission', [OfficeSettingController::class, 'isAdmission'])
+        ->name('office-setting.is-admission');
+    Route::get('office-setting/{officeSetting}/is-open', [OfficeSettingController::class, 'isOpen'])
+        ->name('office-setting.is-open');
+
+
     Route::resource('staff', StaffController::class);
     Route::get('staff/{staff}/status', [StaffController::class, 'status'])->name('staff.status');
     Route::post('upload', [UploadController::class, 'upload'])->name('upload');
