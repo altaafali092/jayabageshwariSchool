@@ -143,15 +143,7 @@ class FrontController extends Controller
         ]);
     }
 
-    public function history()
-    {
-        return Inertia::render('frontend/About/History');
-    }
 
-    public function management()
-    {
-        return Inertia::render('frontend/About/Management');
-    }
 
     public function whyChooseUs()
     {

@@ -10,7 +10,6 @@ import {
 import * as LucideIcons from 'lucide-react';
 
 
-import { FacilityItem } from '@/types/Frontend/Index';
 import { FacilityCategory } from '@/types/Frontend/Facility';
 import { Facility } from '@/routes';
 import parse from 'html-react-parser';
@@ -27,17 +26,6 @@ const ResolvedIcon = ({ name, className }: { name?: string | null; className?: s
     return <IconComponent className={className} />;
 };
 
-// ─── Props ─────────────────────────────────────────────────────────────────
-interface Props {
-    overview_main: FacilityItem[];
-    overview_lifestyle: FacilityItem[];
-    hostel_features: FacilityItem[];
-    transport_features: FacilityItem[];
-    transport_stats: FacilityItem[];
-    sports_items: FacilityItem[];
-    library_stats: FacilityItem[];
-    library_images: FacilityItem[];
-}
 
 interface FacilitiesProps {
     Categories: FacilityCategory[];
