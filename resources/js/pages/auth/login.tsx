@@ -1,4 +1,4 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form, Head, usePage } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,7 @@ import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 import AuthCardLayout from '@/layouts/auth/auth-card-layout';
 import AuthSimpleLayout from '@/layouts/auth/auth-simple-layout';
+import { SharedData } from '@/types';
 
 type Props = {
     status?: string;
@@ -24,9 +25,10 @@ export default function Login({
     canResetPassword,
     canRegister,
 }: Props) {
+      const { officeSettings } = usePage<SharedData>().props;
     return (
         <AuthCardLayout
-            title="Log in to your account"
+            title={officeSettings?.office_name}
             description="Enter your email and password below to log in"
         >
             <Head title="Log in" />
@@ -57,7 +59,7 @@ export default function Login({
                             <div className="grid gap-2">
                                 <div className="flex items-center">
                                     <Label htmlFor="password">Password</Label>
-                                    {canResetPassword && (
+                                    {/* {canResetPassword && (
                                         <TextLink
                                             href={request()}
                                             className="ml-auto text-sm"
@@ -65,7 +67,7 @@ export default function Login({
                                         >
                                             Forgot password?
                                         </TextLink>
-                                    )}
+                                    )} */}
                                 </div>
                                 <Input
                                     id="password"
@@ -100,14 +102,14 @@ export default function Login({
                             </Button>
                         </div>
 
-                        {canRegister && (
+                        {/* {canRegister && (
                             <div className="text-center text-sm text-muted-foreground">
                                 Don't have an account?{' '}
                                 <TextLink href={register()} tabIndex={5}>
                                     Sign up
                                 </TextLink>
                             </div>
-                        )}
+                        )} */}
                     </>
                 )}
             </Form>

@@ -1,6 +1,6 @@
 import React from 'react';
 import FrontLayout from './Layouts/FrontLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import {
     GraduationCap,
     FileText,
@@ -20,11 +20,17 @@ import InputError from '@/components/input-error';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import toast from 'react-hot-toast';
+import { AdmissionProcess } from '@/types/Frontend/AdmissionProcess';
+import * as Icons from "lucide-react";
+import { SharedData } from '@/types';
+
 interface Props {
     grades: Record<string, string>;
     genders: Record<string, string>;
+    admissionProcesses: AdmissionProcess[];
 }
-const Admissions = ({ grades, genders }: Props) => {
+
+const Admissions = ({ grades, genders, admissionProcesses }: Props) => {
     const { data, setData, post, reset, errors, processing } = useForm({
         full_name: "",
         date_of_birth: "",
@@ -56,7 +62,6 @@ const Admissions = ({ grades, genders }: Props) => {
     };
 
 
-
     return (
         <FrontLayout>
             <Head title="Admission Portal | Jaya Bageshwori" />
@@ -85,23 +90,31 @@ const Admissions = ({ grades, genders }: Props) => {
                 <section className="py-20 bg-white dark:bg-slate-950 border-b border-slate-50 dark:border-slate-900 transition-colors duration-300">
                     <div className="container mx-auto px-6 lg:px-20">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            {[
-                                { id: "01", icon: FileText, title: "Application Form", desc: "Fill out the online application form with accurate information" },
-                                { id: "02", icon: ClipboardCheck, title: "Submit Documents", desc: "Provide required documents and pay application fee" },
-                                { id: "03", icon: Users, title: "Entrance Test", desc: "Appear for entrance examination and interview" },
-                                { id: "04", icon: CheckCircle2, title: "Admission Confirmation", desc: "Receive admission offer and complete enrollment" }
-                            ].map((step, i) => (
-                                <div key={i} className="group p-8 rounded-4xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-800 hover:shadow-2xl hover:shadow-blue-950/5 dark:hover:shadow-black/50 transition-all duration-500">
-                                    <div className="flex items-center justify-between mb-8">
-                                        <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-sm border border-slate-100 dark:border-slate-700 group-hover:bg-blue-600 dark:group-hover:bg-blue-500 group-hover:text-white transition-all duration-500">
-                                            <step.icon className="w-5 h-5" />
+                            {admissionProcesses.map((step, i) => {
+                               const Icon = Icons[step.icon as keyof typeof Icons];
+
+                                return (
+                                    <div key={i} className="group p-8 rounded-4xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-800 hover:shadow-2xl hover:shadow-blue-950/5 dark:hover:shadow-black/50 transition-all duration-500">
+                                        <div className="flex items-center justify-between mb-8">
+                                            <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-sm border border-slate-100 dark:border-slate-700 group-hover:bg-blue-600 dark:group-hover:bg-blue-500 group-hover:text-white transition-all duration-500">
+                                                {Icon && <Icon className="w-5 h-5" />}
+                                            </div>
+
+                                            <span className="text-3xl font-black text-blue-600/10 italic group-hover:text-blue-600/20 transition-colors">
+                                                {step.id}
+                                            </span>
                                         </div>
-                                        <span className="text-3xl font-black text-blue-600/10 italic group-hover:text-blue-600/20 transition-colors">{step.id}</span>
+
+                                        <h4 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-tight italic mb-3 leading-tight">
+                                            {step.title}
+                                        </h4>
+
+                                        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 leading-relaxed uppercase tracking-tight">
+                                            {step.description}
+                                        </p>
                                     </div>
-                                    <h4 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-tight italic mb-3 leading-tight">{step.title}</h4>
-                                    <p className="text-xs font-bold text-slate-500 dark:text-slate-400 leading-relaxed uppercase tracking-tight">{step.desc}</p>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
                 </section>

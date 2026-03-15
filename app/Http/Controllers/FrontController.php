@@ -7,6 +7,7 @@ use App\Http\Requests\AdmissionQuery\StoreAdmissionQueryRequest;
 use App\Http\Requests\Frontend\StoreContactFormRequest;
 use App\Models\AcademicItems;
 use App\Models\AcademicLevel;
+use App\Models\AdmissionProcess;
 use App\Models\AdmissionQuery;
 use App\Models\Contact;
 use App\Models\FacilityCategory;
@@ -49,9 +50,13 @@ class FrontController extends Controller
 
     public function admissions()
     {
+        $admissionProcesses = AdmissionProcess::where('status', true)
+        ->orderBy('order')->get();
+
         return Inertia::render('frontend/Admissions', [
             'grades' => config('GradeConfig.grade'),
             'genders' => config('GenderConfig.genders'),
+            'admissionProcesses'=>$admissionProcesses
         ]);
     }
 

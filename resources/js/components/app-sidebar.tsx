@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookCopyIcon, BookOpen, Folder, GalleryVerticalEndIcon, GraduationCap, Images, LayoutGrid, Menu, MessageCircle, Newspaper, NotepadTextDashed, School, School2, StretchHorizontal, Users } from 'lucide-react';
+import { BookCopyIcon, BookOpen, Building2, Folder, GalleryVerticalEndIcon, GraduationCap, Images, LayoutGrid, Menu, MessageCircle, Newspaper, NotepadTextDashed, School, School2, StretchHorizontal, Users } from 'lucide-react';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -133,7 +133,7 @@ const mainNavItems: NavItem[] = [
     {
         title: "Office Setting",
         href: create(),
-        icon: MessageCircle
+        icon: Building2
     },
     {
         title: "Staff Members",

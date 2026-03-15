@@ -1,3 +1,5 @@
+import { SharedData } from "@/types";
+import { usePage } from "@inertiajs/react";
 import {
     ArrowRight,
     CheckCircle2,
@@ -8,6 +10,7 @@ import {
 } from "lucide-react";
 
 const RequiredDocumnet = () => {
+    const { officeSettings } = usePage<SharedData>().props;
     const requiredDocuments = [
         "Passport size photograph (3 copies)",
         "Birth certificate",
@@ -77,7 +80,7 @@ const RequiredDocumnet = () => {
                                 Call Counselor
                             </p>
                             <p className="text-sm font-black italic text-slate-900 dark:text-white">
-                                +977-081-533337
+                                {officeSettings?.office_phone || ""}
                             </p>
                         </div>
                     </div>
@@ -91,7 +94,7 @@ const RequiredDocumnet = () => {
                                 Office Hours
                             </p>
                             <p className="text-sm font-black italic text-slate-900 dark:text-white">
-                                Sun – Fri: 9AM – 5PM
+                               {officeSettings?.office_from || ""} - {officeSettings?.office_to || ""}
                             </p>
                         </div>
                     </div>
