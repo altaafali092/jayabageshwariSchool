@@ -23,6 +23,7 @@ import toast from 'react-hot-toast';
 import { AdmissionProcess } from '@/types/Frontend/AdmissionProcess';
 import * as Icons from "lucide-react";
 import { SharedData } from '@/types';
+import PageHero from '@/components/frontend/PageHero';
 
 interface Props {
     grades: Record<string, string>;
@@ -67,31 +68,18 @@ const Admissions = ({ grades, genders, admissionProcesses }: Props) => {
             <Head title="Admission Portal | Jaya Bageshwori" />
 
             <main className="flex-1 bg-white dark:bg-slate-950 transition-colors duration-500 overflow-hidden text-slate-900 dark:text-slate-100">
-                {/* ================= PREMIUM HERO ================= */}
-                <section className="relative pt-24 pb-12 bg-blue-950 overflow-hidden text-center">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--tw-gradient-stops))] from-blue-900/40 via-transparent to-transparent" />
-                    <div className="container relative z-10 mx-auto px-6">
-                        <div className="space-y-4">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest">
-                                <GraduationCap className="w-3 h-3" />
-                                <span>2026 Academic Session</span>
-                            </div>
-                            <h1 className="text-4xl lg:text-7xl font-black text-white tracking-tighter uppercase italic leading-none">
-                                ADMISSION <span className="text-blue-500">PROCESS</span>
-                            </h1>
-                            <p className="text-slate-400 font-bold max-w-xl mx-auto text-xs lg:text-sm uppercase tracking-[0.2em] leading-relaxed">
-                                Simple and transparent admission process for your convenience
-                            </p>
-                        </div>
-                    </div>
-                </section>
 
-                {/* ================= INTERACTIVE PROCESS ================= */}
+                <PageHero
+                    title="Admission Process"
+                    description="Simple and transparent admission process for your convenience"
+                    badgeText="Academic Session"
+                />
+
                 <section className="py-20 bg-white dark:bg-slate-950 border-b border-slate-50 dark:border-slate-900 transition-colors duration-300">
                     <div className="container mx-auto px-6 lg:px-20">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                             {admissionProcesses.map((step, i) => {
-                               const Icon = Icons[step.icon as keyof typeof Icons];
+                                const Icon = Icons[step.icon as keyof typeof Icons];
 
                                 return (
                                     <div key={i} className="group p-8 rounded-4xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-800 hover:shadow-2xl hover:shadow-blue-950/5 dark:hover:shadow-black/50 transition-all duration-500">
