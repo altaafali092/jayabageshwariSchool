@@ -29,8 +29,7 @@ class StoreGalleryRequest extends FormRequest
             'images' => ['nullable', 'array'],
             'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'video_url' => ['nullable', 'url', 'max:255'],
-            'description' => ['required', 'string', 'max:255'],
-
+            'description' => ['nullable', 'string', 'max:255']
         ];
     }
 }

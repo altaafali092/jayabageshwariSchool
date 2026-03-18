@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { News } from '@/types/Frontend/Index';
 import { newsShow } from '@/actions/App/Http/Controllers/FrontController';
+import parse from 'html-react-parser';
 
 interface Props {
     news: News;
@@ -40,13 +41,15 @@ export default function NewsDetail({ news, related }: Props) {
             <main className="flex-1 bg-white dark:bg-slate-950 transition-colors duration-300">
 
                 {/* ── HERO ────────────────────────────────────────────────── */}
-                <section className="relative pt-24 pb-24 bg-slate-900 overflow-hidden">
+                <section className="relative pt-24 pb-24 bg-blue-950 overflow-hidden">
                     <div className="container relative z-10 mx-auto px-6 lg:px-20">
                         <div className="flex gap-2 text-[10px] font-black text-slate-500 dark:text-slate-400 tracking-widest mb-10">
-                            <ArrowLeft className="w-3 h-3" />
-                            <button onClick={handleBack} className="hover:text-blue-400 transition-colors">
+                           <div onClick={handleBack} className='bg-white dark:bg-blue-600 flex items-center gap-2 px-4 py-1.5 rounded-full text-white text-[10px] font-black uppercase tracking-widest'>
+                             <ArrowLeft className="w-3 h-3 text-blue-600" />
+                            <button className="hover:text-blue-400 text-blue-600 transition-colors">
                                 News & Events
                             </button>
+                           </div>
 
                         </div>
 
@@ -105,8 +108,8 @@ export default function NewsDetail({ news, related }: Props) {
                                 {/* Body */}
                                 <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-8 lg:p-14 shadow-sm space-y-8">
                                     {/* Drop-cap first paragraph */}
-                                    <p className="text-lg lg:text-xl font-black text-slate-700 dark:text-slate-30">
-                                        {news.description}
+                                    <p className="text-md lg:text-xl font-black text-slate-700 dark:text-slate-30">
+                                        {parse(news.description)}
                                     </p>
 
 
@@ -119,7 +122,7 @@ export default function NewsDetail({ news, related }: Props) {
 
                                 {/* Event details box — only for events */}
                                 {isEvent && (
-                                    <div className="bg-blue-600 rounded-[2.5rem] p-8 text-white shadow-2xl shadow-blue-600/30 space-y-6">
+                                    <div className="bg-blue-950 rounded-[2.5rem] p-8 text-white shadow-2xl shadow-blue-600/30 space-y-6">
                                         <h3 className="text-xl font-black uppercase italic tracking-tight">Event Details</h3>
                                         <div className="space-y-5">
                                             {news.event_date && (

@@ -11,16 +11,19 @@ import Testimonials from '@/components/frontend/Testimonials';
 import FrontLayout from './Layouts/FrontLayout';
 import PopupNotice from '@/components/frontend/PopupNotice';
 import { News, Slider } from '@/types/Frontend/Index';
+import GallerySlider from '@/components/frontend/GallerySlider';
+import { Gallery } from '@/types/Frontend/Gallery';
 
 
 const Welcome = () => {
-    const { sliders, events, notices, popupNotice } =
+    const { sliders, events, notices, popupNotice ,galleries} =
 
         usePage<{
             sliders: Slider[];
             events: News[];
             notices: News[];
             popupNotice: News;
+            galleries: Gallery[];
         }>().props;
 
     return (
@@ -45,6 +48,7 @@ const Welcome = () => {
 
                 {/* Detailed Notice Bulletin */}
                 <NoticeCarousel notices={notices} />
+                <GallerySlider galleries={galleries} />
 
                 {/* Contact Section */}
                 <GetInTouch />

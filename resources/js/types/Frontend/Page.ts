@@ -17,4 +17,5 @@ export type Page = {
     images: string[];
     status: boolean;
     page_category: PageCategory;
+    pages: Page[];
 }

@@ -27,11 +27,13 @@ class FrontController extends Controller
         $sliders = slider::where('status', true)->latest()->limit(5)->get();
         $notices = NewsEvent::where(['status' => true, 'category' => 'notice'])->latest()->limit(5)->get();
         $events = NewsEvent::where('status', true)->whereIn('category', ['event', 'news'])->latest()->limit(5)->get();
+        $galleries = Gallery::where('gallery_type',GalleryEnum::PHOTO)->where('status', true)->latest()->limit(10)->get();
         return Inertia::render('frontend/welcome', [
             'sliders' => $sliders,
             'notices' => $notices,
             'events' => $events,
             'popupNotice' => $popupNotice,
+            'galleries' => $galleries,
         ]);
     }
 

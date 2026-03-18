@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 import { News } from '@/types/Frontend/Index';
 import parse from 'html-react-parser';
 import { noticeShow } from '@/actions/App/Http/Controllers/FrontController';
+import PageHero from '@/components/frontend/PageHero';
 
 interface NoticeProps {
     notices: News[];
@@ -55,39 +56,11 @@ const Notices = ({ notices = [] }: NoticeProps) => {
             <Head title="Notices - Jaya Bageshwori" />
 
             <main className="flex-1 bg-white dark:bg-slate-950 transition-colors duration-300">
-
-                {/* ================= HEADER ================= */}
-                {/* <section className="relative pt-24 pb-20 bg-blue-950 overflow-hidden">
-                    <div className="container mx-auto px-6 lg:px-20">
-                        <div className="max-w-2xl space-y-6">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest">
-                                <Bell className="w-3 h-3" />
-                                Stay Informed
-                            </div>
-                            <h1 className="text-4xl lg:text-7xl font-black text-white uppercase italic leading-none">
-                                Official <span className="text-blue-500">Notices</span>
-                            </h1>
-                            <p className="text-slate-400 font-bold text-xs lg:text-sm uppercase tracking-[0.2em]">
-                                Official announcements & administrative updates
-                            </p>
-                        </div>
-                    </div>
-                </section> */}
-                <section className="relative pt-24 pb-16 bg-blue-950 overflow-hidden">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--tw-gradient-stops))] from-blue-900/40 via-transparent to-transparent" />
-                    <div className="container relative z-10 mx-auto px-6 lg:px-20 text-center">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest mb-6">
-                            <Bell className="w-3 h-3" />
-                            <span>Stay Informed</span>
-                        </div>
-                        <h1 className="text-4xl lg:text-7xl font-black text-white tracking-tighter uppercase italic leading-none mb-6">
-                            NOTICES & <span className="text-blue-500">ANNOUNCEMENTS</span>
-                        </h1>
-                        <p className="text-slate-400 font-bold max-w-2xl mx-auto text-xs lg:text-sm uppercase tracking-[0.2em] leading-relaxed">
-                            Stay informed about the latest happenings, achievements, and upcoming activities at JBS.
-                        </p>
-                    </div>
-                </section>
+                <PageHero
+                    badgeText='Stay Informed'
+                    title="Notices & Announcements"
+                    description="Stay informed about the latest happenings, achievements, and upcoming activities at JBS."
+                />
 
                 {/* ================= SEARCH ================= */}
                 <section className="sticky top-[80px] z-40 border-b border-slate-100 dark:border-slate-800 py-6 bg-slate-50/90 dark:bg-slate-950/90 backdrop-blur">
