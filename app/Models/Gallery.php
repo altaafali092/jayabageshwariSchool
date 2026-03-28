@@ -36,14 +36,13 @@ class Gallery extends Model
     protected static function booted()
 
     {
-        // When updating & new images uploaded → delete OLD images
+        
         static::updating(function ($model) {
             if (request()->hasFile('images')) {
                 deleteFiles($model->getRawOriginal('images'));
             }
         });
 
-        // When deleting → delete images
         static::deleting(function ($model) {
             deleteFiles($model->getRawOriginal('images'));
         });
