@@ -20,7 +20,7 @@ class MenusettingController extends Controller
      */
     public function index()
     {
-        $menuSettings = MenuSetting::with('menuable', 'parent')->paginate(9);
+        $menuSettings = MenuSetting::with('menuable', 'parent')->paginate(100);
         return Inertia::render('Admin/MenuSetting/Index', [
             'menuSettings' => $menuSettings,
         ]);
