@@ -109,12 +109,6 @@ const GallerySlider = ({ galleries }: Props) => {
                                             {image.title}
                                         </h3>
 
-                                        <button
-                                            onClick={() => setSelectedImage(image.url)}
-                                            className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:bg-white hover:text-blue-900 transition-all self-start"
-                                        >
-                                            <Maximize2 className="w-5 h-5" />
-                                        </button>
                                     </div>
                                 </div>
                             ))

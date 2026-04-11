@@ -85,6 +85,7 @@ const Lightbox = ({
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function GalleryDetail({ gallery, related }: Props) {
+    const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
     const images: string[] = Array.isArray(gallery.images) ? gallery.images : [];
     const isVideo = gallery.gallery_type === 'Video';
 
@@ -188,7 +189,8 @@ export default function GalleryDetail({ gallery, related }: Props) {
                                             {images.map((img, idx) => (
                                                 <div
                                                     key={idx}
-                                                    className="flex-shrink-0 w-[400px] h-[420px]"
+                                                    className="flex-shrink-0 w-[400px] h-[420px] cursor-pointer"
+                                                    onClick={() => setLightboxIndex(idx)}
                                                 >
                                                     <img
                                                         src={img}
@@ -332,6 +334,17 @@ export default function GalleryDetail({ gallery, related }: Props) {
                             </div>
                         </div>
                     </section>
+                )}
+
+                {/* ── LIGHTBOX ─────────────────────────────────────────────── */}
+                {lightboxIndex !== null && !isVideo && (
+                    <Lightbox
+                        images={images}
+                        activeIndex={lightboxIndex}
+                        onClose={() => setLightboxIndex(null)}
+                        onPrev={() => setLightboxIndex(lightboxIndex - 1)}
+                        onNext={() => setLightboxIndex(lightboxIndex + 1)}
+                    />
                 )}
 
             </main>
