@@ -88,30 +88,38 @@ const GallerySlider = ({ galleries }: Props) => {
                         className="flex transition-transform duration-500 ease-in-out gap-6 snap-x snap-mandatory overflow-x-hidden"
                     >
                         {galleries?.map((gallery) => (
-                            gallery?.images?.map((image) => (
-                                <div
-                                    key={image.id}
-                                    className="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(33.333%-16px)] snap-start group/item relative h-80 rounded-[2rem] overflow-hidden shadow-xl"
-                                >
-                                    <img
-                                        src={image}
-                                        alt={image.title}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover/item:scale-110"
-                                    />
+                            gallery?.images?.map((image, idx) => {
+                                const imgSrc = typeof image === 'string' ? image : (image as any)?.url || image;
+                                return (
+                                    <div
+                                        key={`${gallery.id}-${idx}`}
+                                        onClick={() => setSelectedImage(imgSrc)}
+                                        className="cursor-pointer min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(33.333%-16px)] snap-start group/item relative h-80 rounded-[2rem] overflow-hidden shadow-xl"
+                                    >
+                                        <img
+                                            src={imgSrc}
+                                            alt={gallery.title}
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover/item:scale-110"
+                                        />
 
-                                    {/* Overlay on Hover */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/20 to-transparent opacity-0 group-hover/item:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
-                                        <span className="text-yellow-400 text-xs font-bold uppercase tracking-widest mb-2">
-                                            {image.category}
-                                        </span>
+                                        {/* Overlay on Hover */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/20 to-transparent opacity-0 group-hover/item:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
+                                            <div className="absolute top-4 right-4 bg-white/20 p-2 rounded-full backdrop-blur-sm opacity-0 group-hover/item:opacity-100 transition-all duration-500 hover:bg-white/40">
+                                                <Maximize2 className="w-5 h-5 text-white" />
+                                            </div>
 
-                                        <h3 className="text-white text-xl font-bold mb-4">
-                                            {image.title}
-                                        </h3>
+                                            <span className="text-yellow-400 text-xs font-bold uppercase tracking-widest mb-2">
+                                                {gallery.gallery_type}
+                                            </span>
 
+                                            <h3 className="text-white text-xl font-bold mb-4">
+                                                {gallery.title}
+                                            </h3>
+
+                                        </div>
                                     </div>
-                                </div>
-                            ))
+                                )
+                            })
                         ))}
                     </div>
                 </div>
