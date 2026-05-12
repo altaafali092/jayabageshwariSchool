@@ -5,39 +5,42 @@ import { Head, Link } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { columns } from './columns';
 import { DataTable } from '@/components/DataTable';
-import { create, index } from '@/routes/admin/slider';
+
 import Pagination from '@/components/Pagination';
 import FlashToast from '@/components/FlashToast';
-import { Slider } from '@/types/Admin/Slider';
+import { Testomonial } from '@/types/admin/Staff';
+import { create, index } from '@/routes/admin/testomonial';
+
+
 
 interface Props {
-    sliders: PaginatedData<Slider>;
+    testomonials: PaginatedData<Testomonial>;
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'sliders',
+        title: 'Testomonial',
         href: index().url,
     },
 ];
 
-export default function SliderIndex({ sliders }: Props) {
+export default function TestomonialIndex({ testomonials }: Props) {
     FlashToast()
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Sliders" />
+            <Head title="Testomonial" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight">Sliders</h1>
-                        <p className="text-muted-foreground">
-                            Manage application sliders and access controls.
+                        <h1 className="text-xl tracking-tight uppercase font-black">Testomonial</h1>
+                        <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
+                            Manage Testomonial
                         </p>
                     </div>
                     <Button asChild>
                         <Link href={create().url} className="flex items-center gap-2">
                             <Plus className="h-4 w-4" />
-                            Create Slider
+                            Add Testomonial
                         </Link>
                     </Button>
                 </div>
@@ -45,8 +48,8 @@ export default function SliderIndex({ sliders }: Props) {
                 {/* Data Table */}
                 <div className="flex-1">
                     <div className="container mx-auto py-10">
-                        <DataTable columns={columns} data={sliders.data} />
-                        <Pagination links={sliders.links} />
+                        <DataTable columns={columns} data={testomonials.data} />
+                        <Pagination links={testomonials.links} />
                     </div>
                 </div>
             </div>

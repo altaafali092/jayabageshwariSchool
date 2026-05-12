@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\PageCategoryController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\TestomonialController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,6 +35,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('gallery', GalleryController::class);
     Route::get('gallery/{gallery}/status', [GalleryController::class, 'status'])->name('gallery.status');
+
+    Route::resource('testomonial', TestomonialController::class);
+    Route::get('testomonial/{testomonial}/status', [TestomonialController::class, 'status'])->name('testomonial.status');
 
     Route::resource('facility-category', FacilityCategoryController::class);
     Route::get('facility-category/{facilityCategory}/status', [FacilityCategoryController::class, 'status'])->name('facilityCategory.status');

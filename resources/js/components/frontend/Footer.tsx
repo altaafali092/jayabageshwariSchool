@@ -26,7 +26,7 @@ const Footer = () => {
             {/* Background Decorative Text */}
             <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center opacity-[0.05]">
                 <span className="text-[14vw] font-black leading-none whitespace-nowrap tracking-tighter text-blue-00 uppercase">
-                    Jaya Bageshwori
+                    Jaya Bageshwari
                 </span>
             </div>
 
@@ -71,7 +71,7 @@ const Footer = () => {
                                 { name: 'Admissions', href: admissions() },
                                 { name: 'Latest News', href: NewsEventPage() },
                                 { name: 'Official Notices', href: notices() },
-                                {name : 'Contact Us', href: contact()}
+                                { name: 'Contact Us', href: contact() }
                             ].map((item) => (
                                 <li key={item.name}>
                                     <Link href={item.href} className="text-sm hover:text-blue-500 transition-colors flex items-center gap-2 group">

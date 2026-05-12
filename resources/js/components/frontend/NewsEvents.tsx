@@ -2,12 +2,19 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Calendar, ArrowRight, Clock, MapPin, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
 import { News } from '@/types/Frontend/Index';
 import { Link } from '@inertiajs/react';
+import { newsShow } from '@/actions/App/Http/Controllers/FrontController';
+import parse from 'html-react-parser';
 
 interface EventProps {
     events: News[];
 }
 
 const NewsEvents = ({ events = [] }: EventProps) => {
+
+    const limitText = (html: any, limit: number) => {
+        if (html.length <= limit) return html;
+        return html.substring(0, limit) + "...";
+    };
     // Memoize filtered results to avoid recalculation on every render
     const filterNews = useMemo(() => events.filter(event => event.category === 'News'), [events]);
     const filterEvents = useMemo(() => events.filter(event => event.category === 'Event'), [events]);
@@ -56,7 +63,7 @@ const NewsEvents = ({ events = [] }: EventProps) => {
     };
 
     return (
-        <section className="py-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 overflow-hidden">
+        <section className="py-12 bg-white dark:bg-slate-950 transition-colors duration-300 overflow-hidden">
             <div className="container px-6 mx-auto lg:px-12">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                     <div className="max-w-2xl">
@@ -137,10 +144,10 @@ const NewsEvents = ({ events = [] }: EventProps) => {
                                                             {item.title}
                                                         </h3>
                                                         <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6 line-clamp-4 overflow-hidden text-lg italic">
-                                                            {item.description}
+                                                            {parse(limitText(item.description, 300))}
                                                         </p>
                                                         <div className="mt-auto">
-                                                            <Link href={`/news/${item.slug}`} className="inline-flex items-center gap-2 text-slate-900 dark:text-slate-100 font-bold group/link">
+                                                            <Link href={newsShow(item.slug)} className="inline-flex items-center gap-2 text-slate-900 dark:text-slate-100 font-bold group/link">
                                                                 Read Full Story
                                                                 <div className="w-6 h-px bg-slate-900 dark:bg-slate-100 transition-all group-hover/link:w-10" />
                                                             </Link>

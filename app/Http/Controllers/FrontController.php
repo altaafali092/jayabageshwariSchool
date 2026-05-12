@@ -16,6 +16,7 @@ use App\Models\NewsEvent;
 use App\Models\PageCategory;
 use App\Models\slider;
 use App\Models\Staff;
+use App\Models\Testomonial;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -27,13 +28,15 @@ class FrontController extends Controller
         $sliders = slider::where('status', true)->latest()->limit(5)->get();
         $notices = NewsEvent::where(['status' => true, 'category' => 'notice'])->latest()->limit(5)->get();
         $events = NewsEvent::where('status', true)->whereIn('category', ['event', 'news'])->latest()->limit(5)->get();
-        $galleries = Gallery::where('gallery_type',GalleryEnum::PHOTO)->where('status', true)->latest()->limit(10)->get();
+        $galleries = Gallery::where('gallery_type', GalleryEnum::PHOTO)->where('status', true)->latest()->limit(10)->get();
+        $testomonials = Testomonial::where('is_active', true)->latest()->get();
         return Inertia::render('frontend/welcome', [
             'sliders' => $sliders,
             'notices' => $notices,
             'events' => $events,
             'popupNotice' => $popupNotice,
             'galleries' => $galleries,
+            'testomonials' => $testomonials,
         ]);
     }
 
@@ -53,12 +56,12 @@ class FrontController extends Controller
     public function admissions()
     {
         $admissionProcesses = AdmissionProcess::where('status', true)
-        ->orderBy('order')->get();
+            ->orderBy('order')->get();
 
         return Inertia::render('frontend/Admissions', [
             'grades' => config('GradeConfig.grade'),
             'genders' => config('GenderConfig.genders'),
-            'admissionProcesses'=>$admissionProcesses
+            'admissionProcesses' => $admissionProcesses
         ]);
     }
 

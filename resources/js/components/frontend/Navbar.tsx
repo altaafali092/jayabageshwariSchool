@@ -21,7 +21,6 @@ import { Link, usePage } from '@inertiajs/react';
 import { cn } from '@/lib/utils';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useAppearance } from '@/hooks/use-appearance';
-import officeSetting from '@/routes/admin/office-setting';
 import { SharedData } from '@/types';
 import { admissions } from '@/routes';
 import TopNav from './Navbar/TopNav';

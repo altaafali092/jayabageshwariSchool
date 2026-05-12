@@ -67,6 +67,7 @@ export default function StaffEdit({ departments, staff }: Props) {
                                     <>
 
                                         {/* Name and Image in one row */}
+                                         <input type="hidden" name="_method" value="put" />
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
                                                 <Label htmlFor="full_name">Full Name</Label>

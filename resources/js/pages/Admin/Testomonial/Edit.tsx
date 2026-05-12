@@ -5,25 +5,34 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import RichTextEditor from "@/components/RichTextEditor"
 import { ArrowLeft } from "lucide-react"
 import { type BreadcrumbItem } from "@/types"
 import InputError from "@/components/input-error"
-import { index, store } from "@/routes/admin/slider"
+import { index, store, update } from "@/routes/admin/testomonial"
+import { Testomonial } from "@/types/admin/Staff"
 
+
+interface TestomonialProps {
+
+    testomonial: Testomonial
+}
 
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: "Sliders", href: index().url },
-    { title: "Create", href: "#" },
+    { title: "Testomonial", href: index().url },
+    { title: "Update", href: "#" },
 ]
 
-export default function SliderCreate() {
+interface departmentProps {
+    departments: Record<string, string>
+}
+export default function StaffCreate({ testomonial }: TestomonialProps) {
     const handleCancel = () => window.history.back()
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Create Slider" />
+            <Head title="Create Staff" />
             <div className="flex h-full flex-1 flex-col gap-6 p-4">
                 {/* Header */}
                 <div className="flex items-center justify-between">
@@ -38,9 +47,9 @@ export default function SliderCreate() {
                             Back
                         </Button>
                         <div>
-                            <h1 className="text-2xl font-bold tracking-tight">Create Slider</h1>
+                            <h1 className="text-2xl font-bold tracking-tight">Update Testomonial</h1>
                             <p className="text-muted-foreground">
-                                Add a new slider with image and description.
+                                Update Testomonial with image and description.
                             </p>
                         </div>
                     </div>
@@ -50,11 +59,11 @@ export default function SliderCreate() {
                 <div className="w-full">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Slider Details</CardTitle>
+                            <CardTitle>Testomonial Details</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <Form
-                                action={store().url}
+                                action={update(testomonial.id).url}
                                 method="post"
                                 className="space-y-6"
                             >
@@ -63,55 +72,67 @@ export default function SliderCreate() {
                                     <>
 
                                         {/* Name and Image in one row */}
+                                        <input type="hidden" name="_method" value="put" />
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
-                                                <Label htmlFor="title">Slider Name</Label>
+                                                <Label htmlFor="name">Name</Label>
                                                 <Input
-                                                    id="title"
-                                                    name="title"
+                                                    id="name"
+                                                    name="name"
                                                     type="text"
-                                                    placeholder="e.g., Beverages"
+                                                    defaultValue={testomonial?.name || ''}
                                                 />
-                                                {errors.title && (
-                                                    <p className="text-sm text-red-500">
-                                                        {errors.title}
-                                                    </p>
-                                                )}
+                                                <InputError message={errors.name} />
                                             </div>
-                                            <div className="space-y-2">
-                                                <Label htmlFor="badge">Badge</Label>
-                                                <Input
-                                                    id="badge"
-                                                    name="badge"
-                                                    type="text"
-                                                    placeholder="e.g., Beverages"
-                                                />
-                                                <InputError message={errors.badge} />
-                                            </div>
-
 
                                             <div className="space-y-2">
                                                 <Label htmlFor="image">Image</Label>
                                                 <Input id="image" type="file" name="image" />
                                                 <InputError message={errors.image} />
+                                                {
+                                                    testomonial?.image && (
+                                                        <img src={testomonial.image} alt="" className="w-20 h-20" />
+                                                    )
+                                                }
                                             </div>
+
+                                            <div className="space-y-2">
+                                                <Label htmlFor="designation">Designation</Label>
+                                                <Input
+                                                    id="designation"
+                                                    name="designation"
+                                                    type="text"
+                                                    defaultValue={testomonial?.designation || ''}
+                                                />
+                                                <InputError message={errors.designation} />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="start_rating">Start Rating</Label>
+                                                <Input
+                                                    id="start_rating"
+                                                    name="star"
+                                                    type="number"
+                                                    min={1}
+                                                    max={5}
+                                                    defaultValue={testomonial?.star || ''}
+                                                />
+                                                <InputError message={errors.designation} />
+                                            </div>
+
+
 
                                         </div>
 
                                         {/* Description */}
                                         <div className="space-y-2">
                                             <Label htmlFor="description">Description</Label>
-                                            <Textarea
+                                            <RichTextEditor
                                                 id="description"
                                                 name="description"
-                                                placeholder="Optional description"
-                                                rows={4}
+                                                placeholder="Description"
+                                                defaultValue={testomonial?.description || ''}
                                             />
-                                            {errors.description && (
-                                                <p className="text-sm text-red-500">
-                                                    {errors.description}
-                                                </p>
-                                            )}
+                                            <InputError message={errors.description} />
                                         </div>
 
                                         {/* Buttons */}

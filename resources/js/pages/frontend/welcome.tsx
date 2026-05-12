@@ -13,10 +13,11 @@ import PopupNotice from '@/components/frontend/PopupNotice';
 import { News, Slider } from '@/types/Frontend/Index';
 import GallerySlider from '@/components/frontend/GallerySlider';
 import { Gallery } from '@/types/Frontend/Gallery';
+import { Testomonial } from '@/types/Frontend/Testomonial';
 
 
 const Welcome = () => {
-    const { sliders, events, notices, popupNotice ,galleries} =
+    const { sliders, events, notices, popupNotice, galleries, testomonials } =
 
         usePage<{
             sliders: Slider[];
@@ -24,6 +25,7 @@ const Welcome = () => {
             notices: News[];
             popupNotice: News;
             galleries: Gallery[];
+            testomonials: Testomonial[];
         }>().props;
 
     return (
@@ -44,7 +46,7 @@ const Welcome = () => {
                 <Whychoose />
                 <NewsEvents events={events} />
                 {/* Testimony Hub */}
-                <Testimonials />
+                <Testimonials testomonials={testomonials} />
 
                 {/* Detailed Notice Bulletin */}
                 <NoticeCarousel notices={notices} />
