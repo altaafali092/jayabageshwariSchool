@@ -72,7 +72,7 @@ const Testimonials = ({ testomonials }: { testomonials: Testomonial[] }) => {
                                         </div>
 
                                         <div className="text-slate-600 dark:text-slate-400 font-bold leading-relaxed text-sm italic pr-4">
-                                            {parse(limitText(item.description, 200))}
+                                            {parse(limitText(item.description, 250))}
                                         </div>
                                         <div className="flex gap-1 pt-1">
                                             {Array.from({ length: 5 }).map((_, i) => (

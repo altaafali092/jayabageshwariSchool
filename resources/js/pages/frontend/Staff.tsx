@@ -80,67 +80,7 @@ const StaffView = ({ staffs, departments }: Props) => {
                     </div>
                 </section>
 
-                {/* ================= SEARCH & FILTERS ================= */}
-                <div className="sticky top-20 z-40 bg-gray-200 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-100 dark:border-slate-800 py-8">
-                    <div className="container mx-auto px-6 lg:px-20 space-y-8">
-                        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-                            {/* Search */}
-                            <div className="relative flex-1 max-w-xl">
-                                <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                <Input
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    placeholder="Search by name, designation, or role..."
-                                    className="h-14 pl-14 pr-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border-none text-xs font-bold uppercase tracking-widest focus-visible:ring-2 focus-visible:ring-blue-600 transition-all"
-                                />
-                            </div>
 
-                            {/* Result Count */}
-                            <div className="flex items-center gap-3">
-                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                                    Displaying {totalResults} Staff Members
-                                </span>
-                                {(searchQuery || activeDept) && (
-                                    <button
-                                        onClick={() => { setSearchQuery(''); setActiveDept(null); }}
-                                        className="text-[10px] font-black text-blue-600 uppercase tracking-widest hover:underline"
-                                    >
-                                        Clear Filters
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Department Chips */}
-                        <div className="flex flex-wrap gap-2">
-                            <button
-                                onClick={() => setActiveDept(null)}
-                                className={cn(
-                                    "px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all",
-                                    activeDept === null
-                                        ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-600/20"
-                                        : "bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 text-slate-400 hover:border-blue-600"
-                                )}
-                            >
-                                All Divisions
-                            </button>
-                            {Object.keys(departments).map((dept) => (
-                                <button
-                                    key={dept}
-                                    onClick={() => setActiveDept(dept)}
-                                    className={cn(
-                                        "px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all",
-                                        activeDept === dept
-                                            ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-600/20"
-                                            : "bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 text-slate-400 hover:border-blue-600"
-                                    )}
-                                >
-                                    {dept}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </div>
 
                 {/* ================= STAFF GRID ================= */}
                 <div className="container mx-auto px-6 lg:px-20 py-20">
