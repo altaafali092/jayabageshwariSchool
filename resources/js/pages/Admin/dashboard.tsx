@@ -1,6 +1,6 @@
 import { Head } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
-import { Users, FileText, Bell, MessageSquare, Quote, BookOpen } from 'lucide-react';
+import { Users, FileText, Bell, MessageSquare, Quote, BookOpen, Image as ImageIcon, Images, Video, SlidersHorizontal } from 'lucide-react';
 import type { BreadcrumbItem } from '@/types';
 import { dashboard } from '@/actions/App/Http/Controllers/Admin/DashboardController';
 
@@ -19,6 +19,10 @@ export default function Dashboard({ metrics }: { metrics: any }) {
         { title: 'Notices', value: metrics?.total_notices || 0, icon: Bell, color: 'text-amber-500' },
         { title: 'Contact Messages', value: metrics?.total_contacts || 0, icon: MessageSquare, color: 'text-rose-500' },
         { title: 'Testimonials', value: metrics?.total_testimonials || 0, icon: Quote, color: 'text-indigo-500' },
+        { title: 'Sliders', value: metrics?.total_sliders || 0, icon: SlidersHorizontal, color: 'text-cyan-500' },
+        { title: 'Total Galleries', value: metrics?.total_galleries || 0, icon: Images, color: 'text-teal-500' },
+        { title: 'Image Galleries', value: metrics?.total_image_galleries || 0, icon: ImageIcon, color: 'text-pink-500' },
+        { title: 'Video Links', value: metrics?.total_video_galleries || 0, icon: Video, color: 'text-red-500' },
     ];
 
     return (

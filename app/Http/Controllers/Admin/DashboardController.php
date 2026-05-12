@@ -11,6 +11,8 @@ use App\Models\NewsEvent;
 use App\Models\Notice;
 use App\Models\Contact;
 use App\Models\Testomonial;
+use App\Models\slider;
+use App\Models\Gallery;
 
 class DashboardController extends Controller
 {
@@ -23,6 +25,10 @@ class DashboardController extends Controller
             'total_notices' => Notice::query()->count(),
             'total_contacts' => Contact::query()->count(),
             'total_testimonials' => Testomonial::query()->count(),
+            'total_sliders' => slider::query()->count(),
+            'total_galleries' => Gallery::query()->count(),
+            'total_image_galleries' => Gallery::query()->whereNotNull('images')->count(),
+            'total_video_galleries' => Gallery::query()->whereNotNull('video_url')->count(),
         ];
 
         return Inertia::render('Admin/dashboard', [
