@@ -8,7 +8,6 @@ interface Props {
     galleries: Gallery[]
 }
 const GallerySlider = ({ galleries }: Props) => {
-    console.log(galleries)
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [isAutoplay, setIsAutoplay] = useState(true);

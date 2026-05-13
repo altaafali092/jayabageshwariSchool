@@ -5,7 +5,6 @@ import { SharedData } from '@/types'
 
 const SocialContact = () => {
     const { officeSettings } = usePage<SharedData>().props;
-    console.log(officeSettings);
     return (
         <div className="pt-8 border-t border-slate-100 dark:border-slate-800 space-y-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
