@@ -39,16 +39,12 @@ const Contact = () => {
                         <div className="flex flex-col items-center text-center space-y-4">
                             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400">
                                 <Headphones className="w-4 h-4" />
-                                <span className="text-xs font-black uppercase tracking-widest">Available Sun-Fri</span>
+                                <span className="text-xs font-black uppercase tracking-widest">Available Mon-Fri</span>
                             </div>
                             <h1 className="text-4xl lg:text-7xl font-black text-white tracking-tighter uppercase italic">
                                 GET IN <span className="text-blue-500">TOUCH</span>
                             </h1>
-                            <div className="flex items-center gap-2 text-slate-400 font-bold text-sm uppercase tracking-widest bg-white/5 px-6 py-2 rounded-full border border-white/5">
-                                <span>Home</span>
-                                <ChevronRight className="w-3 h-3" />
-                                <span className="text-blue-400">Contact Us</span>
-                            </div>
+
                         </div>
                     </div>
                 </section>

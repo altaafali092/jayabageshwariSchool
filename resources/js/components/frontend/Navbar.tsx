@@ -94,14 +94,14 @@ export default function Navbar() {
                             <div className="relative w-11 h-11 lg:w-13 h-13 overflow-hidden rounded-2xl flex items-center justify-center shadow-md shadow-blue-600/10 group-hover:rotate-6 transition-transform duration-500 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
                                 <img src={officeSettings?.office_logo || "/assets/logo.png"} alt="Logo" className="w-9 h-9 lg:w-11 lg:h-11 object-contain" />
                             </div>
-                            <div className="flex flex-col">
+                            {/* <div className="flex flex-col">
                                 <span className="font-black text-base lg:text-lg tracking-tight text-slate-900 dark:text-white uppercase leading-none">
-                                    Jaya <span className="text-blue-600 dark:text-blue-500">Bageshwori</span>
+                                    Jaya <span className="text-blue-600 dark:text-blue-500">Bageshwari</span>
                                 </span>
                                 <span className="text-[8px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.25em] mt-1 leading-none">
                                     Secondary School
                                 </span>
-                            </div>
+                            </div> */}
                         </Link>
 
                         {/* Desktop Links with Pill Styling */}
