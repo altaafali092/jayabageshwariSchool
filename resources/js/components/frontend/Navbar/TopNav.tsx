@@ -41,16 +41,7 @@ const TopNav = () => {
                         </a>
 
                     </div>
-                    {/* <div className="flex items-center gap-4">
-                        <button className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
-                            <Globe className="h-3 w-3 text-blue-500" /> English
-                        </button>
-                        <Link href={login()} className="flex items-center gap-2 bg-blue-600/10 hover:bg-blue-600 px-4 py-1.5 rounded-full text-white transition-all border border-blue-600/30">
-                            <User className="h-3 w-3" /> Login
-                        </Link>
 
-
-                    </div> */}
                 </div>
             </div>
         </div>

@@ -164,7 +164,7 @@ const Footer = () => {
                     <div className="flex gap-8">
                         <Link href={home()} className="hover:text-blue-500 transition-colors">Privacy Policy</Link>
                         <Link href={home()} className="hover:text-blue-500 transition-colors">Terms of Service</Link>
-                        <Link href={home()} className="hover:text-blue-500 transition-colors text-slate-600">Site by Altaaf</Link>
+                        <a href="https://github.com/altaafali092" target='_blank' rel="noopener noreferrer" className="hover:text-blue-500 transition-colors text-slate-600">Site by JBS❤️</a>
                     </div>
                 </div>
             </div>
