@@ -34,7 +34,7 @@ const ImportantNotice = ({ notices }: NewsProps) => {
     if (!isVisible || notices.length === 0) return null;
 
     return (
-        <section className="bg-blue-200 dark:bg-blue-900/40 border-b border-slate-100 dark:border-slate-800 relative z-50">
+        <section className="bg-blue-200 mt-4 dark:bg-blue-900/40 border-b border-slate-100 dark:border-slate-800 relative z-30">
             <div className="container mx-auto px-4 py-3 lg:py-2">
                 <div className="flex flex-col sm:flex-row items-center gap-4 lg:gap-12">
 
