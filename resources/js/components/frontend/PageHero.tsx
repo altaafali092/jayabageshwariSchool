@@ -16,10 +16,10 @@ const PageHero = ({
     badgeIcon = <Target className="w-3 h-3" />
 }: PageHeroProps) => {
     return (
-        <section className="relative pt-24 pb-20 bg-blue-950 overflow-hidden">
+        <section className="relative pt-16 pb-12 bg-blue-950 overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--tw-gradient-stops))] from-blue-900/40 via-transparent to-transparent" />
             <div className="container relative z-10 mx-auto px-6 lg:px-20 text-center">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest mb-8">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest mb-6">
                     {badgeIcon}
                     <span>{badgeText}</span>
                 </div>

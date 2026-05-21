@@ -23,6 +23,7 @@ interface NoticeProps {
 const Notices = ({ notices = [] }: NoticeProps) => {
 
     const limitText = (html: any, limit: number) => {
+        if (!html) return "";
         if (html.length <= limit) return html;
         return html.substring(0, limit) + "...";
     };
@@ -83,7 +84,7 @@ const Notices = ({ notices = [] }: NoticeProps) => {
                 </section>
 
                 {/* ================= LIST ================= */}
-                <section className="py-20">
+                <section className="py-12">
                     <div className="container mx-auto px-6 lg:px-20 space-y-6">
 
                         {filteredNotices.map((notice) => {
@@ -151,7 +152,7 @@ const Notices = ({ notices = [] }: NoticeProps) => {
                         })}
 
                         {filteredNotices.length === 0 && (
-                            <div className="py-20 text-center">
+                            <div className="py-12 text-center">
                                 <Search className="w-10 h-10 mx-auto text-slate-300" />
                                 <p className="mt-4 text-sm font-bold uppercase tracking-widest text-slate-400">
                                     No notices found

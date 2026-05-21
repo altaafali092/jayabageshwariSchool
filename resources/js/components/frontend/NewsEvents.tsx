@@ -12,6 +12,7 @@ interface EventProps {
 const NewsEvents = ({ events = [] }: EventProps) => {
 
     const limitText = (html: any, limit: number) => {
+        if (!html) return "";
         if (html.length <= limit) return html;
         return html.substring(0, limit) + "...";
     };

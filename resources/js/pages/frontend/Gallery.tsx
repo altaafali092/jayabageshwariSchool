@@ -38,20 +38,20 @@ const GalleryPage = ({ galleries, galleryTypes }: GalleryProps) => {
             <main className="flex-1 bg-white dark:bg-slate-950 transition-colors duration-300">
 
                 {/* HERO SECTION */}
-                <section className="relative pt-24 pb-20 bg-blue-950 overflow-hidden text-center">
-                    <div className="container relative z-10 mx-auto px-6 lg:px-20 space-y-8">
+                <section className="relative pt-16 pb-12 bg-blue-950 overflow-hidden text-center">
+                    <div className="container relative z-10 mx-auto px-6 lg:px-20 space-y-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest">
                             <Camera className="w-3 h-3" />
                             <span>Visual Journey</span>
                         </div>
-                        <h1 className="text-4xl lg:text-7xl font-black text-white tracking-tighter uppercase italic leading-none">
+                        <h1 className="text-4xl lg:text-6xl font-black text-white tracking-tighter uppercase italic leading-none">
                             OUR <span className="text-blue-500">CAMPUS</span> IN FRAME
                         </h1>
                     </div>
                 </section>
 
                 {/* TABS */}
-                <section className="sticky top-[80px] z-40 bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800 py-6 px-6 lg:px-0">
+                <section className="sticky top-[80px] z-40 bg-white dark:bg-slate-950 border-b border-slate-200/40 dark:border-slate-800/40 py-4 px-6 lg:px-0">
                     {/* All Button */}
                     <div className='flex gap-2 mx-6'>
                         <button
@@ -76,7 +76,7 @@ const GalleryPage = ({ galleries, galleryTypes }: GalleryProps) => {
                                     activeTab === type.value
                                         ? "bg-slate-900 text-white"
                                         : "bg-slate-100 text-slate-500 hover:bg-slate-200"
-                                )}
+                                    )}
                             >
                                 {type.value}
                             </button>
@@ -85,7 +85,7 @@ const GalleryPage = ({ galleries, galleryTypes }: GalleryProps) => {
                 </section>
 
                 {/* GALLERY GRID */}
-                <section className="py-20">
+                <section className="py-12">
                     <div className="container mx-auto px-6 lg:px-20">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
@@ -98,11 +98,12 @@ const GalleryPage = ({ galleries, galleryTypes }: GalleryProps) => {
                                 const isVideo = item.gallery_type === "Video";
                                 const videoSrc = isVideo ? item.video_url : null;
 
-                                const getEmbedUrl = (url: string) => {
-                                    const regExp = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/;
+                                const getYoutubeThumbnail = (url: string) => {
+                                    const regExp = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?#\/\s]+)/;
                                     const match = url.match(regExp);
-                                    return match ? `https://www.youtube.com/embed/${match[1]}` : url;
+                                    return match ? `https://img.youtube.com/vi/${match[1]}/0.jpg` : "/assets/video-placeholder.jpg";
                                 };
+
                                 return (
                                     <div
                                         key={item.id}
@@ -118,15 +119,21 @@ const GalleryPage = ({ galleries, galleryTypes }: GalleryProps) => {
                                             />
                                         )}
 
-                                        {/* VIDEO */}
+                                        {/* VIDEO THUMBNAIL PLACEHOLDER FOR PERFORMANCE */}
                                         {isVideo && videoSrc && (
-                                            <iframe
-                                                src={getEmbedUrl(videoSrc)}
-                                                title={item.title}
-                                                className="w-full h-full object-cover"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowFullScreen
-                                            />
+                                            <div className="relative w-full h-full">
+                                                <img
+                                                    src={getYoutubeThumbnail(videoSrc)}
+                                                    alt={item.title}
+                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                                    loading="lazy"
+                                                />
+                                                <div className="absolute inset-0 flex items-center justify-center bg-black/25 group-hover:bg-black/40 transition-colors duration-300">
+                                                    <div className="w-14 h-14 rounded-full bg-blue-600/90 text-white flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-all duration-300">
+                                                        <Play className="w-6 h-6 fill-white ml-0.5" />
+                                                    </div>
+                                                </div>
+                                            </div>
                                         )}
 
                                         {/* Overlay */}
@@ -153,7 +160,7 @@ const GalleryPage = ({ galleries, galleryTypes }: GalleryProps) => {
                         </div>
 
                         {/* META */}
-                        <div className="mt-16 flex justify-between items-center">
+                        <div className="mt-12 flex justify-between items-center">
                             <p className="text-xs uppercase text-slate-400 font-bold">
                                 Showing {filteredItems.length} of {galleries.length}
                             </p>

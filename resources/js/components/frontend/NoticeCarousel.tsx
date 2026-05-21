@@ -8,7 +8,7 @@ interface NoticeProps {
     notices: News[];
 }
 const NoticeCarousel = ({ notices }: NoticeProps) => {
-      const limitText = (html: any, limit: number) => {
+    const limitText = (html: any, limit: number) => {
         if (html.length <= limit) return html;
         return html.substring(0, limit) + "...";
     };
