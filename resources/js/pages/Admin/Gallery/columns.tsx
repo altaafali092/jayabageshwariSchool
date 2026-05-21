@@ -6,8 +6,14 @@ import { Switch } from "@/components/ui/switch";
 import { Gallery } from "@/types/admin/Gallery";
 import { destroy, edit, show, status } from "@/routes/admin/gallery";
 
+const limitText = (html: any, limit: number) => {
+    if (html.length <= limit) return html;
+    return html.substring(0, limit) + "...";
+};
 
 export const columns: ColumnDef<Gallery>[] = [
+
+
     {
         accessorKey: "id",
         header: "Id",
@@ -62,6 +68,7 @@ export const columns: ColumnDef<Gallery>[] = [
     {
         accessorKey: "title",
         header: "Title",
+        cell: ({ row }) => limitText(row.getValue("title"), 50)
     },
     {
         accessorKey: "slug",

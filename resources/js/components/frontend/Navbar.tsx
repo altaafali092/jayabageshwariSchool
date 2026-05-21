@@ -22,9 +22,10 @@ import { cn } from '@/lib/utils';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useAppearance } from '@/hooks/use-appearance';
 import { SharedData } from '@/types';
-import { admissions } from '@/routes';
+import { admissions, home } from '@/routes';
 import TopNav from './Navbar/TopNav';
 import { MenuItem } from '@/types/Frontend/MenuItem';
+
 
 type NavLink = {
     name: string;
@@ -79,10 +80,7 @@ export default function Navbar() {
 
     return (
         <>
-            {/* ================= TOP UTILITY BAR (Desktop Only) ================= */}
             <TopNav />
-
-            {/* ================= MAIN NAVIGATION ================= */}
             <header
                 className={cn(
                     "fixed top-0 lg:top-[42px] left-0 w-full z-50 transition-all duration-400 ease-in-out",
@@ -94,7 +92,7 @@ export default function Navbar() {
                 <div className="container mx-auto px-4 lg:px-6 xl:px-8">
                     <div className="flex justify-between items-center">
                         {/* Logo Hub */}
-                        <Link href="/" className="flex items-center gap-4 group shrink-0">
+                        <Link href={home()} className="flex items-center gap-4 group shrink-0">
                             <div className="relative w-12 h-12 lg:w-14 lg:h-14 overflow-hidden rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/20 group-hover:rotate-6 transition-transform duration-500">
                                 <img src={officeSettings?.office_logo || "/assets/logo.png"} alt="" />
                             </div>

@@ -41,7 +41,7 @@ const TopNav = () => {
                         </a>
 
                     </div>
-                    <div className="flex items-center gap-4">
+                    {/* <div className="flex items-center gap-4">
                         <button className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
                             <Globe className="h-3 w-3 text-blue-500" /> English
                         </button>
@@ -50,7 +50,7 @@ const TopNav = () => {
                         </Link>
 
 
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
