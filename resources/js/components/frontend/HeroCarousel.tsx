@@ -44,7 +44,7 @@ const HeroCarousel = ({ sliders }: SliderProps) => {
                     {/* Background Image with Ken Burns Effect */}
                     <div className="absolute inset-0 z-0">
                         <img
-                            src={slide.image}
+                            src={slide?.image}
                             alt={slide.title}
                             className={cn(
                                 "w-full h-full object-cover transition-transform duration-10000 ease-linear",
@@ -65,7 +65,7 @@ const HeroCarousel = ({ sliders }: SliderProps) => {
                                     "inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-600/20 border border-blue-400/30 text-blue-300 backdrop-blur-md transition-all duration-700 delay-300",
                                     index === current && isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                                 )}>
-                                    {slide.badgeIcon}
+                                    <Sparkles className="h-3 w-3" />
                                     <span className="text-xs font-black uppercase tracking-widest">{slide.badge}</span>
                                 </div>
 

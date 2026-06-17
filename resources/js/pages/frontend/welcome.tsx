@@ -9,7 +9,7 @@ import NoticeCarousel from '@/components/frontend/NoticeCarousel';
 import GetInTouch from '@/components/frontend/GetInTouch';
 import Testimonials from '@/components/frontend/Testimonials';
 import FrontLayout from './Layouts/FrontLayout';
-import PopupNotice from '@/components/frontend/PopupNotice';
+import PopupNotice, { PopupNoticeData } from '@/components/frontend/PopupNotice';
 import { News, Slider } from '@/types/Frontend/Index';
 import GallerySlider from '@/components/frontend/GallerySlider';
 import { Gallery } from '@/types/Frontend/Gallery';
@@ -23,7 +23,7 @@ const Welcome = () => {
             sliders: Slider[];
             events: News[];
             notices: News[];
-            popupNotice: News;
+            popupNotice: PopupNoticeData;
             galleries: Gallery[];
             testomonials: Testomonial[];
         }>().props;
@@ -33,26 +33,15 @@ const Welcome = () => {
         <FrontLayout >
             <Head title="Welcome to " />
             <main className="flex-1">
-                {/* Important Announcements Popup */}
                 <PopupNotice popupNotice={popupNotice} />
-
-                {/* High-Visibility Alert Bar */}
                 <ImportantNotice notices={notices} />
-
-                {/* Hero Section */}
                 <HeroCarousel sliders={sliders} />
-
                 <AboutSchool />
                 <Whychoose />
                 <NewsEvents events={events} />
-                {/* Testimony Hub */}
                 <Testimonials testomonials={testomonials} />
-
-                {/* Detailed Notice Bulletin */}
                 <NoticeCarousel notices={notices} />
                 <GallerySlider galleries={galleries} />
-
-                {/* Contact Section */}
                 <GetInTouch />
             </main>
 

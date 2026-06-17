@@ -18,6 +18,7 @@ export type FacilityItem = {
 export type Slider = {
     id: number;
     title: string;
+    badge?: string;
     description: string;
     image: string;
     button_text: string;

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Quote, Star, MessageSquare, ChevronRight, GraduationCap, Users, Heart } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Star } from 'lucide-react';
 import { Testomonial } from '@/types/Frontend/Testomonial';
 import parse from 'html-react-parser';
 
 
 
-const Testimonials = ({ testomonials }: { testomonials: Testomonial[] }) => {
+const getImageSrc = (image: string | string[] | undefined): string | undefined =>
+    Array.isArray(image) ? image[0] : image;
 
-    const limitText = (html: any, limit: number) => {
+const Testimonials = ({ testomonials = [] }: { testomonials?: Testomonial[] }) => {
+
+    const limitText = (html: string | undefined, limit: number) => {
+        if (!html) return "";
         if (html.length <= limit) return html;
         return html.substring(0, limit) + "...";
     };
@@ -16,16 +19,22 @@ const Testimonials = ({ testomonials }: { testomonials: Testomonial[] }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
+        if (!testomonials.length) return;
+
         const interval = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % testomonials.length);
         }, 3500);
         return () => clearInterval(interval);
-    }, []);
+    }, [testomonials.length]);
 
-    // Helper for visible items in the vertical slide
-    const getVisibleItems = () => {
-        return [testomonials[currentIndex]];
-    };
+    if (!testomonials.length) {
+        return null;
+    }
+
+    const currentItem = testomonials[currentIndex];
+    if (!currentItem) {
+        return null;
+    }
 
     return (
         <section className="py-3 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 overflow-hidden">
@@ -52,40 +61,40 @@ const Testimonials = ({ testomonials }: { testomonials: Testomonial[] }) => {
                     {/* Right Side: Vertical Auto-Sliding Cards */}
                     <div className="relative h-[400px] flex flex-col justify-center">
                         <div className="w-full">
-                            {getVisibleItems().map((item) => (
-                                <div
-                                    key={`${item.id}-${currentIndex}`}
-                                    className="w-full bg-white dark:bg-slate-900 p-10 rounded-[2.5rem] shadow-xl shadow-slate-200/50 dark:shadow-black/50 border border-slate-100 dark:border-slate-800 flex gap-8 items-start transition-all duration-700 ease-in-out transform"
-                                    style={{
-                                        animation: 'slideInVertical 0.7s ease-out forwards'
-                                    }}
-                                >
+                            <div
+                                key={`${currentItem.id}-${currentIndex}`}
+                                className="w-full bg-white dark:bg-slate-900 p-10 rounded-[2.5rem] shadow-xl shadow-slate-200/50 dark:shadow-black/50 border border-slate-100 dark:border-slate-800 flex gap-8 items-start transition-all duration-700 ease-in-out transform"
+                                style={{
+                                    animation: 'slideInVertical 0.7s ease-out forwards'
+                                }}
+                            >
+                                {getImageSrc(currentItem.image) && (
                                     <img
-                                        src={item.image}
-                                        alt={item.name}
+                                        src={getImageSrc(currentItem.image)}
+                                        alt={currentItem.name}
                                         className="w-20 h-20 rounded-2xl object-cover shrink-0 border-4 border-slate-50 dark:border-slate-800 shadow-md"
                                     />
-                                    <div className="space-y-4 flex-1">
-                                        <div className="space-y-1">
-                                            <h4 className="font-black text-slate-900 dark:text-white text-xl leading-none">{item.name}</h4>
-                                            <p className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-[0.2em]">{item.role}</p>
-                                        </div>
+                                )}
+                                <div className="space-y-4 flex-1">
+                                    <div className="space-y-1">
+                                        <h4 className="font-black text-slate-900 dark:text-white text-xl leading-none">{currentItem.name}</h4>
+                                        <p className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-[0.2em]">{currentItem.designation}</p>
+                                    </div>
 
-                                        <div className="text-slate-600 dark:text-slate-400 font-bold leading-relaxed text-sm italic pr-4">
-                                            {parse(limitText(item.description, 250))}
-                                        </div>
-                                        <div className="flex gap-1 pt-1">
-                                            {Array.from({ length: 5 }).map((_, i) => (
-                                                <Star
-                                                    key={i}
-                                                    className={`h-5 w-5 ${i < item.star ? "text-amber-500" : "text-gray-300"
-                                                        }`}
-                                                />
-                                            ))}
-                                        </div>
+                                    <div className="text-slate-600 dark:text-slate-400 font-bold leading-relaxed text-sm italic pr-4">
+                                        {parse(limitText(currentItem.description, 250))}
+                                    </div>
+                                    <div className="flex gap-1 pt-1">
+                                        {Array.from({ length: 5 }).map((_, i) => (
+                                            <Star
+                                                key={i}
+                                                className={`h-5 w-5 ${i < currentItem.star ? "text-amber-500" : "text-gray-300"
+                                                    }`}
+                                            />
+                                        ))}
                                     </div>
                                 </div>
-                            ))}
+                            </div>
                         </div>
                     </div>
 

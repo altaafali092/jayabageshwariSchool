@@ -4,7 +4,8 @@ import AppLayout from "@/layouts/app-layout"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, HelpCircle, icons } from "lucide-react"
+import { ArrowLeft, icons } from "lucide-react"
+import { HelpCircle } from "lucide-react";
 import type { BreadcrumbItem } from "@/types"
 import { AdmissionProcess } from "@/types/admin/AdmissionProcess"
 import { index } from "@/routes/admin/admission-process"
@@ -14,6 +15,7 @@ interface Props {
     admissionProcess: AdmissionProcess
 }
 
+
 export default function Show({ admissionProcess }: Props) {
     const breadcrumbs: BreadcrumbItem[] = [
         { title: "Admission Process", href: index().url },
@@ -22,7 +24,8 @@ export default function Show({ admissionProcess }: Props) {
 
 
     // Dynamic icon rendering
-    const IconComponent = (icons as any)[admissionProcess.icon] || icons.HelpCircle;
+    const IconComponent =
+    (icons as any)[admissionProcess.icon] || HelpCircle;
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

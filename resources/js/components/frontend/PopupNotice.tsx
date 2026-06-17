@@ -10,16 +10,18 @@ import {
     DialogContent
 } from "@/components/ui/dialog";
 
+export type PopupNoticeData = {
+    image?: string;
+    created_at: string;
+    title: string;
+    subtitle?: string;
+    content: string;
+    link?: string;
+    cta?: string;
+};
+
 interface PopupNoticeProps {
-    popupNotice?: {
-        image?: string;
-        created_at: string;
-        title: string;
-        subtitle?: string;
-        content: string;
-        link?: string;
-        cta?: string;
-    };
+    popupNotice?: PopupNoticeData;
 }
 
 const PopupNotice = ({ popupNotice }: PopupNoticeProps) => {

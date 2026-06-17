@@ -8,4 +8,5 @@ export type Testomonial = {
     created_at: string;
     updated_at: string;
     star: number;
+    designation: string;
 }
