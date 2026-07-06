@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('office_email')->nullable();
             $table->string('office_phone')->nullable();
             $table->string('office_phone_2')->nullable();
-            $table->string('gmap_url')->nullable();
+            $table->text('gmap_url')->nullable();
             $table->string('yt_url')->nullable();
             $table->string('fb_url')->nullable();
             $table->string('insta_url')->nullable();
