@@ -22,7 +22,7 @@ class OfficeSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'key_contact_person_id' => ['required', 'exists:staff,id'],
+            'key_contact_person_id' => ['nullable', 'exists:staff,id'],
             'key_contact_secperson_id' => ['nullable', 'exists:staff,id'],
             'office_name' => ['required', 'string', 'max:255'],
             'office_description' => ['nullable', 'string'],
