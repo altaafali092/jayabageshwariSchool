@@ -143,7 +143,7 @@ export default function GalleryDetail({ gallery, related }: Props) {
                 </section>
 
                 {/* ── MAIN CONTENT ────────────────────────────────────────── */}
-                <section className="py-20">
+                <section className="py-16">
                     <div className="container mx-auto px-6 lg:px-20">
                         
                         {/* VIDEO EMBED */}
@@ -203,7 +203,7 @@ export default function GalleryDetail({ gallery, related }: Props) {
 
                 {/* ── RELATED GALLERIES ────────────────────────────────────── */}
                 {related.length > 0 && (
-                    <section className="py-24 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 transition-colors">
+                    <section className="py-14 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 transition-colors">
                         <div className="container mx-auto px-6 lg:px-20">
                             <div className="mb-12">
                                 <span className="text-[10px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-[0.3em] block mb-2">
