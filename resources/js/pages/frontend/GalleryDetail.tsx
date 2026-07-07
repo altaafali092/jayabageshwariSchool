@@ -77,7 +77,7 @@ export default function GalleryDetail({ gallery, related }: Props) {
     const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
     const images: string[] = Array.isArray(gallery.images) ? gallery.images : [];
     const isVideo = gallery.gallery_type === 'Video';
-
+    const backToGallery = () => window.history.back();
     const formatDate = (d: string) =>
         new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
@@ -103,13 +103,13 @@ export default function GalleryDetail({ gallery, related }: Props) {
                     )}
 
                     <div className="container relative z-10 mx-auto px-6 lg:px-20">
-                        <Link
-                            href="/gallery"
-                            className="inline-flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-widest mb-12 hover:text-white transition-colors group"
+                        <div onClick={backToGallery}
+                            
+                            className="inline-flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-widest mb-12 hover:text-white transition-colors group hover:bg-blue-600/20 rounded-lg px-4 py-2 cursor-pointer"
                         >
                             <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
                             Back to Gallery
-                        </Link>
+                        </div>
 
                         <div className="max-w-4xl space-y-8">
                             <div className="flex flex-wrap items-center gap-4 text-xs font-black text-slate-300 uppercase tracking-widest">
