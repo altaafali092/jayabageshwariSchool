@@ -83,18 +83,35 @@ class FrontController extends Controller
         ]);
     }
 
-    public function news()
+    public function NewsEventPage()
     {
-        $events = NewsEvent::where('status', true)->whereIn('category', ['news', 'event'])->latest()->get();
-        return Inertia::render('frontend/NewsEvents', [
-            'events' => $events,
+        $newsEvents = NewsEvent::where('status', true)->whereIn('category', ['News', 'Event'])->latest()->get();
+        return Inertia::render('frontend/NewsEventPage/NewsEvents', [
+            'newsEvents' => $newsEvents
         ]);
     }
 
+    public function newsShow(NewsEvent $news)
+    {
+        $related = NewsEvent::where('status', true)
+            ->where('category', $news->category)
+            ->where('id', '!=', $news->id)
+            ->latest()
+            ->limit(4)
+            ->get();
+
+        return Inertia::render('frontend/NewsEventPage/NewsDetail', [
+            'news'    => $news,
+            'related' => $related,
+        ]);
+    }
+
+
     public function notices()
     {
-        $notices = NewsEvent::where('status', true)->where('category', 'notice')->latest()->get();
-        return Inertia::render('frontend/Notices', [
+        $notices = NewsEvent::where('status', true)->where('category', 'Notice')->latest()->get();
+
+        return Inertia::render('frontend/NoticePage/Notices', [
             'notices' => $notices,
         ]);
     }
@@ -108,7 +125,7 @@ class FrontController extends Controller
             ->take(4)
             ->get();
 
-        return Inertia::render('frontend/NoticeDetail', [
+        return Inertia::render('frontend/NoticePage/NoticeDetail', [
             'notice'  => $notice,
             'related' => $relatedNotices
         ]);
@@ -219,30 +236,6 @@ class FrontController extends Controller
     {
         return Inertia::render('frontend/StaffDetail', [
             'staff' => $staff
-        ]);
-    }
-
-    public function newsShow(NewsEvent $news)
-    {
-        // dd($news->toArray());
-        $related = NewsEvent::where('status', true)
-            ->where('category', $news->category)
-            ->where('id', '!=', $news->id)
-            ->latest()
-            ->limit(4)
-            ->get();
-
-        return Inertia::render('frontend/NewsEventPage/NewsDetail', [
-            'news'    => $news,
-            'related' => $related,
-        ]);
-    }
-
-    public function NewsEventPage()
-    {
-        $newsEvents = NewsEvent::where('status', true)->whereIn('category', ['news', 'event'])->latest()->get();
-        return Inertia::render('frontend/NewsEventPage/NewsEvents', [
-            'newsEvents' => $newsEvents
         ]);
     }
 }

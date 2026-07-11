@@ -1,5 +1,5 @@
 import React from 'react';
-import FrontLayout from './Layouts/FrontLayout';
+import FrontLayout from '../Layouts/FrontLayout';
 import { Head, Link } from '@inertiajs/react';
 import {
     Calendar,

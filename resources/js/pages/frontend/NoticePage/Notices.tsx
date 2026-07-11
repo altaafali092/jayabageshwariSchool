@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import FrontLayout from './Layouts/FrontLayout';
+import FrontLayout from '../Layouts/FrontLayout';
 import { Head, Link } from '@inertiajs/react';
 import {
     Download,
@@ -22,6 +22,7 @@ interface NoticeProps {
 
 const Notices = ({ notices = [] }: NoticeProps) => {
 
+    console.log(notices);
     const limitText = (html: any, limit: number) => {
         if (!html) return "";
         if (html.length <= limit) return html;

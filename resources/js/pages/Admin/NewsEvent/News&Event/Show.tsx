@@ -72,7 +72,7 @@ export default function Show({ newsEvent }: Props) {
                             <CardContent>
                                 <div className="prose dark:prose-invert max-w-none whitespace-pre-wrap">
                                     {newsEvent.description ? (
-                                        <p dangerouslySetInnerHTML={{ __html: newsEvent.description }} />
+                                        <div dangerouslySetInnerHTML={{ __html: newsEvent.description }} />
                                     ) : (
                                         <span className="text-muted-foreground italic">No description available.</span>
                                     )}
@@ -80,30 +80,42 @@ export default function Show({ newsEvent }: Props) {
                             </CardContent>
                         </Card>
 
-                        {images.map((file, index) => {
-                            const isPdf = file.toLowerCase().endsWith(".pdf");
+                        {/* Media Grid Section */}
+                        {images.length > 0 && (
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Media Gallery</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        {images.map((file, index) => {
+                                            const isPdf = file.toLowerCase().endsWith(".pdf");
 
-                            return (
-                                <div
-                                    key={index}
-                                    className="relative group rounded-lg overflow-hidden border bg-muted"
-                                >
-                                    {isPdf ? (
-                                        <iframe
-                                            src={file}
-                                            title={`PDF ${index + 1}`}
-                                            className="w-full h-[400px]"
-                                        />
-                                    ) : (
-                                        <img
-                                            src={file}
-                                            alt={`Gallery image ${index + 1}`}
-                                            className="object-cover w-full h-[400px] transition-transform duration-300 hover:scale-105"
-                                        />
-                                    )}
-                                </div>
-                            );
-                        })}
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    className="relative group rounded-lg overflow-hidden border bg-muted"
+                                                >
+                                                    {isPdf ? (
+                                                        <iframe
+                                                            src={file}
+                                                            title={`PDF ${index + 1}`}
+                                                            className="w-full h-[300px]"
+                                                        />
+                                                    ) : (
+                                                        <img
+                                                            src={file}
+                                                            alt={`Gallery image ${index + 1}`}
+                                                            className="object-cover w-full h-[300px] transition-transform duration-300 hover:scale-105"
+                                                        />
+                                                    )}
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        )}
                     </div>
 
                     {/* Sidebar Details */}
