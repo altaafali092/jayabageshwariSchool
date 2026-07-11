@@ -104,7 +104,7 @@ export default function GalleryDetail({ gallery, related }: Props) {
 
                     <div className="container relative z-10 mx-auto px-6 lg:px-20">
                         <div onClick={backToGallery}
-                            
+
                             className="inline-flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-widest mb-12 hover:text-white transition-colors group hover:bg-blue-600/20 rounded-lg px-4 py-2 cursor-pointer"
                         >
                             <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
@@ -145,7 +145,7 @@ export default function GalleryDetail({ gallery, related }: Props) {
                 {/* ── MAIN CONTENT ────────────────────────────────────────── */}
                 <section className="py-16">
                     <div className="container mx-auto px-6 lg:px-20">
-                        
+
                         {/* VIDEO EMBED */}
                         {isVideo && gallery.video_url && (
                             <div className="max-w-5xl mx-auto mb-12">
@@ -187,7 +187,7 @@ export default function GalleryDetail({ gallery, related }: Props) {
                                                 loading="lazy"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                            
+
                                             {/* Photo Number Badge */}
                                             <div className="absolute top-4 right-4 w-10 h-10 rounded-lg bg-blue-600 text-white flex items-center justify-center font-black text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                                 {idx + 1}

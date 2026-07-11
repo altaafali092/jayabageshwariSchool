@@ -1,4 +1,3 @@
-import { Staff } from "../admin/Staff";
 
 export type FacilityItem = {
     id: number;
@@ -47,6 +46,13 @@ export type Staffs = {
     position: string;
     image: string;
     designation: string;
+    fb_url:string;
+    linkedin_url:string;
+    insta_url:string;
+    bio:string;
+    department:string;
+    email:string;
+    phone:number;
     created_at: string;
     updated_at: string;
 }
@@ -71,6 +77,6 @@ export type OfficeSetting = {
     is_admission: boolean;
     office_from: string;
     office_to: string;
-    key_contact_person: Staff;
-    key_contact_sec_person: Staff;
+    key_contact_person: Staffs;
+    key_contact_sec_person: Staffs;
 }

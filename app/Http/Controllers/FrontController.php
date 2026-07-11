@@ -230,16 +230,16 @@ class FrontController extends Controller
             ->orderBy('full_name')
             ->get()
             ->groupBy('department');
-
-        return Inertia::render('frontend/Staff', [
-            'staffs' => $staffs,
+    
+        return Inertia::render('frontend/StaffPage/Staff', [
+            'staffs' => $staffs, 
             'departments' => config('StaffConfig.departments')
         ]);
     }
 
     public function staffShow(Staff $staff)
     {
-        return Inertia::render('frontend/StaffDetail', [
+        return Inertia::render('frontend/StaffPage/StaffDetail', [
             'staff' => $staff
         ]);
     }
