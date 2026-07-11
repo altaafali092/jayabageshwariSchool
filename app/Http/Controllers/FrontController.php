@@ -85,9 +85,12 @@ class FrontController extends Controller
 
     public function NewsEventPage()
     {
-        $newsEvents = NewsEvent::where('status', true)->whereIn('category', ['News', 'Event'])->latest()->get();
+        $newsEvents = NewsEvent::where('status', true)
+            ->whereIn('category', ['News', 'Event'])
+            ->latest()
+            ->paginate(4);
         return Inertia::render('frontend/NewsEventPage/NewsEvents', [
-            'newsEvents' => $newsEvents
+            'newsEvents' => Inertia::scroll(fn () => $newsEvents)
         ]);
     }
 
@@ -196,10 +199,12 @@ class FrontController extends Controller
 
     public function gallery()
     {
-        $galleries = Gallery::where('status', true)->latest()->get();
-        return Inertia::render('frontend/Gallery', [
+        
+        $galleries = Gallery::where('status', true)->latest()->paginate(3);
+
+        return Inertia::render('frontend/GalleryPage/Gallery', [
             'galleryTypes' => GalleryEnum::getValuesWithLabels(),
-            'galleries'    => $galleries,
+            'galleries'    => Inertia::scroll(fn () => $galleries),
         ]);
     }
 
@@ -212,7 +217,7 @@ class FrontController extends Controller
             ->limit(6)
             ->get();
 
-        return Inertia::render('frontend/GalleryDetail', [
+        return Inertia::render('frontend/GalleryPage/GalleryDetail', [
             'gallery' => $gallery,
             'related' => $related,
         ]);
