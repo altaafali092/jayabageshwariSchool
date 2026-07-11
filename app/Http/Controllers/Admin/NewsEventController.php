@@ -80,27 +80,29 @@ class NewsEventController extends Controller
      */
     public function update(UpdateNewsEventRequest $request, NewsEvent $newsEvent)
     {
-        $data = $request->validated();
-
-        // Only replace image if new image uploaded
+        // Get validated data except the image field first
+        $data = $request->safe()->except(['image']);
+    
+        // Only process and replace images if new files are actually uploaded
         if ($request->hasFile('image')) {
             $paths = [];
-
+    
             foreach ($request->file('image') as $file) {
                 $paths[] = asset('storage/' . $file->store('NewsEvent', 'public'));
             }
-
+    
             $data['image'] = $paths;
-        } else {
-            // Keep old images if no new upload
-            $data['image'] = $newsEvent->image;
+            
+            // Optional: Delete old physical files from storage here if you want to clean up disk space
         }
+        
+        // If no files are attached, $data won't contain an 'image' key,
+        // leaving your existing database values perfectly untouched.
         $newsEvent->update($data);
-
+    
         return to_route('admin.news-event.index')
             ->with('success', 'News Event updated successfully');
     }
-
 
 
     /**

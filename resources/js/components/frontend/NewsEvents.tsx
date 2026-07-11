@@ -17,7 +17,23 @@ const NewsEvents = ({ events = [] }: EventProps) => {
         return html.substring(0, limit) + "...";
     };
     // Memoize filtered results to avoid recalculation on every render
-    const filterNews = useMemo(() => events.filter(event => event.category === 'News'), [events]);
+    const filterNews = useMemo(() => {
+        return events
+            .filter(event => event.category === 'News')
+            .map(event => {
+                let randomImage = event.image;
+
+                if (Array.isArray(event.image) && event.image.length > 0) {
+                    randomImage =
+                        event.image[Math.floor(Math.random() * event.image.length)];
+                }
+
+                return {
+                    ...event,
+                    randomImage,
+                };
+            });
+    }, [events]);
     const filterEvents = useMemo(() => events.filter(event => event.category === 'Event'), [events]);
 
 
@@ -124,7 +140,7 @@ const NewsEvents = ({ events = [] }: EventProps) => {
                                                 <div className="grid grid-cols-1 md:grid-cols-2 h-full md:min-h-[450px]">
                                                     <div className="relative h-64 md:h-full overflow-hidden">
                                                         <img
-                                                            src={item.image}
+                                                            src={item.randomImage}
                                                             alt={item.title}
                                                             loading="lazy"
                                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"

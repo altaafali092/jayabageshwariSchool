@@ -26,8 +26,17 @@ class FrontController extends Controller
     {
         $popupNotice = NewsEvent::where('is_popup', true)->first();
         $sliders = slider::where('status', true)->latest()->limit(5)->get();
-        $notices = NewsEvent::where(['status' => true, 'category' => 'notice'])->latest()->limit(5)->get();
-        $events = NewsEvent::where('status', true)->whereIn('category', ['event', 'news'])->latest()->limit(5)->get();
+        $notices = NewsEvent::where([
+            'status' => true,
+            'category' => 'Notice',
+        ])->latest()->take(5)->get();
+
+        $events = NewsEvent::where('status', true)
+            ->whereIn('category', ['Event', 'News'])
+            ->latest()
+            ->limit(5)
+            ->get();
+
         $galleries = Gallery::where('gallery_type', GalleryEnum::PHOTO)->where('status', true)->latest()->limit(10)->get();
         $testomonials = Testomonial::where('is_active', true)->latest()->get();
         return Inertia::render('frontend/welcome', [
@@ -92,8 +101,16 @@ class FrontController extends Controller
 
     public function noticeShow(NewsEvent $notice)
     {
+        $relatedNotices = NewsEvent::where('status', true)
+            ->where('category', 'Notice')
+            ->where('id', '!=', $notice->id)
+            ->latest()
+            ->take(4)
+            ->get();
+
         return Inertia::render('frontend/NoticeDetail', [
-            'notice' => $notice
+            'notice'  => $notice,
+            'related' => $relatedNotices
         ]);
     }
 
@@ -207,6 +224,7 @@ class FrontController extends Controller
 
     public function newsShow(NewsEvent $news)
     {
+        // dd($news->toArray());
         $related = NewsEvent::where('status', true)
             ->where('category', $news->category)
             ->where('id', '!=', $news->id)
