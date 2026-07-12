@@ -151,8 +151,6 @@ const Academics = ({ levels, academicLevel }: AcademicProps) => {
 
                 </div>
 
-
-
                 <section className="py-24 bg-slate-950 dark:bg-black text-center relative overflow-hidden transition-colors duration-300 mt-20">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.1),transparent)]" />
                     <div className="container relative z-10 mx-auto px-6 lg:px-20 space-y-12">

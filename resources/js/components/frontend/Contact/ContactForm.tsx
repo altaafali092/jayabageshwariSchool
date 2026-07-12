@@ -32,7 +32,7 @@ const ContactForm = () => {
                     className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
                     {({ errors, processing }) => (
                         <>
-                            <div className="space-y-3">
+                            <div className="space-y-2">
                                 <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest px-1">Full Name</label>
                                 <input
                                     name="full_name"
@@ -86,7 +86,7 @@ const ContactForm = () => {
 
 
 
-                            <div className="pt-6">
+                            <div className="pt-1">
                                 <Button type="submit"
                                     className="w-full h-14 bg-blue-600 dark:bg-blue-600 text-white font-black rounded-2xl flex items-center justify-center gap-3 hover:bg-slate-950 dark:hover:bg-blue-700 transition-all active:scale-[0.98] shadow-lg shadow-blue-600/20 dark:shadow-blue-900/40 uppercase tracking-widest text-xs italic"
                                 >

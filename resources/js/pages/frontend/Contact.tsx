@@ -11,9 +11,7 @@ import {
     Instagram,
     Youtube,
     Headphones,
-    User,
-    Clock,
-    ChevronRight
+  
 } from 'lucide-react';
 
 import SocialContact from '@/components/frontend/Contact/SocialContact';
@@ -57,9 +55,9 @@ const Contact = () => {
                             {/* LEFT COLUMN: Contact Details */}
                             <div className="lg:col-span-5 space-y-12">
                                 <div className="space-y-6">
-                                    <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-none uppercase">
-                                        Reach out to our <br />
-                                        <span className="text-blue-600 dark:text-blue-500">Support Team</span>
+                                    <h2 className="text-3xl font-black mb-2 text-slate-900 dark:text-white tracking-tight leading-none ">
+                                        Reach out to our  Support Team<br />
+                                        
                                     </h2>
                                     <p className="text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-md">
                                         Have a question, feedback, or need academic counseling? Our team is standing by to assist you in every way possible.
@@ -99,8 +97,8 @@ const Contact = () => {
                                                 <item.icon className="w-6 h-6" />
                                             </div>
                                             <div className="space-y-1">
-                                                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{item.label}</p>
-                                                <p className="text-lg font-black text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors uppercase italic">{item.val}</p>
+                                                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500  tracking-widest">{item.label}</p>
+                                                <p className="text-lg font-black text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors  italic">{item.val}</p>
                                                 <p className="text-xs font-bold text-slate-500 dark:text-slate-500">{item.sub}</p>
                                             </div>
                                         </div>

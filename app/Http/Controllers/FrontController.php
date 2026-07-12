@@ -175,7 +175,7 @@ class FrontController extends Controller
 
     public function PageShow(PageCategory $pageCategory)
     {
-        $categories = PageCategory::where('status', true)
+        $categories = PageCategory::where('status', true)->latest()
             ->get();
 
         $pageCategory->load([
@@ -183,7 +183,7 @@ class FrontController extends Controller
                 $query->where('status', true);
             }
         ]);
-
+      
         return Inertia::render('frontend/About/MissionVision', [
             'categories' => $categories,
             'pageCategory' => $pageCategory,

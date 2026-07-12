@@ -16,7 +16,7 @@ const SocialContact = () => {
                     <div className="space-y-3">
                         <div>
                             <p className="text-xs font-black text-slate-900 dark:text-white">{officeSettings?.key_contact_person?.full_name}</p>
-                            <p className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase">Founder</p>
+                            <p className="text-[10px] mt-2 font-bold text-blue-600 dark:text-blue-400 uppercase">Founder</p>
                         </div>
                         <div>
                             <p className="text-xs font-black text-slate-900 dark:text-white">{officeSettings?.key_contact_sec_person?.full_name}</p>
