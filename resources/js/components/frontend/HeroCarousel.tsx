@@ -61,31 +61,31 @@ const HeroCarousel = ({ sliders }: SliderProps) => {
                         <div className="container mx-auto px-6 mt-32 md:px-12 lg:px-20">
                             <div className="max-w-3xl space-y-6">
                                 {/* Badge */}
-                                <div className={cn(
+                                {/* <div className={cn(
                                     "inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-600/20 border border-blue-400/30 text-blue-300 backdrop-blur-md transition-all duration-700 delay-300",
                                     index === current && isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                                 )}>
                                     <Sparkles className="h-3 w-3" />
                                     <span className="text-xs font-black uppercase tracking-widest">{slide.badge}</span>
-                                </div>
+                                </div> */}
 
                                 {/* Title */}
-                                <h1 className={cn(
+                                {/* <h1 className={cn(
                                     "text-4xl md:text-5xl font-black text-white leading-[0.9] uppercase italic tracking-tighter transition-all duration-700 delay-500",
                                     index === current && isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                                 )}>
                                     {slide.title.split(' ').map((word, i) => (
                                         <span key={i} className={cn(i % 2 === 1 && "text-blue-500")}>{word} </span>
                                     ))}
-                                </h1>
+                                </h1> */}
 
                                 {/* Description */}
-                                <p className={cn(
+                                {/* <p className={cn(
                                     "text-md md:text-lg text-slate-300 max-w-2xl leading-relaxed font-bold uppercase tracking-tight transition-all duration-700 delay-700",
                                     index === current && isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                                 )}>
                                     {slide.description}
-                                </p>
+                                </p> */}
 
                                 {/* CTAs */}
                                 <div className={cn(

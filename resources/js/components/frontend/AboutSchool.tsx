@@ -1,5 +1,7 @@
 import React from 'react';
 import { CheckCircle2, MoveRight, Star, Award, BookOpen } from 'lucide-react';
+import { Link } from '@inertiajs/react';
+import { pages } from '@/routes';
 
 const AboutSchool = () => {
     return (
@@ -41,25 +43,16 @@ const AboutSchool = () => {
                         </div>
 
                         <div className="flex flex-wrap items-center gap-6 pt-4">
-                            <a
-                                href="/about/history"
+                            <Link
+                            
+                                
                                 className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-300 bg-slate-900 dark:bg-blue-600 rounded-2xl hover:bg-slate-800 dark:hover:bg-blue-700 hover:shadow-xl hover:shadow-slate-200 dark:hover:shadow-blue-900/20 active:scale-95 group"
                             >
                                 Explore Our Story
                                 <MoveRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-                            </a>
+                            </Link>
 
-                            <div className="flex items-center gap-3">
-                                <div className="flex -space-x-2">
-                                    {[1, 2, 3].map(i => (
-                                        <div key={i} className="w-10 h-10 border-2 border-white dark:border-slate-800 rounded-full bg-slate-200 dark:bg-slate-700" />
-                                    ))}
-                                </div>
-                                <div className="text-sm">
-                                    <span className="block font-bold text-slate-900 dark:text-white">10k+ Alumni</span>
-                                    <span className="text-slate-500 dark:text-slate-500 text-xs">Leading across industries</span>
-                                </div>
-                            </div>
+                          
                         </div>
                     </div>
 
