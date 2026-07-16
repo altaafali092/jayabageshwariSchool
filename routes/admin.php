@@ -39,16 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('testomonial', TestomonialController::class);
     Route::get('testomonial/{testomonial}/status', [TestomonialController::class, 'status'])->name('testomonial.status');
 
-    Route::resource('facility-category', FacilityCategoryController::class);
-    Route::get('facility-category/{facilityCategory}/status', [FacilityCategoryController::class, 'status'])->name('facilityCategory.status');
 
-    Route::resource('facility', App\Http\Controllers\Admin\FacilityController::class);
-    Route::get('facility/{facility}/status', [App\Http\Controllers\Admin\FacilityController::class, 'status'])->name('facility.status');
-    Route::resource('academic-level', AcademicLevelController::class);
-    Route::get('academic-level/{academicLevel}/status', [AcademicLevelController::class, 'status'])->name('academicLevel.status');
-
-    Route::resource('academic-item', AcademicItemsController::class);
-    Route::get('academic-item/{academicItem}/status', [AcademicItemsController::class, 'status'])->name('academicItem.status');
     Route::resource('contact', ContactController::class)->only(['index', 'show', 'destroy']);
 
     Route::resource('admission-process', AdmissionProcessController::class);

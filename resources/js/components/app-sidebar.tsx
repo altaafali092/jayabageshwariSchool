@@ -49,24 +49,7 @@ const mainNavItems: NavItem[] = [
         href: galleryIndex(),
         icon: GalleryVerticalEndIcon,
     },
-    {
-        title: 'Facility',
-        href: '#',
-        icon: School,
-        items: [
-            {
-                title: 'Facility Category',
-                href: CategoryIndex(),
-                icon: GraduationCap,
-            },
-
-            {
-                title: 'Facility Items',
-                href: facilityIndex(),
-                icon: StretchHorizontal,
-            }
-        ]
-    },
+ 
     {
         title: 'Page',
         href: '#',
@@ -91,24 +74,24 @@ const mainNavItems: NavItem[] = [
         href: NewsEventIndex(),
         icon: NotepadTextDashed,
     },
-    {
-        title: 'Academics',
-        href: '#',
-        icon: School,
-        items: [
-            {
-                title: 'Acedamics Level',
-                href: AcademicLevelIndex(),
-                icon: GraduationCap,
-            },
+    // {
+    //     title: 'Academics',
+    //     href: '#',
+    //     icon: School,
+    //     items: [
+    //         {
+    //             title: 'Acedamics Level',
+    //             href: AcademicLevelIndex(),
+    //             icon: GraduationCap,
+    //         },
 
-            {
-                title: 'Academic Items',
-                href: AcademicItemIndex(),
-                icon: StretchHorizontal,
-            }
-        ]
-    },
+    //         {
+    //             title: 'Academic Items',
+    //             href: AcademicItemIndex(),
+    //             icon: StretchHorizontal,
+    //         }
+    //     ]
+    // },
     {
         title: 'Admissions',
         href: '#',
@@ -131,11 +114,7 @@ const mainNavItems: NavItem[] = [
         href: ContactIndex(),
         icon: MessageCircle
     },
-    {
-        title: "Office Setting",
-        href: create(),
-        icon: Building2
-    },
+   
     {
         title: "Testomonial",
         href: TestomonialIndex(),
@@ -147,6 +126,11 @@ const mainNavItems: NavItem[] = [
         icon: UserCog2Icon
     },
     {
+        title: "Office Setting",
+        href: create(),
+        icon: Building2
+    },
+    {
         title: "Menu Setting",
         href: MenuSettingIndex(),
         icon: Menu
@@ -154,18 +138,7 @@ const mainNavItems: NavItem[] = [
 
 ];
 
-// const footerNavItems: NavItem[] = [
-//     {
-//         title: 'Repository',
-//         href: 'https://github.com/laravel/react-starter-kit',
-//         icon: Folder,
-//     },
-//     {
-//         title: 'Documentation',
-//         href: 'https://laravel.com/docs/starter-kits#react',
-//         icon: BookOpen,
-//     },
-// ];
+
 
 export function AppSidebar() {
     return (
