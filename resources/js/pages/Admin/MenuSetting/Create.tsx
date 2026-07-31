@@ -6,19 +6,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ArrowLeft } from "lucide-react"
-
-
 import { type BreadcrumbItem } from "@/types"
 
-import { AcademicsLevel } from "@/types/admin/AcademicsLevel"
 import { MenuSetting } from "@/types/admin/MenuSetting"
 import { index, store } from "@/routes/admin/menu-setting"
-import { FacilityCategory } from "@/types/admin/Facility"
 import { PageCategory } from "@/types/admin/Page"
 
 interface Props {
-    academics: AcademicsLevel[]
-    facilities: FacilityCategory[]
+   
     menuSettings: MenuSetting[]
     pages: PageCategory[]
     menuTypes: Record<string, string>
@@ -32,8 +27,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 export default function MenuSettingCreate({
-    academics,
-    facilities,
+   
     menuSettings,
     pages,
     menuTypes,
@@ -192,29 +186,7 @@ export default function MenuSettingCreate({
                                             )}
                                         </div>
 
-                                        {/* Category Field (menuable_id) */}
-                                        {menuType === "academic" && (
-                                            <div className="space-y-2">
-                                                <Label>Select Category</Label>
-                                                <select
-                                                    name="menuable_id"
-                                                    className="w-full rounded border px-3 py-2"
-                                                    value={menuableId}
-                                                    onChange={(e) => setMenuableId(e.target.value)}
-                                                >
-                                                    <option value="">Select Category</option>
-                                                    {academics.map((c) => (
-                                                        <option key={c.id} value={c.id}>
-                                                            {c.title}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                {errors?.menuable_id && (
-                                                    <p className="text-sm text-red-500">{errors.menuable_id}</p>
-                                                )}
-                                            </div>
-                                        )}
+                                    
 
                                         {menuType === "page" && (
                                             <div className="space-y-2">
@@ -239,29 +211,7 @@ export default function MenuSettingCreate({
                                             </div>
                                         )}
 
-                                        {menuType === "facility" && (
-                                            <div className="space-y-2">
-                                                <Label>Select Category</Label>
-                                                <select
-                                                    name="menuable_id"
-                                                    className="w-full rounded border px-3 py-2"
-                                                    value={menuableId}
-                                                    onChange={(e) => setMenuableId(e.target.value)}
-                                                >
-                                                    <option value="">Select Category</option>
-                                                    {facilities.map((c) => (
-                                                        <option key={c.id} value={c.id}>
-                                                            {c.title}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                {errors?.menuable_id && (
-                                                    <p className="text-sm text-red-500">{errors.menuable_id}</p>
-                                                )}
-                                            </div>
-                                        )}
-
+                                      
                                         {/* Static Page Field (menuable_key) */}
                                         {menuType === "static" && (
                                             <div className="space-y-2">

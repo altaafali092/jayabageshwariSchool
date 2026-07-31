@@ -43,14 +43,8 @@ class MenuSetting extends Model
 
                 MenuTypeEnum::PARENT->value => '#',
 
-                MenuTypeEnum::ACADEMIC->value =>
-                route('academicsShow', ['academicLevel' => $attributes['slug']]),
-
                 MenuTypeEnum::STATIC->value =>
                 route('staticPage', $attributes['slug']),
-
-                MenuTypeEnum::FACILITY->value =>
-                route('facilities', ['facilityCategory' => $attributes['slug']]),
 
                 MenuTypeEnum::PAGE->value =>
                 route('pages', ['pageCategory' => $attributes['slug']]),
@@ -67,16 +61,7 @@ class MenuSetting extends Model
             if ($menuSetting->menu_type === 'static') {
                 $menuSetting->menu_url = route('staticPage', ['slug' => $menuSetting->slug]);
             }
-            if ($menuSetting->menu_type === MenuTypeEnum::ACADEMIC->value && $menuSetting->menuable) {
-                $menuSetting->menu_url = route('academicsShow', [
-                    'academicLevel' => $menuSetting->menuable->name // or use slug if your route uses slug
-                ]);
-            }
-            if ($menuSetting->menu_type === MenuTypeEnum::FACILITY->value && $menuSetting->menuable) {
-                $menuSetting->menu_url = route('facilities', [
-                    'facilityCategory' => $menuSetting->menuable->name // or use slug if your route uses slug
-                ]);
-            }
+           
             if ($menuSetting->menu_type === MenuTypeEnum::PAGE->value && $menuSetting->menuable) {
                 $menuSetting->menu_url = route('pages', [
                     'pageCategory' => $menuSetting->menuable->name // or use slug if your route uses slug

@@ -32,13 +32,11 @@ class MenusettingController extends Controller
     public function create()
     {
 
-        $academics = AcademicLevel::where('status', 1)->latest()->get();
-        $facilities = FacilityCategory::where('status', 1)->latest()->get();
+     
         $pages = PageCategory::where('status', 1)->latest()->get();
         $menuSettings = MenuSetting::latest()->get();
         return Inertia::render('Admin/MenuSetting/Create', [
-            'academics' => $academics,
-            'facilities' => $facilities,
+            
             'pages' => $pages,
             'menuSettings' => $menuSettings,
             'menuTypes' => MenuTypeEnum::labels(),
@@ -71,14 +69,11 @@ class MenusettingController extends Controller
      */
     public function edit(MenuSetting $menuSetting)
     {
-        $academics = AcademicLevel::where('status', 1)->latest()->get();
-        $facilities = FacilityCategory::where('status', 1)->latest()->get();
+       
         $menuSettings = MenuSetting::latest()->get();
         $pages = PageCategory::where('status', 1)->latest()->get();
         return Inertia::render('Admin/MenuSetting/Edit', [
             'menuSetting' => $menuSetting,
-            'academics' => $academics,
-            'facilities' => $facilities,
             'pages' => $pages,
             'menuSettings' => $menuSettings,
             'menuTypes' => MenuTypeEnum::labels(),
@@ -130,14 +125,7 @@ class MenusettingController extends Controller
                     'menu_url' => '/' . $slug
                 ]);
             }
-        } elseif ($menuType === 'academic') {
-            $academic = AcademicLevel::find($menuableId);
-            if ($academic) {
-                return response()->json([
-                    'menu_url' => route('academic.show', $academic->slug)
-                ]);
-            }
-        } elseif ($menuType === 'custom') {
+        }  elseif ($menuType === 'custom') {
             return response()->json([
                 'menu_url' => ''
             ]);
