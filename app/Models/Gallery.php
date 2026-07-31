@@ -36,13 +36,8 @@ class Gallery extends Model
     protected static function booted()
 
     {
-        
-        static::updating(function ($model) {
-            if (request()->hasFile('images')) {
-                deleteFiles($model->getRawOriginal('images'));
-            }
-        });
 
+        // Deleting hook remains for when the whole gallery item is deleted
         static::deleting(function ($model) {
             deleteFiles($model->getRawOriginal('images'));
         });

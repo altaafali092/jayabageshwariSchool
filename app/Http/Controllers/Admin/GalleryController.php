@@ -75,23 +75,31 @@ class GalleryController extends Controller
      */
     public function update(UpdateGalleryRequest $request, Gallery $gallery)
     {
-
         $data = $request->validated();
+        // 1. Get the list of existing images the user decided to keep
+        $existingImages = $request->input('existing_images', []);
 
-        // Only replace image if new image uploaded
-        if ($request->hasFile('images')) {
-            $paths = [];
+        // 2. Identify images that were removed by the user and delete them from disk
+        $currentImages = $gallery->images ?? [];
+        $deletedImages = array_diff($currentImages, $existingImages);
 
-            foreach ($request->file('images') as $file) {
-                $paths[] = asset('storage/' . $file->store('Gallery', 'public'));
-            }
-
-            $data['image'] = $paths;
-        } else {
-            // Keep old images if no new upload
-            $data['image'] = $gallery->image;
+        if (!empty($deletedImages)) {
+            deleteFiles($deletedImages);
         }
+
+        // 3. Process newly uploaded images
+        $newPaths = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                $newPaths[] = asset('storage/' . $file->store('Gallery', 'public'));
+            }
+        }
+
+        // 4. Combine kept existing images with newly added ones
+        $data['images'] = array_merge($existingImages, $newPaths);
+
         $gallery->update($data);
+
         return to_route('admin.gallery.index')
             ->with('success', 'Gallery updated successfully');
     }
