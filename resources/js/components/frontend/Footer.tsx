@@ -34,19 +34,29 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-20">
 
                     {/* Brand Section */}
+                    {/* Brand Section */}
                     <div className="space-y-6">
-                        <div className="flex items-center gap-3 text-white">
-                            <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
-                                <img src={officeSettings?.office_logo || "/assets/logo.png"} alt="" className='w-full h-full object-cover' />
+                        <div className="flex items-center gap-4 text-white">
+                            {/* Logo Container */}
+                            <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-2xl p-2 flex items-center justify-center shadow-lg shadow-blue-500/10 border border-white/20 shrink-0">
+                                <img
+                                    src={officeSettings?.office_logo || "/assets/logo.png"}
+                                    alt={officeSettings?.office_name || "School Logo"}
+                                    className="w-full h-full object-contain"
+                                />
                             </div>
+                            {/* Title */}
                             <div>
-                                <h3 className="text-xl font-black tracking-tighter leading-none">{officeSettings?.office_name || "no name"}</h3>
-
+                                <h3 className="text-lg font-black tracking-tight leading-snug text-slate-100">
+                                    {officeSettings?.office_name || "no name"}
+                                </h3>
                             </div>
                         </div>
-                        <p className="text-sm leading-relaxed max-w-xs italic">
+
+                        <p className="text-sm leading-relaxed max-w-xs italic text-slate-400">
                             {officeSettings?.office_description || "no description"}
                         </p>
+
                         <div className="flex gap-3">
                             {socials.map((item, i) => (
                                 <a
@@ -160,7 +170,7 @@ const Footer = () => {
 
                 {/* Bottom Bar */}
                 <div className="pt-10 border-t border-blue-900/30 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-widest">
-                    <p>© 2016 - {currentYear} {officeSettings?.office_name || "no name"}. All Rights Reserved.</p>
+                    <p>© 1980 - {currentYear} {officeSettings?.office_name || "no name"}. All Rights Reserved.</p>
                     <div className="flex gap-8">
                         <Link href={home()} className="hover:text-blue-500 transition-colors">Privacy Policy</Link>
                         <Link href={home()} className="hover:text-blue-500 transition-colors">Terms of Service</Link>

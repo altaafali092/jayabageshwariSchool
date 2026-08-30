@@ -1,5 +1,6 @@
 import React from 'react';
-import {GraduationCap,Users,Lightbulb,ShieldCheck,Trophy,Laptop
+import {
+    GraduationCap, Users, Lightbulb, ShieldCheck, Trophy, Laptop
 } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 import { admissions } from '@/routes';
@@ -53,7 +54,7 @@ const Whychoose = () => {
                         Our Distinction
                     </span>
                     <h2 className="mb-6 text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white md:text-5xl">
-                        Why Choose <span className="text-blue-700 dark:text-blue-500">Jaya Bageshwori</span>?
+                        Why Choose <span className="text-blue-700 dark:text-blue-500">Jaya Bageshwari</span>?
                     </h2>
                     <p className="text-xl leading-relaxed text-slate-600 dark:text-slate-400">
                         We are committed to nurturing the next generation of leaders through a perfect blend of traditional values and modern innovation.
@@ -109,7 +110,7 @@ const Whychoose = () => {
                             </div>
                         </div>
 
-        
+
                         <div className="hidden md:block w-px h-10 bg-slate-200 dark:bg-slate-800" />
 
                         <Link

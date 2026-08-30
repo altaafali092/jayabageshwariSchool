@@ -20,12 +20,12 @@ const AboutSchool = () => {
                                 <span>30+ Years of Academic Excellence</span>
                             </div>
                             <h2 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white md:text-5xl lg:leading-tight">
-                                Shaping Bright <span className="text-blue-700 dark:text-blue-500">Futures</span> Since 1992
+                                Shaping Bright <span className="text-blue-700 dark:text-blue-500">Futures</span> Since 1980
                             </h2>
                         </div>
 
                         <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-400">
-                            At Jaya Bageshwori School, we believe every child has a unique spark. Our legacy is built on nurturing that spark through a balanced approach of rigorous academics, character building, and creative exploration.
+                            At Jaya Bageshwari School, we believe every child has a unique spark. Our legacy is built on nurturing that spark through a balanced approach of rigorous academics, character building, and creative exploration.
                         </p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -44,15 +44,15 @@ const AboutSchool = () => {
 
                         <div className="flex flex-wrap items-center gap-6 pt-4">
                             <Link
-                            
-                                
+
+
                                 className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-300 bg-slate-900 dark:bg-blue-600 rounded-2xl hover:bg-slate-800 dark:hover:bg-blue-700 hover:shadow-xl hover:shadow-slate-200 dark:hover:shadow-blue-900/20 active:scale-95 group"
                             >
                                 Explore Our Story
                                 <MoveRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
                             </Link>
 
-                          
+
                         </div>
                     </div>
 
