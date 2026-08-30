@@ -28,7 +28,7 @@ class UpdateGalleryRequest extends FormRequest
             'slug' => ['required', 'alpha_dash', Rule::unique('galleries', 'slug')->ignore($gallery->id)->withoutTrashed()],
             'gallery_type' => ['required', 'string', 'max:255'],
             'images' => ['nullable', 'array'],
-            'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'images.*' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:10240'],
             'video_url' => ['nullable', 'url', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
         ];
