@@ -5,6 +5,7 @@ export type PageCategory = {
     slug: string;
     image: string;
     status: boolean;
+    position: number;
 }
 
 export type Page = {
@@ -15,5 +16,6 @@ export type Page = {
     slug: string;
     images: string[];
     status: boolean;
+    position: number;
     page_category: PageCategory;
 }

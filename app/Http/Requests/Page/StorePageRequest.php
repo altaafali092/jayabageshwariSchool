@@ -29,6 +29,7 @@ class StorePageRequest extends FormRequest
             'images' => ['nullable', 'array'],
             'images.*' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'description' => ['required', 'string'],
+            'position' => ['nullable', 'integer', 'min:0'],
         ];
     }
 }

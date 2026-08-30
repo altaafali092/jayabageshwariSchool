@@ -122,6 +122,16 @@ export default function PageCategoryCreate({ pageCategories }: Props) {
                                                     accept="image/*" />
                                                 <InputError message={errors.images} />
                                             </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="position">Position</Label>
+                                                <Input
+                                                    id="position"
+                                                    name="position"
+                                                    type="number"
+                                                    placeholder="e.g., 1"
+                                                />
+                                                <InputError message={errors.position} />
+                                            </div>
 
                                         </div>
 

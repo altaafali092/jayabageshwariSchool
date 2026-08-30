@@ -27,6 +27,7 @@ class UpdatePageCategoryRequest extends FormRequest
             'slug' => ['required', 'alpha_dash', Rule::unique('page_categories', 'slug')->onlyTrashed('slug')->ignore($this->route('page_category'))],
             'image' => ['nullable', 'image', 'max:2048'],
             'description' => ['nullable', 'string'],
+            'position' => ['nullable', 'integer', Rule::unique('page_categories', 'position')->ignore($this->route('page_category'))],
         ];
     }
 }

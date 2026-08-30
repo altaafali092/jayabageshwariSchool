@@ -125,6 +125,18 @@ export default function PageCategoryEdit({ pageCategories, page }: Props) {
                                                     accept="image/*" />
                                                 <InputError message={errors.images} />
                                             </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="position">Position</Label>
+                                                <Input
+                                                    id="position"
+                                                    name="position"
+                                                    type="number"
+
+                                                    defaultValue={page?.position}
+                                                />
+                                                <InputError message={errors.position} />
+                                            </div>
+
 
                                         </div>
                                         {page?.images && page.images.length > 0 && (
@@ -143,6 +155,7 @@ export default function PageCategoryEdit({ pageCategories, page }: Props) {
                                                 </div>
                                             </div>
                                         )}
+
 
                                         {/* Description */}
                                         <div className="space-y-2">

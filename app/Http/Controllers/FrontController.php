@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use App\Enums\GalleryEnum;
 use App\Http\Requests\AdmissionQuery\StoreAdmissionQueryRequest;
 use App\Http\Requests\Frontend\StoreContactFormRequest;
-use App\Models\AcademicItems;
-use App\Models\AcademicLevel;
 use App\Models\AdmissionProcess;
 use App\Models\AdmissionQuery;
 use App\Models\Contact;
-use App\Models\FacilityCategory;
 use App\Models\Gallery;
 use App\Models\NewsEvent;
 use App\Models\PageCategory;
@@ -65,7 +62,8 @@ class FrontController extends Controller
     public function admissions()
     {
         $admissionProcesses = AdmissionProcess::where('status', true)
-            ->orderBy('order')->get();
+            ->orderBy('order')
+            ->get();
 
         return Inertia::render('frontend/Admissions', [
             'grades' => config('GradeConfig.grade'),
@@ -90,7 +88,7 @@ class FrontController extends Controller
             ->latest()
             ->paginate(4);
         return Inertia::render('frontend/NewsEventPage/NewsEvents', [
-            'newsEvents' => Inertia::scroll(fn () => $newsEvents)
+            'newsEvents' => Inertia::scroll(fn() => $newsEvents)
         ]);
     }
 
@@ -104,11 +102,10 @@ class FrontController extends Controller
             ->get();
 
         return Inertia::render('frontend/NewsEventPage/NewsDetail', [
-            'news'    => $news,
+            'news' => $news,
             'related' => $related,
         ]);
     }
-
 
     public function notices()
     {
@@ -129,68 +126,32 @@ class FrontController extends Controller
             ->get();
 
         return Inertia::render('frontend/NoticePage/NoticeDetail', [
-            'notice'  => $notice,
+            'notice' => $notice,
             'related' => $relatedNotices
         ]);
     }
 
-    public function academics(AcademicLevel $academicLevel)
+    public function PageShow(?PageCategory $pageCategory = null)
     {
-        $levels = AcademicLevel::where('status', true)
-            ->orderBy('sort_order')
+        $categories = PageCategory::where('status', true)
+            ->orderByRaw('position IS NULL, position ASC')
             ->get();
 
-        $academicLevel->load([
-            'academicItems' => function ($query) {
-                $query->where('status', true)
-                    ->orderBy('sort_order');
-            }
-        ]);
-
-        return Inertia::render('frontend/Academics', [
-            'levels' => $levels,
-            'academicLevel' => $academicLevel,
-        ]);
-    }
-
-
-    public function facilities(FacilityCategory $facilityCategory)
-    {
-        $categories = FacilityCategory::where('status', true)
-            ->orderBy('sort_order')
-            ->get();
-
-        $facilityCategory->load([
-            'facilities' => function ($query) {
-                $query->where('status', true)
-                    ->orderBy('sort_order');
-            }
-        ]);
-
-        return Inertia::render('frontend/Facilities', [
-            'categories' => $categories,
-            'facilityCategory' => $facilityCategory,
-        ]);
-    }
-
-    public function PageShow(PageCategory $pageCategory)
-    {
-        $categories = PageCategory::where('status', true)->latest()
-            ->get();
+        $pageCategory = ($pageCategory && $pageCategory->exists)
+            ? $pageCategory
+            : $categories->firstOrFail();
 
         $pageCategory->load([
-            'pages' => function ($query) {
-                $query->where('status', true);
-            }
+            'pages' => fn($query) => $query
+                ->where('status', true)
+                ->orderByRaw('position IS NULL, position ASC')
         ]);
-      
+
         return Inertia::render('frontend/About/MissionVision', [
             'categories' => $categories,
             'pageCategory' => $pageCategory,
         ]);
     }
-
-
 
     public function whyChooseUs()
     {
@@ -199,12 +160,11 @@ class FrontController extends Controller
 
     public function gallery()
     {
-        
         $galleries = Gallery::where('status', true)->latest()->paginate(3);
 
         return Inertia::render('frontend/GalleryPage/Gallery', [
             'galleryTypes' => GalleryEnum::getValuesWithLabels(),
-            'galleries'    => Inertia::scroll(fn () => $galleries),
+            'galleries' => Inertia::scroll(fn() => $galleries),
         ]);
     }
 
@@ -230,9 +190,9 @@ class FrontController extends Controller
             ->orderBy('full_name')
             ->get()
             ->groupBy('department');
-    
+
         return Inertia::render('frontend/StaffPage/Staff', [
-            'staffs' => $staffs, 
+            'staffs' => $staffs,
             'departments' => config('StaffConfig.departments')
         ]);
     }

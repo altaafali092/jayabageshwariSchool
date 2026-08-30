@@ -86,7 +86,16 @@ export default function PageCategoryCreate() {
                                                 />
                                                 <InputError message={errors.slug} />
                                             </div>
-
+                                            <div className="space-y-2">
+                                                <Label htmlFor="position">Category Position</Label>
+                                                <Input
+                                                    id="position"
+                                                    name="position"
+                                                    type="number"
+                                                    placeholder="e.g., 1"
+                                                />
+                                                <InputError message={errors.position} />
+                                            </div>
 
                                             <div className="space-y-2">
                                                 <Label htmlFor="image">Image</Label>

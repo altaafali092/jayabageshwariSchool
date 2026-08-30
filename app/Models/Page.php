@@ -19,17 +19,20 @@ class Page extends Model
         'images',
         'description',
         'status',
+        'position',
     ];
 
     protected $casts = [
         'status' => 'boolean',
         'images' => 'array',
+        'position' => 'integer',
     ];
 
     public function category()
     {
         return $this->belongsTo(PageCategory::class);
     }
+
     public function images(): Attribute
     {
         return $this->castingFile(defaultPath: 'Page');

@@ -16,6 +16,7 @@ export type Page = {
     slug: string;
     images: string[];
     status: boolean;
+    position: number;
     page_category: PageCategory;
     pages: Page[];
 }
